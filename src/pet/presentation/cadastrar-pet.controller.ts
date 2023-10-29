@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
-import { CadastrarPetUseCase } from '@pet/app/cadastrar-pet.use-case';
-import { ICadastrarPetUseCase } from '@pet/domain/use-cases/cadastrar-pet.interface';
+import { CadastrarPetUseCase } from '@pet/app/use-cases';
+import { ICadastrarPetUseCase } from '@pet/domain/use-cases';
 import { CadastrarPetDto } from './cadastrar-pet.dto';
 
 @Controller('pet')

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CadastrarPetController } from './cadastrar-pet.controller';
-import { CadastrarPetUseCase } from '@pet/app/cadastrar-pet.use-case';
+import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { ICadastrarPetUseCase } from '@pet/domain/use-cases/cadastrar-pet.interface';
 
 describe('CadastrarPetController', () => {

@@ -1,8 +1,8 @@
-import { PetEntity, PetEntityProps } from '@pet/domain/entities/pet.entity';
+import { PetEntity, PetEntityProps } from '@pet/domain/entities';
 import {
   CadastrarPetUseCaseInput,
   ICadastrarPetUseCase,
-} from '@pet/domain/use-cases/cadastrar-pet.interface';
+} from '@pet/domain/use-cases';
 
 export class CadastrarPetUseCase implements ICadastrarPetUseCase {
   executar(input: CadastrarPetUseCaseInput): Promise<PetEntityProps> {
