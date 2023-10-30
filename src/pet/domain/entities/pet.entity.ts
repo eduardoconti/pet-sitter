@@ -1,4 +1,5 @@
 import { randomUUID } from 'crypto';
+import { PetModel } from '../models';
 
 export type PetEntityProps = {
   id: string;
@@ -24,5 +25,16 @@ export class PetEntity {
 
   static create({ nome }: Omit<PetEntityProps, 'id'>): PetEntity {
     return new PetEntity({ id: randomUUID(), nome });
+  }
+
+  static toModel(pet: PetEntity): Omit<PetModel, 'dataInclusao'> {
+    return {
+      id: pet.id,
+      nome: pet.nome,
+    };
+  }
+
+  static fromModel(pet: PetModel): PetEntity {
+    return new PetEntity(pet);
   }
 }
