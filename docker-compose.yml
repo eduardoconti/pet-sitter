@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  postgres:
+    ports:
+      - 5432:5432
+    env_file:
+      - .env  
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    container_name: postgres
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    build:
+      context: .
+      dockerfile: ./Dockerfile.pg
+    restart: always    
+
+volumes:
+  pg-data:

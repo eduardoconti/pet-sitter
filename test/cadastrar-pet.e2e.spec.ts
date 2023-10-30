@@ -5,6 +5,7 @@ import { MainModule } from '@main/main.module';
 import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { HttpAdapterHost } from '@nestjs/core';
 import { AllExceptionsFilter } from '@infra/filters';
+import { DataSource } from 'typeorm';
 
 describe('CadastrarPetController (e2e)', () => {
   let app: INestApplication;
@@ -19,6 +20,12 @@ describe('CadastrarPetController (e2e)', () => {
     const { httpAdapter } = app.get(HttpAdapterHost);
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
     await app.init();
+  });
+
+  afterAll(async () => {
+    const connection = app.get(DataSource);
+    await connection.destroy();
+    await app.close();
   });
 
   describe('/pet POST', () => {
