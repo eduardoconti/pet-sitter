@@ -12,7 +12,9 @@ export default {
   coverageDirectory: '../coverage',
   testEnvironment: 'node',
   preset: 'ts-jest',
-  collectCoverageFrom: ['<rootDir>/**/*.{use-case,entity,controller}.ts'],
+  collectCoverageFrom: [
+    '<rootDir>/**/*.{use-case,entity,controller,repository,service}.ts',
+  ],
   moduleNameMapper: pathsToModuleNameMapper(
     {
       '@pet/*': ['src/pet/*'],

@@ -24,8 +24,24 @@ describe('CadastrarPetController', () => {
     cadastrarPetUseCase = module.get<ICadastrarPetUseCase>(CadastrarPetUseCase);
   });
 
-  it('should be defined', () => {
+  it('deve estar definido', () => {
     expect(controller).toBeDefined();
     expect(cadastrarPetUseCase).toBeDefined();
+  });
+
+  it('deve cadastrar um pet', async () => {
+    jest.spyOn(cadastrarPetUseCase, 'executar').mockResolvedValue({
+      id: 'FakeUUID',
+      nome: 'Gus',
+    });
+
+    const result = await controller.cadastrarPet({
+      nome: 'Gus',
+    });
+
+    expect(result).toEqual({
+      id: 'FakeUUID',
+      nome: 'Gus',
+    });
   });
 });

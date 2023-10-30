@@ -13,7 +13,7 @@ export class PetRepository implements IPetRepository {
   async save(model: Omit<PetModel, 'dataInclusao'>): Promise<PetModel> {
     return await this.petRepository.save({
       ...model,
-      dataInclusao: Date.now(),
+      dataInclusao: new Date().toISOString(),
     });
   }
 }
