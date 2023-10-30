@@ -26,6 +26,9 @@
       ],
       "@core/*": [
         "src/core/*"
+      ],
+      "@infra/*": [
+        "src/infra/*"
       ]
     }
   }
