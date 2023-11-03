@@ -1,22 +1,18 @@
 import { randomUUID } from 'crypto';
 import { PetModel } from '../models';
+import { Entity } from '@core/entity';
 
 export type PetEntityProps = {
   id: string;
   nome: string;
 };
 
-export class PetEntity {
-  private _id!: string;
+export class PetEntity extends Entity {
   private _nome!: string;
 
   constructor({ nome, id }: PetEntityProps) {
-    this._id = id;
+    super({ id });
     this._nome = nome;
-  }
-
-  get id(): string {
-    return this._id;
   }
 
   get nome(): string {
