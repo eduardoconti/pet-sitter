@@ -2,10 +2,7 @@ import { randomUUID } from 'crypto';
 import { PetModel } from '../models';
 import { Entity } from '@core/entity';
 
-export type PetEntityProps = {
-  id: string;
-  nome: string;
-};
+export type PetEntityProps = Omit<PetModel, 'dataInclusao'>;
 
 export class PetEntity extends Entity {
   private _nome!: string;

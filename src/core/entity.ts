@@ -5,7 +5,7 @@ export abstract class Entity<T extends UniqueEntityId = string> {
     this.setId(id);
   }
 
-  protected _id: T;
+  protected _id!: T;
 
   setId(id: T) {
     this._id = id;
