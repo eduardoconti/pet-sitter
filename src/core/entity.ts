@@ -1,4 +1,4 @@
-type UniqueEntityId = string | number;
+export type UniqueEntityId = string | number;
 
 export abstract class Entity<T extends UniqueEntityId = string> {
   constructor({ id }: { id: T }) {

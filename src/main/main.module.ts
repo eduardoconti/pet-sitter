@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PetModule } from '@pet/pet.module';
 import { configValidationSchema } from './config';
 import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
+import { PessoaModule } from 'src/pessoa/pessoa.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
       isGlobal: true,
     }),
     TypeOrmConfigModule,
+    PessoaModule,
   ],
 })
 export class MainModule {}
