@@ -4,6 +4,7 @@ import { CadastrarPetUseCase } from './cadastrar-pet.use-case';
 import { IPetRepository } from '@pet/domain/repositories';
 import { PetRepository } from '@pet/infra/repositories';
 import { CadastrarPetUseCaseProvider } from '@pet/main/providers';
+import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 
 describe('CadastrarPetUseCase', () => {
   let cadastrarPetUseCase: ICadastrarPetUseCase;
@@ -35,10 +36,15 @@ describe('CadastrarPetUseCase', () => {
       id: 'fakeUUid',
       nome: 'Gus',
       dataInclusao: new Date(),
+      temperamento: TemperamentoPetEnum.DOCIL,
     };
     jest.spyOn(petRepository, 'save').mockResolvedValue(petModelMock);
     const result = await cadastrarPetUseCase.executar(petModelMock);
 
-    expect(result).toEqual({ id: petModelMock.id, nome: petModelMock.nome });
+    expect(result).toEqual({
+      id: petModelMock.id,
+      nome: petModelMock.nome,
+      temperamento: petModelMock.temperamento,
+    });
   });
 });

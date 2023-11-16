@@ -5,6 +5,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { PetSchema } from '../schemas';
 import { Repository } from 'typeorm';
 import { PetModel } from '@pet/domain/models';
+import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 
 describe('PetRepository', () => {
   let petRepository: IPetRepository;
@@ -37,16 +38,17 @@ describe('PetRepository', () => {
   describe('save', () => {
     it('deve salvar um pet', async () => {
       const data = Date.now();
-      const petModlMock = {
+      const petModelMock: PetModel = {
         id: '1',
         nome: 'Gus',
         dataInclusao: data,
+        temperamento: TemperamentoPetEnum.DOCIL,
       };
-      jest.spyOn(petRepositoryOrm, 'save').mockResolvedValue(petModlMock);
+      jest.spyOn(petRepositoryOrm, 'save').mockResolvedValue(petModelMock);
 
-      const result = await petRepository.save(petModlMock);
+      const result = await petRepository.save(petModelMock);
 
-      expect(result).toBe(petModlMock);
+      expect(result).toBe(petModelMock);
     });
   });
 });

@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CadastrarPetController } from './cadastrar-pet.controller';
 import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { ICadastrarPetUseCase } from '@pet/domain/use-cases/cadastrar-pet.interface';
+import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 
 describe('CadastrarPetController', () => {
   let controller: CadastrarPetController;
@@ -33,15 +34,18 @@ describe('CadastrarPetController', () => {
     jest.spyOn(cadastrarPetUseCase, 'executar').mockResolvedValue({
       id: 'FakeUUID',
       nome: 'Gus',
+      temperamento: TemperamentoPetEnum.DOCIL,
     });
 
     const result = await controller.cadastrarPet({
       nome: 'Gus',
+      temperamento: TemperamentoPetEnum.DOCIL,
     });
 
     expect(result).toEqual({
       id: 'FakeUUID',
       nome: 'Gus',
+      temperamento: TemperamentoPetEnum.DOCIL,
     });
   });
 });

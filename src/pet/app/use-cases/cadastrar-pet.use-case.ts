@@ -13,7 +13,9 @@ export class CadastrarPetUseCase implements ICadastrarPetUseCase {
     input: CadastrarPetUseCaseInput,
   ): Promise<CadastrarPetUseCaseOutput> {
     const pet = PetEntity.create(input);
-    const { id, nome } = await this.petRepository.save(PetEntity.toModel(pet));
-    return { id, nome };
+    const { id, nome, temperamento } = await this.petRepository.save(
+      PetEntity.toModel(pet),
+    );
+    return { id, nome, temperamento };
   }
 }

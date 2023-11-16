@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
+import request from 'supertest';
 import { MainModule } from '@main/main.module';
 import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { HttpAdapterHost } from '@nestjs/core';
 import { AllExceptionsFilter } from '@infra/filters';
 import { DataSource } from 'typeorm';
+import { CadastrarPetDto } from '@pet/presentation';
+import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 
 describe('CadastrarPetController (e2e)', () => {
   let app: INestApplication;
@@ -29,16 +31,19 @@ describe('CadastrarPetController (e2e)', () => {
   });
 
   describe('/pet POST', () => {
+    const requestDto = new CadastrarPetDto();
+    requestDto.nome = 'Gus';
+    requestDto.temperamento = TemperamentoPetEnum.DOCIL;
     describe('CREATED (201)', () => {
       it('deve cadastrar um pet', async () => {
         return await request(app.getHttpServer())
           .post(`/${endpoint}`)
-          .send({ nome: 'Gus' })
+          .send(requestDto)
           .expect(201)
           .expect(({ body }) => {
             expect(body).toStrictEqual({
               id: expect.any(String),
-              nome: 'Gus',
+              ...requestDto,
             });
           });
       });
@@ -53,7 +58,7 @@ describe('CadastrarPetController (e2e)', () => {
           .mockRejectedValue(new Error('Erro interno'));
         return await request(app.getHttpServer())
           .post(`/${endpoint}`)
-          .send({ nome: 'Gus' })
+          .send(requestDto)
           .expect(500)
           .expect(({ body }) => {
             expect(body).toStrictEqual({
