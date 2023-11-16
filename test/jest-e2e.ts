@@ -18,6 +18,8 @@ export default {
       '@main/*': ['src/main/*'],
       '@core/*': ['src/core/*'],
       '@infra/*': ['src/infra/*'],
+      '@pessoa/*': ['src/pessoa/*'],
+      '@pet-sitter/*': ['src/pet-sitter/*'],
     },
     {
       prefix: '<rootDir>/../',

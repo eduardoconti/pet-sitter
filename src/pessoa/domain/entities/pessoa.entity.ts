@@ -2,7 +2,7 @@ import { Entity } from '@core/entity';
 import { Contato } from './contato.entity';
 import { ContatoModel, PessoaModel } from 'src/pessoa/models';
 
-type PessoaProps = Omit<PessoaModel, 'dataInclusao' | 'contato'> & {
+export type PessoaProps = Omit<PessoaModel, 'dataInclusao' | 'contato'> & {
   contato?: ContatoModel;
 };
 
@@ -11,7 +11,7 @@ export class Pessoa extends Entity {
   private _dataNascimento!: Date;
   private _contato?: Contato;
 
-  private constructor({ nome, dataNascimento, id }: PessoaProps) {
+  constructor({ nome, dataNascimento, id }: PessoaProps) {
     super({ id });
     this._nome = nome;
     this._dataNascimento = new Date(dataNascimento);

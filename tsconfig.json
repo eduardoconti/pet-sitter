@@ -36,7 +36,13 @@
       ],
       "@infra/*": [
         "src/infra/*"
-      ]
+      ],
+      "@pessoa/*": [
+        "src/pessoa/*"
+      ],
+      "@pet-sitter/*": [
+        "src/pet-sitter/*"
+      ],
     }
   }
 }
