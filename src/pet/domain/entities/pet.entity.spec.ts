@@ -9,8 +9,8 @@ describe('PetEntity', () => {
 
     expect(petEntity).toEqual({
       _id: expect.any(String),
-      _nome: 'Gus',
-      _temperamento: TemperamentoPetEnum.DOCIL,
+      _nome: { props: { value: 'Gus' } },
+      _temperamento: { props: { value: 'D' } },
     });
   });
 
@@ -24,8 +24,8 @@ describe('PetEntity', () => {
 
     expect(petEntity).toEqual({
       _id: 'fakeUUid',
-      _nome: 'Gus',
-      _temperamento: TemperamentoPetEnum.DOCIL,
+      _nome: { props: { value: 'Gus' } },
+      _temperamento: { props: { value: 'D' } },
     });
   });
 

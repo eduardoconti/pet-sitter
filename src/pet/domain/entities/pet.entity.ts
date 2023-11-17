@@ -1,41 +1,57 @@
-import { randomUUID } from 'crypto';
 import { PetModel } from '../models';
 import { Entity } from '@core/entity';
-import { TemperamentoPetEnum } from '../enums/temperamento.enum';
+import { NomePet, TemperamentoPet } from '../value-objects';
+import { UUID } from '@core/uuid.value-object';
 
-export type PetEntityProps = Omit<PetModel, 'dataInclusao'>;
+export type CreatePetEntityProps = Omit<PetModel, 'dataInclusao' | 'id'>;
 
 export class PetEntity extends Entity {
-  private _nome!: string;
-  private _temperamento!: TemperamentoPetEnum;
+  private _nome!: NomePet;
+  private _temperamento!: TemperamentoPet;
 
-  private constructor({ nome, id, temperamento }: PetEntityProps) {
-    super({ id });
+  private constructor({
+    nome,
+    id,
+    temperamento,
+  }: {
+    id: UUID;
+    nome: NomePet;
+    temperamento: TemperamentoPet;
+  }) {
+    super({ id: id.value });
     this._nome = nome;
     this._temperamento = temperamento;
   }
 
-  get nome(): string {
+  get nome(): NomePet {
     return this._nome;
   }
 
-  get temepramento(): TemperamentoPetEnum {
+  get temepramento(): TemperamentoPet {
     return this._temperamento;
   }
 
-  static create({ nome, temperamento }: Omit<PetEntityProps, 'id'>): PetEntity {
-    return new PetEntity({ id: randomUUID(), nome, temperamento });
+  static create({ nome, temperamento }: CreatePetEntityProps): PetEntity {
+    return new PetEntity({
+      id: UUID.generate(),
+      nome: NomePet.create(nome),
+      temperamento: TemperamentoPet.create(temperamento),
+    });
   }
 
   static toModel(pet: PetEntity): Omit<PetModel, 'dataInclusao'> {
     return {
       id: pet.id,
-      nome: pet.nome,
-      temperamento: pet.temepramento,
+      nome: pet.nome.value,
+      temperamento: pet.temepramento.value,
     };
   }
 
-  static fromModel(pet: PetModel): PetEntity {
-    return new PetEntity(pet);
+  static fromModel({ id, nome, temperamento }: PetModel): PetEntity {
+    return new PetEntity({
+      id: UUID.create(id),
+      nome: NomePet.create(nome),
+      temperamento: TemperamentoPet.create(temperamento),
+    });
   }
 }
