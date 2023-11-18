@@ -1,10 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ICadastrarPetUseCase } from '@pet/domain/use-cases';
-import { CadastrarPetUseCase } from './cadastrar-pet.use-case';
+import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 import { IPetRepository } from '@pet/domain/repositories';
+import { ICadastrarPetUseCase } from '@pet/domain/use-cases';
 import { PetRepository } from '@pet/infra/repositories';
 import { CadastrarPetUseCaseProvider } from '@pet/main/providers';
-import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
+
+import { CadastrarPetUseCase } from './cadastrar-pet.use-case';
 
 describe('CadastrarPetUseCase', () => {
   let cadastrarPetUseCase: ICadastrarPetUseCase;
@@ -25,6 +26,8 @@ describe('CadastrarPetUseCase', () => {
 
     cadastrarPetUseCase = module.get<ICadastrarPetUseCase>(CadastrarPetUseCase);
     petRepository = module.get<IPetRepository>(PetRepository);
+
+    jest.clearAllMocks();
   });
   it('deve estar definido', () => {
     expect(cadastrarPetUseCase).toBeDefined();

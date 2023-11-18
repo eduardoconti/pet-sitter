@@ -1,13 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { MainModule } from '@main/main.module';
-import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { HttpAdapterHost } from '@nestjs/core';
-import { AllExceptionsFilter } from '@infra/filters';
-import { DataSource } from 'typeorm';
-import { CadastrarPetDto } from '@pet/presentation';
+import { Test, TestingModule } from '@nestjs/testing';
+import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
+import { CadastrarPetDto } from '@pet/presentation';
+import request from 'supertest';
+import { DataSource } from 'typeorm';
+
+import { AllExceptionsFilter } from '@infra/filters';
+
+import { MainModule } from '@main/main.module';
 
 describe('CadastrarPetController (e2e)', () => {
   let app: INestApplication;

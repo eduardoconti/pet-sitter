@@ -1,4 +1,5 @@
 import { IUseCase } from '@core/use-case.interface';
+
 import { CreatePetEntityProps } from '../entities/pet.entity';
 
 export type CadastrarPetUseCaseInput = CreatePetEntityProps;

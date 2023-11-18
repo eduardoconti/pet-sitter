@@ -1,18 +1,19 @@
-import { ValueObject } from '@core/value-object';
-import { NomePetException } from '../exceptions';
 import { StringUtil } from '@core/utils';
+import { ValueObject } from '@core/value-object';
+
+import { NomePetException } from '../exceptions';
 
 interface NomePetProps {
   value: string;
 }
 
 export class NomePet extends ValueObject<NomePetProps> {
-  get value(): string {
-    return this.props.value;
-  }
-
   private constructor(props: NomePetProps) {
     super(props);
+  }
+
+  get value(): string {
+    return this.props.value;
   }
 
   static create(nome: string): NomePet {

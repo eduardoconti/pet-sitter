@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PetModule } from '@pet/pet.module';
-import { configValidationSchema } from './config';
-import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
 import { PessoaModule } from '@pessoa/pessoa.module';
+import { PetModule } from '@pet/pet.module';
+
+import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
+
+import { configValidationSchema } from './config';
 
 @Module({
   imports: [

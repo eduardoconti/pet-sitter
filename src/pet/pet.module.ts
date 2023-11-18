@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CadastrarPetController } from './presentation';
-import { CadastrarPetUseCaseProvider } from './main/providers';
-import { PetRepository } from './infra/repositories';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { PetRepository } from './infra/repositories';
 import { PetSchema } from './infra/schemas';
+import { CadastrarPetUseCaseProvider } from './main/providers';
+import { CadastrarPetController } from './presentation';
 
 @Module({
   controllers: [CadastrarPetController],

@@ -1,16 +1,15 @@
 import { Centavos, IPeriodo } from '@core/contracts';
+import { PeriodoUtil } from '@core/utils';
+import { UUID } from '@core/uuid.value-object';
+
 import { TipoServicoEnum } from '../enums';
 import { Servico, ServicoConstructorProps } from './servico';
-import { PeriodoUtil } from '@core/utils';
-import { Disponibilidade } from '../value-objects';
-import { UUID } from '@core/uuid.value-object';
 
 type PasseioConstructorProps = ServicoConstructorProps & {
   valorPorHora: Centavos;
 };
 
 type CreatePasseioProps = {
-  disponibilidade: Disponibilidade;
   valorPorHora: Centavos;
 };
 
@@ -20,14 +19,22 @@ export class Passeio extends Servico {
 
   private constructor({
     id,
-    disponibilidade,
+
     valorPorHora,
   }: PasseioConstructorProps) {
-    super({ id, disponibilidade });
+    super({ id });
     this._valorPorHora = valorPorHora;
   }
+
   get valorHora(): Centavos {
     return this._valorPorHora;
+  }
+
+  static create({ valorPorHora }: CreatePasseioProps) {
+    return new Passeio({
+      id: UUID.generate(),
+      valorPorHora,
+    });
   }
 
   calcularValor(periodo: IPeriodo[]): Centavos {
@@ -40,13 +47,5 @@ export class Passeio extends Servico {
     }
 
     return this.valorHora * horas;
-  }
-
-  static create({ disponibilidade, valorPorHora }: CreatePasseioProps) {
-    return new Passeio({
-      id: UUID.generate(),
-      disponibilidade,
-      valorPorHora,
-    });
   }
 }

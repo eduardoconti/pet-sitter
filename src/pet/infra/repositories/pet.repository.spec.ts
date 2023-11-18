@@ -1,11 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { IPetRepository } from '@pet/domain/repositories';
-import { PetRepository } from './pet.repository';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { PetSchema } from '../schemas';
-import { Repository } from 'typeorm';
-import { PetModel } from '@pet/domain/models';
 import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
+import { PetModel } from '@pet/domain/models';
+import { IPetRepository } from '@pet/domain/repositories';
+import { Repository } from 'typeorm';
+
+import { PetSchema } from '../schemas';
+import { PetRepository } from './pet.repository';
 
 describe('PetRepository', () => {
   let petRepository: IPetRepository;
@@ -28,6 +29,8 @@ describe('PetRepository', () => {
     petRepositoryOrm = module.get<Repository<PetModel>>(
       getRepositoryToken(PetSchema),
     );
+
+    jest.clearAllMocks();
   });
 
   it('deve estar definido', () => {

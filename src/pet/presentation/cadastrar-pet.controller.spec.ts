@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CadastrarPetController } from './cadastrar-pet.controller';
 import { CadastrarPetUseCase } from '@pet/app/use-cases';
-import { ICadastrarPetUseCase } from '@pet/domain/use-cases/cadastrar-pet.interface';
 import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
+import { ICadastrarPetUseCase } from '@pet/domain/use-cases/cadastrar-pet.interface';
+
+import { CadastrarPetController } from './cadastrar-pet.controller';
 
 describe('CadastrarPetController', () => {
   let controller: CadastrarPetController;
@@ -23,6 +24,8 @@ describe('CadastrarPetController', () => {
 
     controller = module.get<CadastrarPetController>(CadastrarPetController);
     cadastrarPetUseCase = module.get<ICadastrarPetUseCase>(CadastrarPetUseCase);
+
+    jest.clearAllMocks();
   });
 
   it('deve estar definido', () => {

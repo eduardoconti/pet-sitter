@@ -1,4 +1,5 @@
 import { ValueObject } from '@core/value-object';
+
 import { TemperamentoPetEnum } from '../enums';
 import { TemperamentoPetException } from '../exceptions';
 
@@ -7,12 +8,12 @@ interface TemperamentoPetProps {
 }
 
 export class TemperamentoPet extends ValueObject<TemperamentoPetProps> {
-  get value(): TemperamentoPetEnum {
-    return this.props.value;
-  }
-
   private constructor(props: TemperamentoPetProps) {
     super(props);
+  }
+
+  get value(): TemperamentoPetEnum {
+    return this.props.value;
   }
 
   static create(nome: TemperamentoPetEnum): TemperamentoPet {

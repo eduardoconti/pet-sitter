@@ -1,19 +1,19 @@
-import { IPeriodo } from '@core/contracts';
 import { ValueObject } from '@core/value-object';
+import { Periodo } from '@core/value-objects';
 import { isDate } from 'util/types';
 
 interface DisponibilidadeProps {
   dia: Date;
-  periodos: IPeriodo[];
+  periodos: Periodo[];
 }
 
 export class Disponibilidade extends ValueObject<DisponibilidadeProps> {
-  get value(): DisponibilidadeProps {
-    return this.props;
-  }
-
   private constructor(props: DisponibilidadeProps) {
     super(props);
+  }
+
+  get value(): DisponibilidadeProps {
+    return this.props;
   }
 
   static create({ dia, periodos }: DisponibilidadeProps): Disponibilidade {
@@ -24,12 +24,6 @@ export class Disponibilidade extends ValueObject<DisponibilidadeProps> {
     if (!periodos || !Array.isArray(periodos) || !periodos.length) {
       throw new Error('necessario ao menos um periodo');
     }
-
-    periodos.forEach((periodo) => {
-      if (periodo.inicio.getTime() > periodo.fim.getTime()) {
-        throw new Error('Data inicio maior que data fim');
-      }
-    });
 
     return new Disponibilidade({
       dia,

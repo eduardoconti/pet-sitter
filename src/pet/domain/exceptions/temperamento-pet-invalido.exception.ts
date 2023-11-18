@@ -1,4 +1,5 @@
 import { BaseException } from '@core/base-exception';
+
 import { ErroInternoPetEnum } from '../enums';
 
 export const temperamentoPetInvalidoMessage =

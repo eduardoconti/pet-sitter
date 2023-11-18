@@ -1,7 +1,8 @@
-import { PetModel } from '../models';
 import { Entity } from '@core/entity';
-import { NomePet, TemperamentoPet } from '../value-objects';
 import { UUID } from '@core/uuid.value-object';
+
+import { PetModel } from '../models';
+import { NomePet, TemperamentoPet } from '../value-objects';
 
 export type CreatePetEntityProps = Omit<PetModel, 'dataInclusao' | 'id'>;
 

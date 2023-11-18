@@ -1,5 +1,7 @@
-import { MainModule } from '@main/main.module';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+
+import { MainModule } from '@main/main.module';
+
 import { AllExceptionsFilter } from './infra/filters';
 
 async function bootstrap() {

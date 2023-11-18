@@ -1,4 +1,5 @@
 import { Contato, Pessoa, PessoaProps } from '@pessoa/domain/entities';
+
 import { PetSitterModel } from '../models';
 
 export type PetSitterProps = PessoaProps;

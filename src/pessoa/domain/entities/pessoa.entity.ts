@@ -1,6 +1,7 @@
 import { Entity } from '@core/entity';
-import { Contato } from './contato.entity';
 import { ContatoModel, PessoaModel } from 'src/pessoa/models';
+
+import { Contato } from './contato.entity';
 
 export type PessoaProps = Omit<PessoaModel, 'dataInclusao' | 'contato'> & {
   contato?: ContatoModel;
