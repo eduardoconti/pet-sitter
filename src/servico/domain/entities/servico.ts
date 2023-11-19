@@ -1,4 +1,4 @@
-import { Centavos, IPeriodo } from '@core/contracts';
+import { Centavos } from '@core/contracts';
 import { Entity } from '@core/entity';
 import { UUID } from '@core/uuid.value-object';
 
@@ -18,5 +18,5 @@ export abstract class Servico extends Entity {
     return this._tipoServico;
   }
 
-  abstract calcularValor(periodo: IPeriodo[]): Centavos;
+  abstract calcularValor(props: any): Centavos;
 }

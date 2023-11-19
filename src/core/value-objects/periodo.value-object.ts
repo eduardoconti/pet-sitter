@@ -1,4 +1,5 @@
 import { IPeriodo } from '@core/contracts';
+import { PeriodoUtil } from '@core/utils';
 import { ValueObject } from '@core/value-object';
 import { isDate } from 'util/types';
 
@@ -9,6 +10,10 @@ export class Periodo extends ValueObject<IPeriodo> {
 
   get value(): IPeriodo {
     return this.props;
+  }
+
+  get horas(): number {
+    return PeriodoUtil.horasEntrePeriodo(this.value);
   }
 
   static create({ inicio, fim }: IPeriodo): Periodo {

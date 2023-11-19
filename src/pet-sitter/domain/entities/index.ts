@@ -1,5 +1,2 @@
-export * from './alimentacao';
-export * from './atendimento';
-export * from './passeio';
+export * from './local-atendimento';
 export * from './pet-sitter.entity';
-export * from './servico';

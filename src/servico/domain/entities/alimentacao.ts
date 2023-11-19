@@ -1,4 +1,5 @@
-import { Centavos, IPeriodo } from '@core/contracts';
+import { Centavos } from '@core/contracts';
+import { Periodo } from '@core/value-objects';
 
 import { TipoServicoEnum } from '../enums';
 import { Servico } from './servico';
@@ -6,12 +7,17 @@ import { Servico } from './servico';
 export class Alimentacao extends Servico {
   protected _tipoServico = TipoServicoEnum.ALIMENTACAO;
   private _valorPorVisita!: Centavos;
+  private _frequenciaMaxima!: number;
 
   get valorVisita(): Centavos {
     return this._valorPorVisita;
   }
 
-  calcularValor(periodo: IPeriodo[]): Centavos {
+  get frenquenciaMaxima(): number {
+    return this._frequenciaMaxima;
+  }
+
+  calcularValor(periodo: Periodo[]): Centavos {
     const quantidadeVisitas = periodo.length;
 
     return this.valorVisita * quantidadeVisitas;

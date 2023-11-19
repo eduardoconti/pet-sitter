@@ -1,5 +1,4 @@
-import { Centavos, IPeriodo } from '@core/contracts';
-import { PeriodoUtil } from '@core/utils';
+import { Centavos, Segundos } from '@core/contracts';
 import { UUID } from '@core/uuid.value-object';
 
 import { TipoServicoEnum } from '../enums';
@@ -7,21 +6,17 @@ import { Servico, ServicoConstructorProps } from './servico';
 
 type PasseioConstructorProps = ServicoConstructorProps & {
   valorPorHora: Centavos;
+  tempoMaximo: Segundos;
 };
 
-type CreatePasseioProps = {
-  valorPorHora: Centavos;
-};
+type CreatePasseioProps = Omit<PasseioConstructorProps, 'id'>;
 
 export class Passeio extends Servico {
   protected _tipoServico = TipoServicoEnum.PASSEIO;
   private _valorPorHora!: Centavos;
+  private _tempoMaximo!: Segundos;
 
-  private constructor({
-    id,
-
-    valorPorHora,
-  }: PasseioConstructorProps) {
+  private constructor({ id, valorPorHora }: PasseioConstructorProps) {
     super({ id });
     this._valorPorHora = valorPorHora;
   }
@@ -30,22 +25,19 @@ export class Passeio extends Servico {
     return this._valorPorHora;
   }
 
-  static create({ valorPorHora }: CreatePasseioProps) {
+  get tempoMaximo(): Segundos {
+    return this._tempoMaximo;
+  }
+
+  static create({ valorPorHora, tempoMaximo }: CreatePasseioProps) {
     return new Passeio({
       id: UUID.generate(),
       valorPorHora,
+      tempoMaximo,
     });
   }
 
-  calcularValor(periodo: IPeriodo[]): Centavos {
-    let horas = periodo.reduce((acc, item) => {
-      return (acc += PeriodoUtil.horasEntrePeriodo(item));
-    }, 0);
-
-    if (horas <= 0) {
-      horas = 1;
-    }
-
+  calcularValor(horas: number): Centavos {
     return this.valorHora * horas;
   }
 }
