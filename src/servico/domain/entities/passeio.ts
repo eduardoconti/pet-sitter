@@ -16,8 +16,12 @@ export class Passeio extends Servico {
   private _valorPorHora!: Centavos;
   private _tempoMaximo!: Segundos;
 
-  private constructor({ id, valorPorHora }: PasseioConstructorProps) {
-    super({ id });
+  private constructor({
+    id,
+    valorPorHora,
+    idPetSitter,
+  }: PasseioConstructorProps) {
+    super({ id, idPetSitter });
     this._valorPorHora = valorPorHora;
   }
 
@@ -29,11 +33,16 @@ export class Passeio extends Servico {
     return this._tempoMaximo;
   }
 
-  static create({ valorPorHora, tempoMaximo }: CreatePasseioProps) {
+  static create({
+    valorPorHora,
+    tempoMaximo,
+    idPetSitter,
+  }: CreatePasseioProps) {
     return new Passeio({
       id: UUID.generate(),
       valorPorHora,
       tempoMaximo,
+      idPetSitter,
     });
   }
 

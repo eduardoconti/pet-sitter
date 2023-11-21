@@ -1,13 +1,16 @@
+import { UUID } from '@core/uuid.value-object';
 import { Periodo } from '@core/value-objects';
 
 import { Passeio } from './passeio';
 
+const fakeUUID = UUID.generate();
 describe('Passeio', () => {
   describe('calcularValor', () => {
     it('deve calcular valor do passeio com um periodo datas iguais', () => {
       const passeio = Passeio.create({
         valorPorHora: 200 * 100,
         tempoMaximo: 2 * 60 * 60,
+        idPetSitter: fakeUUID,
       });
 
       const periodo = Periodo.create({
@@ -24,6 +27,7 @@ describe('Passeio', () => {
       const passeio = Passeio.create({
         valorPorHora: 200 * 100,
         tempoMaximo: 2 * 60 * 60,
+        idPetSitter: fakeUUID,
       });
 
       const periodo = Periodo.create({
@@ -40,6 +44,7 @@ describe('Passeio', () => {
       const passeio = Passeio.create({
         valorPorHora: 200 * 100,
         tempoMaximo: 2 * 60 * 60,
+        idPetSitter: fakeUUID,
       });
 
       const periodo1 = Periodo.create({

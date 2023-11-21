@@ -1,13 +1,30 @@
 import { Centavos } from '@core/contracts';
-import { Periodo } from '@core/value-objects';
+import { UUID } from '@core/uuid.value-object';
 
 import { TipoServicoEnum } from '../enums';
-import { Servico } from './servico';
+import { Servico, ServicoConstructorProps } from './servico';
 
+type AlimentacaoConstructorProps = ServicoConstructorProps & {
+  valorPorVisita: Centavos;
+  frequenciaMaxima: number;
+};
+
+type CreateAlimentacaoProps = Omit<AlimentacaoConstructorProps, 'id'>;
 export class Alimentacao extends Servico {
   protected _tipoServico = TipoServicoEnum.ALIMENTACAO;
   private _valorPorVisita!: Centavos;
   private _frequenciaMaxima!: number;
+
+  private constructor({
+    id,
+    valorPorVisita,
+    idPetSitter,
+    frequenciaMaxima,
+  }: AlimentacaoConstructorProps) {
+    super({ id, idPetSitter });
+    this._valorPorVisita = valorPorVisita;
+    this._frequenciaMaxima = frequenciaMaxima;
+  }
 
   get valorVisita(): Centavos {
     return this._valorPorVisita;
@@ -17,9 +34,20 @@ export class Alimentacao extends Servico {
     return this._frequenciaMaxima;
   }
 
-  calcularValor(periodo: Periodo[]): Centavos {
-    const quantidadeVisitas = periodo.length;
+  static create({
+    valorPorVisita,
+    frequenciaMaxima,
+    idPetSitter,
+  }: CreateAlimentacaoProps) {
+    return new Alimentacao({
+      id: UUID.generate(),
+      valorPorVisita,
+      frequenciaMaxima,
+      idPetSitter,
+    });
+  }
 
-    return this.valorVisita * quantidadeVisitas;
+  calcularValor(frequencia: number): Centavos {
+    return this.valorVisita * frequencia;
   }
 }

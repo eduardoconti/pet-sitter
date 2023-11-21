@@ -23,6 +23,8 @@ export default {
       '@infra/*': ['src/infra/*'],
       '@pessoa/*': ['src/pessoa/*'],
       '@pet-sitter/*': ['src/pet-sitter/*'],
+      '@servico/*': ['src/servico/*'],
+      '@atendimento/*': ['src/atendimento/*'],
     },
     {
       prefix: '<rootDir>/../',
