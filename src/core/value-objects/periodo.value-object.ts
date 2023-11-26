@@ -1,37 +1,55 @@
 import { IPeriodo } from '@core/contracts';
-import { PeriodoUtil } from '@core/utils';
+import { Conversao } from '@core/utils/conversao-util';
 import { ValueObject } from '@core/value-object';
-import { isDate } from 'util/types';
 
-export class Periodo extends ValueObject<IPeriodo> {
-  private constructor(props: IPeriodo) {
+import { Data } from './data.value-object';
+
+type PeriodoProps = {
+  inicio: Data;
+  fim: Data;
+};
+export class Periodo extends ValueObject<PeriodoProps> {
+  private constructor(props: PeriodoProps) {
     super(props);
   }
 
-  get value(): IPeriodo {
-    return this.props;
+  get periodo(): IPeriodo {
+    return { inicio: this.dataInicio.value, fim: this.dataFim.value };
   }
 
-  get horas(): number {
-    return PeriodoUtil.horasEntrePeriodo(this.value);
+  get dataInicio(): Data {
+    return this.props.inicio;
   }
 
-  static create({ inicio, fim }: IPeriodo): Periodo {
-    if (!isDate(inicio)) {
-      throw new Error('Data inicio invalida');
-    }
+  get dataFim(): Data {
+    return this.props.fim;
+  }
 
-    if (!isDate(fim)) {
-      throw new Error('Data fim invalida');
+  static create(input?: IPeriodo): Periodo {
+    if (!input || !input.inicio || !input.fim) {
+      throw new Error('Periodo invalido');
     }
+    const { inicio, fim } = input;
+    const dataInicio = Data.create(inicio);
+    const dataFim = Data.create(fim);
 
-    if (inicio.getTime() > fim.getTime()) {
+    if (dataInicio.getTime() > dataFim.getTime()) {
       throw new Error('Data inicio maior que data fim');
     }
 
     return new Periodo({
-      inicio,
-      fim,
+      inicio: dataInicio,
+      fim: dataFim,
     });
+  }
+
+  horasEntrePeriodo(): number {
+    const diferencaEmMilisegundos =
+      this.dataFim.getTime() - this.dataInicio.getTime();
+    if (!diferencaEmMilisegundos) {
+      return 1;
+    }
+    const diferencaEmHoras = Conversao.msToHr(diferencaEmMilisegundos);
+    return Math.ceil(diferencaEmHoras);
   }
 }

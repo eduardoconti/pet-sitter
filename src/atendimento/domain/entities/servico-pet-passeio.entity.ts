@@ -48,8 +48,8 @@ export class ServicoPetPasseio extends ServicoPet {
     let horas = 0;
 
     this.diasAtendimento.forEach((diaAtendimento) => {
-      horas += diaAtendimento.periodo.reduce((acc, diaAtendimento) => {
-        return (acc += diaAtendimento.horas);
+      horas += diaAtendimento.periodo.reduce((acc, periodo) => {
+        return (acc += periodo.horasEntrePeriodo());
       }, 0);
     });
     return this.servico.valor() * horas;
