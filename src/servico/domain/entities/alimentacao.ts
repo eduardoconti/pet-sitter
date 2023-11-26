@@ -47,7 +47,7 @@ export class Alimentacao extends Servico {
     });
   }
 
-  calcularValor(frequencia: number): Centavos {
-    return this.valorVisita * frequencia;
+  valor(): Centavos {
+    return this.valorVisita;
   }
 }

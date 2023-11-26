@@ -5,7 +5,8 @@ import { TemperamentoPetEnum } from '@pet/domain/enums';
 import { Alimentacao, Passeio } from '@servico/domain/entities';
 
 import { Atendimento } from './atendimento.entity';
-import { ServicoPet } from './servico-pet.entity';
+import { ServicoPetAlimentacao } from './servico-pet-alimentacao.entity';
+import { ServicoPetPasseio } from './servico-pet-passeio.entity';
 
 describe('Atendimento', () => {
   const passeio = Passeio.create({
@@ -34,7 +35,7 @@ describe('Atendimento', () => {
 
   describe('valor atendimento passeio', () => {
     it('deve calcular o valor de um antedimento com 1 periodo', () => {
-      const servicoPetPasseio = ServicoPet.create({
+      const servicoPetPasseio = ServicoPetPasseio.create({
         pet,
         servico: passeio,
         diasAtendimento: [
@@ -54,7 +55,7 @@ describe('Atendimento', () => {
       expect(atendimento.valorAtendimento()).toBe(25 * 100 * 6);
     });
     it('deve calcular o valor de um antedimento com 2 periodos', () => {
-      const servicoPetPasseio = ServicoPet.create({
+      const servicoPetPasseio = ServicoPetPasseio.create({
         pet,
         servico: passeio,
         diasAtendimento: [
@@ -81,7 +82,7 @@ describe('Atendimento', () => {
 
   describe('valor atendimento alimentacao', () => {
     it('deve calcular o valor de um antedimento com 1 visita', () => {
-      const servicoPetAlimentacao = ServicoPet.create({
+      const servicoPetAlimentacao = ServicoPetAlimentacao.create({
         pet,
         servico: alimentacao,
         diasAtendimento: [
@@ -101,7 +102,7 @@ describe('Atendimento', () => {
       expect(atendimento.valorAtendimento()).toBe(50 * 100 * 1);
     });
     it('deve calcular o valor de um antedimento com 2 visitas', () => {
-      const servicoPetAlimentacao = ServicoPet.create({
+      const servicoPetAlimentacao = ServicoPetAlimentacao.create({
         pet,
         servico: alimentacao,
         diasAtendimento: [
@@ -128,7 +129,7 @@ describe('Atendimento', () => {
 
   describe('valor atendimento alimentacao e passeio', () => {
     it('deve calcular o valor de um antedimento com 1 visita', () => {
-      const servicoPetAlimentacao = ServicoPet.create({
+      const servicoPetAlimentacao = ServicoPetAlimentacao.create({
         pet,
         servico: alimentacao,
         diasAtendimento: [
@@ -144,7 +145,7 @@ describe('Atendimento', () => {
         ],
       });
 
-      const servicoPetPasseio = ServicoPet.create({
+      const servicoPetPasseio = ServicoPetPasseio.create({
         pet,
         servico: passeio,
         diasAtendimento: [
@@ -164,7 +165,7 @@ describe('Atendimento', () => {
       expect(atendimento.valorAtendimento()).toBe(50 * 100 * 1 + 25 * 100 * 6);
     });
     it('deve calcular o valor de um antedimento com 2 visitas', () => {
-      const servicoPetAlimentacao = ServicoPet.create({
+      const servicoPetAlimentacao = ServicoPetAlimentacao.create({
         pet,
         servico: alimentacao,
         diasAtendimento: [
@@ -184,7 +185,7 @@ describe('Atendimento', () => {
         ],
       });
 
-      const servicoPetPasseio = ServicoPet.create({
+      const servicoPetPasseio = ServicoPetPasseio.create({
         pet,
         servico: passeio,
         diasAtendimento: [

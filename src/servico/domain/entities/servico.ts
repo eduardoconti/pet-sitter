@@ -25,5 +25,5 @@ export abstract class Servico extends Entity {
     return this._idPetSitter;
   }
 
-  abstract calcularValor(props: any): Centavos;
+  abstract valor(): Centavos;
 }

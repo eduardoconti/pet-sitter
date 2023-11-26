@@ -46,7 +46,7 @@ export class Passeio extends Servico {
     });
   }
 
-  calcularValor(horas: number): Centavos {
-    return this.valorHora * horas;
+  valor(): Centavos {
+    return this.valorHora;
   }
 }
