@@ -1,12 +1,13 @@
 import { Centavos } from '@core/contracts';
 import { UUID } from '@core/uuid.value-object';
 import { PetEntity } from '@pet/domain/entities';
-import { Passeio } from '@servico/domain/entities';
+import { Alimentacao } from '@servico/domain/entities';
 
-import { DiaAtendimento, ServicoPet } from './servico-pet.entity';
+import { DiaAtendimento } from '../value-objects';
+import { SolicitacaoServicoPet } from './solicitacao-servico-pet.entity';
 
-export class ServicoPetPasseio extends ServicoPet {
-  protected _servico!: Passeio;
+export class SolicitacaoAlimentacao extends SolicitacaoServicoPet {
+  protected _servico!: Alimentacao;
 
   constructor({
     id,
@@ -16,7 +17,7 @@ export class ServicoPetPasseio extends ServicoPet {
   }: {
     id: UUID;
     diasAtendimento: DiaAtendimento[];
-    servico: Passeio;
+    servico: Alimentacao;
     pet: PetEntity;
   }) {
     super({
@@ -33,10 +34,10 @@ export class ServicoPetPasseio extends ServicoPet {
     pet,
   }: {
     diasAtendimento: DiaAtendimento[];
-    servico: Passeio;
+    servico: Alimentacao;
     pet: PetEntity;
   }) {
-    return new ServicoPetPasseio({
+    return new SolicitacaoAlimentacao({
       id: UUID.generate(),
       diasAtendimento,
       servico,
@@ -45,13 +46,10 @@ export class ServicoPetPasseio extends ServicoPet {
   }
 
   valorServico(): Centavos {
-    let horas = 0;
-
+    let frequencia = 0;
     this.diasAtendimento.forEach((diaAtendimento) => {
-      horas += diaAtendimento.periodo.reduce((acc, periodo) => {
-        return (acc += periodo.horasEntrePeriodo());
-      }, 0);
+      frequencia += diaAtendimento.periodos.length;
     });
-    return this.servico.valor() * horas;
+    return this.servico.valor() * frequencia;
   }
 }

@@ -1,2 +1,2 @@
 export * from './atendimento.entity';
-export * from './servico-pet.entity';
+export * from './solicitacao-servico-pet.entity';

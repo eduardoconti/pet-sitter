@@ -1,16 +1,13 @@
 import { Centavos } from '@core/contracts';
 import { Entity } from '@core/entity';
 import { UUID } from '@core/uuid.value-object';
-import { Periodo } from '@core/value-objects';
+import { PetSitter } from '@pet-sitter/domain/entities';
 import { PetEntity } from '@pet/domain/entities';
 import { Servico } from '@servico/domain/entities';
 
-export type DiaAtendimento = {
-  dia: Date;
-  periodo: Periodo[];
-};
+import { DiaAtendimento } from '../value-objects';
 
-export abstract class ServicoPet extends Entity {
+export abstract class SolicitacaoServicoPet extends Entity {
   protected _servico!: Servico;
   private _pet!: PetEntity;
   private _idAtendimento!: UUID;
@@ -49,5 +46,5 @@ export abstract class ServicoPet extends Entity {
     return this._diasAtendimento;
   }
 
-  abstract valorServico(): Centavos;
+  abstract valorServico(petSitter?: PetSitter): Centavos;
 }
