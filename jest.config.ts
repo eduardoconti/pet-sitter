@@ -25,6 +25,7 @@ export default {
       '@pet-sitter/*': ['src/pet-sitter/*'],
       '@servico/*': ['src/servico/*'],
       '@atendimento/*': ['src/atendimento/*'],
+      '@tutor/*': ['src/tutor/*'],
     },
     {
       prefix: '<rootDir>/../',

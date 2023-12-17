@@ -1,3 +1,5 @@
 import { PessoaModel } from '@pessoa/models';
 
-export type PetSitterModel = PessoaModel;
+export type PetSitterModel = PessoaModel & {
+  localAtendimento?: any;
+};

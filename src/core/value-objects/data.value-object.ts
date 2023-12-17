@@ -22,6 +22,18 @@ export class Data extends ValueObject<Date> {
     return new Data(data);
   }
 
+  static numeroDia(): number {
+    return new Date().getUTCDate();
+  }
+
+  static numeroAno(): number {
+    return new Date().getUTCFullYear();
+  }
+
+  static numeroMes(): number {
+    return new Date().getUTCMonth();
+  }
+
   getTime(): number {
     return this.value.getTime();
   }

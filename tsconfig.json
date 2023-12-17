@@ -49,6 +49,9 @@
       "@atendimento/*": [
         "src/atendimento/*"
       ],
+      "@tutor/*": [
+        "src/tutor/*"
+      ],
     }
   }
 }

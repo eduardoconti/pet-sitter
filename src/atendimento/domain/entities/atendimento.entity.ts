@@ -1,15 +1,15 @@
 import { Centavos } from '@core/contracts';
 import { Entity } from '@core/entity';
 import { UUID } from '@core/uuid.value-object';
-import { Pessoa } from '@pessoa/domain/entities';
 import { PetSitter } from '@pet-sitter/domain/entities';
+import { Tutor } from '@tutor/domain/entities';
 
 import { SolicitacaoServicoPet } from './solicitacao-servico-pet.entity';
 
 type StatusAtendimento = 'NOVO' | 'ANDAMENTO';
 export class Atendimento extends Entity {
   private _servicos!: SolicitacaoServicoPet[];
-  private _tutor!: Pessoa;
+  private _tutor!: Tutor;
   private _petSitter!: PetSitter;
   private _status!: StatusAtendimento;
 
@@ -21,7 +21,7 @@ export class Atendimento extends Entity {
     return this._servicos;
   }
 
-  get tutor(): Pessoa {
+  get tutor(): Tutor {
     return this._tutor;
   }
 
@@ -41,7 +41,7 @@ export class Atendimento extends Entity {
     this._servicos = servicosPet;
   }
 
-  setTutor(tutor: Pessoa) {
+  setTutor(tutor: Tutor) {
     this._tutor = tutor;
   }
 
