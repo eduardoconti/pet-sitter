@@ -21,4 +21,24 @@ export abstract class BaseException extends Error {
       metadata: this.metadata as T,
     };
   }
+
+  statusHttp(): number {
+    return 500
+  }
+
+  title(): string {
+    return httpStatusMessages[500]
+  }
 }
+
+type HttpStatusMessages = {
+  [key: string]: string;
+};
+
+export const httpStatusMessages: HttpStatusMessages = {
+  200: 'OK',
+  404: 'Not Found',
+  400: 'Bad request',
+  500: 'Internal Server Error',
+  // Adicione mais códigos e mensagens conforme necessário
+};

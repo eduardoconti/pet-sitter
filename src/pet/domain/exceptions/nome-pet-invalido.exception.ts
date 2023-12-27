@@ -1,6 +1,7 @@
-import { BaseException } from '@core/base-exception';
+import { BaseException, httpStatusMessages } from '@core/base-exception';
 
 import { ErroInternoPetEnum } from '../enums';
+
 
 export const nomePetRangeInvalidoMessage =
   'Nome do pet deve ser maior que 1 e menor que 128 carcateres';
@@ -20,5 +21,13 @@ export class NomePetException extends BaseException {
 
   static nomeInvalido(): NomePetException {
     return new NomePetException(nomePetInvalidoMessage);
+  }
+
+  statusHttp(): number {
+    return 400
+  }
+
+  title(): string {
+   return httpStatusMessages[400]
   }
 }

@@ -21,7 +21,7 @@ describe('CadastrarPetController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    const { httpAdapter } = app.get(HttpAdapterHost);
+    const  httpAdapter  = app.get(HttpAdapterHost);
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
     await app.init();
   });
@@ -51,6 +51,24 @@ describe('CadastrarPetController (e2e)', () => {
       });
     });
 
+    describe('BAD REQUEST (400)', () => {
+      it('deve lancar erro 400 quando nome fora do range', async () => {
+
+        return await request(app.getHttpServer())
+          .post(`/${endpoint}`)
+          .send()
+          .expect(400)
+          .expect(({ body }) => {
+            expect(body).toStrictEqual({
+              title: 'Bad request',
+              detail: 'Nome do pet deve ser maior que 1 e menor que 128 carcateres',
+              status: 400,
+              path: '/pet',
+            });
+          });
+      });
+    });
+
     describe('INTERNAL SERVER ERROR (500)', () => {
       it('deve lancar erro 500 quando falhar usecase', async () => {
         const useCase = app.get(CadastrarPetUseCase);
@@ -64,8 +82,9 @@ describe('CadastrarPetController (e2e)', () => {
           .expect(500)
           .expect(({ body }) => {
             expect(body).toStrictEqual({
-              message: 'Internal server error',
-              statusCode: 500,
+              title: 'Internal Server Error',
+              status: 500,
+              path: '/pet',
             });
           });
       });
