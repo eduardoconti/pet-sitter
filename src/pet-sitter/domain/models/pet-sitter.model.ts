@@ -1,5 +1,5 @@
 import { PessoaModel } from '@pessoa/models';
 
-export type PetSitterModel = PessoaModel & {
+export class PetSitterModel extends PessoaModel {
   localAtendimento?: any;
-};
+}

@@ -1,6 +1,6 @@
 import { BaseModel } from '@core/base-model';
 
-export type ContatoModel = BaseModel & {
-  telefone: string;
-  email: string;
-};
+export class ContatoModel extends BaseModel {
+  telefone!: string;
+  email!: string;
+}

@@ -2,7 +2,7 @@ import { Centavos } from '@core/contracts';
 import { UUID } from '@core/uuid.value-object';
 
 import { TipoServicoEnum } from '../enums';
-import { Servico, ServicoConstructorProps } from './servico';
+import { Servico, ServicoConstructorProps } from './servico.entity';
 
 type AlimentacaoConstructorProps = ServicoConstructorProps & {
   valorPorVisita: Centavos;

@@ -1,6 +1,6 @@
 import { UUID } from '@core/uuid.value-object';
 
-import { Passeio } from './passeio';
+import { Passeio } from './passeio.entity';
 
 const fakeUUID = UUID.generate();
 describe('Passeio', () => {

@@ -1,7 +1,7 @@
 import { BaseModel } from '@core/base-model';
 
-export type LocalAtendimentoModel = BaseModel & {
-  idRegiao: number;
-  idCidade: number;
-  raioAtendimento: number;
-};
+export class LocalAtendimentoModel extends BaseModel {
+  idRegiao!: number;
+  idCidade!: number;
+  raioAtendimento!: number;
+}

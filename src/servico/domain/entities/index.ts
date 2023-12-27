@@ -1,4 +1,4 @@
-export * from './passeio';
-export * from './servico';
-export * from './alimentacao';
+export * from './passeio.entity';
+export * from './servico.entity';
+export * from './alimentacao.entity';
 export * from './hospedagem.entity';
