@@ -8,7 +8,6 @@ describe('PetEntity', () => {
     });
 
     expect(petEntity).toEqual({
-      _id: expect.any(String),
       _nome: { props: { value: 'Gus' } },
       _temperamento: { props: { value: 'D' } },
     });
@@ -37,7 +36,6 @@ describe('PetEntity', () => {
     const petModel = PetEntity.toModel(petEntity);
 
     expect(petModel).toEqual({
-      id: expect.any(String),
       nome: 'Gus',
       temperamento: TemperamentoPetEnum.DOCIL,
     });

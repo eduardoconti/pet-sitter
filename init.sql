@@ -1,3 +1,4 @@
+CREATE EXTENSION "uuid-ossp"
 CREATE TYPE public.tb_pet_temperamento_enum AS ENUM('D', 'A')
 CREATE TABLE tb_pet (
   id uuid NOT NULL DEFAULT uuid_generate_v4() UNIQUE,

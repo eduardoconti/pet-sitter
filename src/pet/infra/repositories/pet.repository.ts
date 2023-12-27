@@ -11,7 +11,7 @@ export class PetRepository implements IPetRepository {
     private readonly petRepository: Repository<PetModel>,
   ) {}
 
-  async save(model: Omit<PetModel, 'dataInclusao'>): Promise<PetModel> {
+  async save(model: Omit<PetModel, 'dataInclusao' | 'id'>): Promise<PetModel> {
     return await this.petRepository.save({
       ...model,
       dataInclusao: new Date().toISOString(),

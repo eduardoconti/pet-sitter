@@ -15,7 +15,7 @@ export class SolicitacaoAlimentacao extends SolicitacaoServicoPet {
     servico,
     pet,
   }: {
-    id: UUID;
+    id?: UUID;
     periodos: Intervalo[];
     servico: Alimentacao;
     pet: PetEntity;
@@ -42,7 +42,6 @@ export class SolicitacaoAlimentacao extends SolicitacaoServicoPet {
     pet: PetEntity;
   }) {
     return new SolicitacaoAlimentacao({
-      id: UUID.generate(),
       periodos,
       servico,
       pet,

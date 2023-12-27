@@ -18,12 +18,12 @@ export abstract class SolicitacaoServicoPet extends Entity {
     servico,
     pet,
   }: {
-    id: UUID;
+    id?: UUID;
     periodos: Periodo[];
     servico: Servico;
     pet: PetEntity;
   }) {
-    super({ id: id.value });
+    super({ id: id?.value });
 
     if (!periodos.length) {
       throw new Error('Necessario ao menos um periodo');

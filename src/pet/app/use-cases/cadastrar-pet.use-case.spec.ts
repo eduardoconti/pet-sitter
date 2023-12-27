@@ -49,5 +49,9 @@ describe('CadastrarPetUseCase', () => {
       nome: petModelMock.nome,
       temperamento: petModelMock.temperamento,
     });
+    expect(petRepository.save).toBeCalledWith({
+      nome: petModelMock.nome,
+      temperamento: petModelMock.temperamento,
+    });
   });
 });

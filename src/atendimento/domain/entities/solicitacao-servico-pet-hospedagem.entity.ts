@@ -15,7 +15,7 @@ export class SolicitacaoHospedagem extends SolicitacaoServicoPet {
     servico,
     pet,
   }: {
-    id: UUID;
+    id?: UUID;
     periodos: Periodo[];
     servico: Hospedagem;
     pet: PetEntity;
@@ -41,7 +41,6 @@ export class SolicitacaoHospedagem extends SolicitacaoServicoPet {
       throw new Error('Hospedagem permite apenas um periodo');
     }
     return new SolicitacaoHospedagem({
-      id: UUID.generate(),
       periodos,
       servico,
       pet,

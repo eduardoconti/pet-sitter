@@ -42,7 +42,6 @@ export class Atendimento extends Entity {
 
   static novo() {
     return new Atendimento({
-      id: UUID.generate(),
       status: StatusAtendimentoEnum.NOVO,
     });
   }

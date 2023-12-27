@@ -1,7 +1,9 @@
 import { Entity } from '@core/entity';
 import { ContatoModel } from 'src/pessoa/models';
 
-export type ContatoProps = Omit<ContatoModel, 'dataInclusao'>;
+export type ContatoProps = Omit<ContatoModel, 'dataInclusao' | 'id'> & {
+  id?: string;
+};
 
 export class Contato extends Entity {
   private _email!: string;

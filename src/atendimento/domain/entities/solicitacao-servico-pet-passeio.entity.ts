@@ -15,7 +15,7 @@ export class SolicitacaoPasseio extends SolicitacaoServicoPet {
     servico,
     pet,
   }: {
-    id: UUID;
+    id?: UUID;
     periodos: Intervalo[];
     servico: Passeio;
     pet: PetEntity;
@@ -42,7 +42,6 @@ export class SolicitacaoPasseio extends SolicitacaoServicoPet {
     pet: PetEntity;
   }) {
     return new SolicitacaoPasseio({
-      id: UUID.generate(),
       periodos,
       servico,
       pet,

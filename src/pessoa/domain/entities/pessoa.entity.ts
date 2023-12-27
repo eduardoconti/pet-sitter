@@ -3,8 +3,12 @@ import { ContatoModel, PessoaModel } from 'src/pessoa/models';
 
 import { Contato } from './contato.entity';
 
-export type PessoaProps = Omit<PessoaModel, 'dataInclusao' | 'contato'> & {
+export type PessoaProps = Omit<
+  PessoaModel,
+  'dataInclusao' | 'contato' | 'id'
+> & {
   contato?: ContatoModel;
+  id?: string;
 };
 
 export class Pessoa extends Entity {

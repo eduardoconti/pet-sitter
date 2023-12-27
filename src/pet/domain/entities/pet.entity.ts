@@ -15,11 +15,11 @@ export class PetEntity extends Entity {
     id,
     temperamento,
   }: {
-    id: UUID;
+    id?: UUID;
     nome: NomePet;
     temperamento: TemperamentoPet;
   }) {
-    super({ id: id.value });
+    super({ id: id?.value });
     this._nome = nome;
     this._temperamento = temperamento;
   }
@@ -34,7 +34,6 @@ export class PetEntity extends Entity {
 
   static create({ nome, temperamento }: CreatePetEntityProps): PetEntity {
     return new PetEntity({
-      id: UUID.generate(),
       nome: NomePet.create(nome),
       temperamento: TemperamentoPet.create(temperamento),
     });
