@@ -1,6 +1,24 @@
 version: '3.7'
 
 services:
+  pet-sitter:
+    container_name: pet-sitter
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    cpus: 2
+    mem_limit: 2048M
   postgres:
     ports:
       - 5432:5432
@@ -15,7 +33,9 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.pg
-    restart: always    
+    restart: always
+    cpus: 0.5
+    mem_limit: 512M    
 
 volumes:
   pg-data:

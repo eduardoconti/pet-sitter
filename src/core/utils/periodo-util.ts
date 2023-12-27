@@ -16,4 +16,16 @@ export class PeriodoUtil {
       }
     }
   }
+
+  static isMesmoDia({ inicio, fim }: IPeriodo) {
+    return inicio.toISOString().slice(0, 10) === fim.toISOString().slice(0, 10);
+  }
+
+  static contarDiasEntreDatas({ inicio, fim }: IPeriodo): number {
+    const diferencaEmMilissegundos = Math.abs(fim.getTime() - inicio.getTime());
+
+    const dias = Math.ceil(diferencaEmMilissegundos / (1000 * 60 * 60 * 24));
+
+    return dias;
+  }
 }

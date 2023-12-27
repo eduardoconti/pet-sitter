@@ -4,29 +4,17 @@ import { Passeio } from './passeio';
 
 const fakeUUID = UUID.generate();
 describe('Passeio', () => {
-  describe('calcularValor', () => {
-    it('deve calcular valor do passeio com um periodo datas iguais', () => {
+  describe('valor', () => {
+    it('deve retornar valor do passeio', () => {
       const passeio = Passeio.create({
-        valorPorHora: 200 * 100,
-        tempoMaximo: 2 * 60 * 60,
+        valorPorHora: 200,
         idPetSitter: fakeUUID,
       });
 
       const valorPaseio = passeio.valor();
 
-      expect(valorPaseio).toBe(200 * 100);
+      expect(valorPaseio).toBe(200);
     });
 
-    it('deve calcular valor do passeio com um periodo datas 6 horas diferenca', () => {
-      const passeio = Passeio.create({
-        valorPorHora: 200 * 100,
-        tempoMaximo: 2 * 60 * 60,
-        idPetSitter: fakeUUID,
-      });
-
-      const valorPaseio = passeio.valor();
-
-      expect(valorPaseio).toBe(200 * 100);
-    });
   });
 });

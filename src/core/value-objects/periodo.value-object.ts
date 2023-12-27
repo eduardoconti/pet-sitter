@@ -5,12 +5,16 @@ import { ValueObject } from '@core/value-object';
 import { Data } from './data.value-object';
 
 type PeriodoProps = {
-  inicio: Data;
-  fim: Data;
+  dataInicio: Data;
+  dataFim: Data;
 };
 export class Periodo extends ValueObject<PeriodoProps> {
-  private constructor(props: PeriodoProps) {
+  constructor(props: PeriodoProps) {
     super(props);
+
+    if (props.dataInicio.getTime() > props.dataFim.getTime()) {
+      throw new Error('Data inicio maior que data fim');
+    }
   }
 
   get periodo(): IPeriodo {
@@ -18,11 +22,11 @@ export class Periodo extends ValueObject<PeriodoProps> {
   }
 
   get dataInicio(): Data {
-    return this.props.inicio;
+    return this.props.dataInicio;
   }
 
   get dataFim(): Data {
-    return this.props.fim;
+    return this.props.dataFim;
   }
 
   static create(input?: IPeriodo): Periodo {
@@ -33,13 +37,9 @@ export class Periodo extends ValueObject<PeriodoProps> {
     const dataInicio = Data.create(inicio);
     const dataFim = Data.create(fim);
 
-    if (dataInicio.getTime() > dataFim.getTime()) {
-      throw new Error('Data inicio maior que data fim');
-    }
-
     return new Periodo({
-      inicio: dataInicio,
-      fim: dataFim,
+      dataInicio: dataInicio,
+      dataFim: dataFim,
     });
   }
 

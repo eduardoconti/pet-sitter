@@ -1,10 +1,10 @@
 import { ValueObject } from '@core/value-object';
-import { Periodo } from '@core/value-objects';
+import { Intervalo } from '@core/value-objects';
 import { Data } from '@core/value-objects/data.value-object';
 
 interface DiaAtendimentoProps {
   dia: Data;
-  periodos: Periodo[];
+  intervalos: Intervalo[];
 }
 
 export class DiaAtendimento extends ValueObject<DiaAtendimentoProps> {
@@ -20,28 +20,28 @@ export class DiaAtendimento extends ValueObject<DiaAtendimentoProps> {
     return this.props.dia;
   }
 
-  get periodos(): Periodo[] {
-    return this.props.periodos;
+  get intervalos(): Intervalo[] {
+    return this.props.intervalos;
   }
 
   static create(input?: DiaAtendimentoProps): DiaAtendimento {
     if (
       !input ||
       !input.dia ||
-      !input.periodos ||
-      !Array.isArray(input.periodos)
+      !input.intervalos ||
+      !Array.isArray(input.intervalos)
     ) {
       throw new Error('Dia atendimento invalido');
     }
 
-    const { dia, periodos } = input;
-    if (!periodos.length) {
-      throw new Error('Necessario ao menos um periodo');
+    const { dia, intervalos } = input;
+    if (!intervalos.length) {
+      throw new Error('Necessario ao menos um intervalo de horas');
     }
 
     return new DiaAtendimento({
       dia,
-      periodos,
+      intervalos,
     });
   }
 }

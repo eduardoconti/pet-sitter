@@ -6,15 +6,16 @@ import { Tutor } from '@tutor/domain/entities';
 
 import { SolicitacaoServicoPet } from './solicitacao-servico-pet.entity';
 
-type StatusAtendimento = 'NOVO' | 'ANDAMENTO';
+type StatusAtendimento = 'NOVO' | 'ANDAMENTO' | 'FINALIZADO';
 export class Atendimento extends Entity {
   private _servicos!: SolicitacaoServicoPet[];
   private _tutor!: Tutor;
   private _petSitter!: PetSitter;
   private _status!: StatusAtendimento;
 
-  private constructor({ id }: { id: UUID }) {
+  private constructor({ id, status }: { id: UUID, status: StatusAtendimento  }) {
     super({ id: id.value });
+    this._status = status
   }
 
   get servicos(): SolicitacaoServicoPet[] {
@@ -34,7 +35,7 @@ export class Atendimento extends Entity {
   }
 
   static novo() {
-    return new Atendimento({ id: UUID.generate() });
+    return new Atendimento({ id: UUID.generate(), status: 'NOVO' });
   }
 
   setServicos(servicosPet: SolicitacaoServicoPet[]) {
@@ -57,8 +58,9 @@ export class Atendimento extends Entity {
     if (!this.petSitter) {
       throw new Error('Pet sitter nao definido');
     }
-    return this.servicos.reduce((acc, item) => {
-      return (acc += item.valorServico(this.petSitter));
+
+    return this.servicos.reduce((valor, solicitacaoServicoPet) => {
+      return (valor += solicitacaoServicoPet.valorServico(this.petSitter));
     }, 0);
   }
 }

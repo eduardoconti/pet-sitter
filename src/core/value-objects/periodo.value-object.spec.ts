@@ -13,8 +13,8 @@ describe('Periodo', () => {
       });
       expect(periodo).toEqual({
         props: {
-          inicio: { props: inicio },
-          fim: { props: fim },
+          dataInicio: { props: inicio },
+          dataFim: { props: fim },
         },
       });
     });

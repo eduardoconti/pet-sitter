@@ -1,7 +1,6 @@
 import { DiaAtendimento } from '@atendimento/domain/value-objects';
 import { Entity } from '@core/entity';
 import { UUID } from '@core/uuid.value-object';
-import { Data } from '@core/value-objects';
 
 type AgendaConstructorProps = {
   id: UUID;

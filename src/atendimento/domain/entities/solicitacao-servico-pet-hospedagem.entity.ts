@@ -2,12 +2,12 @@ import { Centavos } from '@core/contracts';
 import { UUID } from '@core/uuid.value-object';
 import { Periodo } from '@core/value-objects';
 import { PetEntity } from '@pet/domain/entities';
-import { Passeio } from '@servico/domain/entities';
+import { Hospedagem } from '@servico/domain/entities';
 
 import { SolicitacaoServicoPet } from './solicitacao-servico-pet.entity';
 
-export class SolicitacaoPasseio extends SolicitacaoServicoPet {
-  protected _servico!: Passeio;
+export class SolicitacaoHospedagem extends SolicitacaoServicoPet {
+  protected _servico!: Hospedagem;
 
   constructor({
     id,
@@ -17,7 +17,7 @@ export class SolicitacaoPasseio extends SolicitacaoServicoPet {
   }: {
     id: UUID;
     periodos: Periodo[];
-    servico: Passeio;
+    servico: Hospedagem;
     pet: PetEntity;
   }) {
     super({
@@ -34,10 +34,13 @@ export class SolicitacaoPasseio extends SolicitacaoServicoPet {
     pet,
   }: {
     periodos: Periodo[];
-    servico: Passeio;
+    servico: Hospedagem;
     pet: PetEntity;
   }) {
-    return new SolicitacaoPasseio({
+    if (periodos.length > 1) {
+      throw new Error('Hospedagem permite apenas um periodo');
+    }
+    return new SolicitacaoHospedagem({
       id: UUID.generate(),
       periodos,
       servico,
@@ -46,11 +49,8 @@ export class SolicitacaoPasseio extends SolicitacaoServicoPet {
   }
 
   valorServico(): Centavos {
-    let horas = 0;
+    const frequencia = this.periodos.length;
 
-    this.periodos.forEach((periodo) => {
-      horas += periodo.horasEntrePeriodo();
-    });
-    return this.servico.valor() * horas;
+    return this.servico.valor() * frequencia;
   }
 }
