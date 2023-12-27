@@ -125,7 +125,7 @@ describe('Periodo', () => {
         inicio,
         fim,
       });
-      console.log(periodo.horasEntrePeriodo());
+
       expect(periodo.diasEntrePeriodo()).toEqual(2);
     });
 
@@ -136,7 +136,6 @@ describe('Periodo', () => {
         inicio,
         fim,
       });
-      console.log(periodo.horasEntrePeriodo());
       expect(periodo.diasEntrePeriodo()).toEqual(3);
     });
   });

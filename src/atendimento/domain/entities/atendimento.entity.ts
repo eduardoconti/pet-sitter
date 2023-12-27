@@ -4,17 +4,23 @@ import { UUID } from '@core/uuid.value-object';
 import { PetSitter } from '@pet-sitter/domain/entities';
 import { Tutor } from '@tutor/domain/entities';
 
+import { StatusAtendimentoEnum } from '../enums';
 import { SolicitacaoServicoPet } from './solicitacao-servico-pet.entity';
 
-type StatusAtendimento = 'NOVO' | 'ANDAMENTO' | 'FINALIZADO';
 export class Atendimento extends Entity {
   private _servicos!: SolicitacaoServicoPet[];
   private _tutor!: Tutor;
   private _petSitter!: PetSitter;
-  private _status!: StatusAtendimento;
+  private _status!: StatusAtendimentoEnum;
 
-  private constructor({ id, status }: { id: UUID; status: StatusAtendimento }) {
-    super({ id: id.value });
+  private constructor({
+    status,
+    id,
+  }: {
+    id?: UUID;
+    status: StatusAtendimentoEnum;
+  }) {
+    super({ id: id?.value });
     this._status = status;
   }
 
@@ -26,7 +32,7 @@ export class Atendimento extends Entity {
     return this._tutor;
   }
 
-  get status(): StatusAtendimento {
+  get status(): StatusAtendimentoEnum {
     return this._status;
   }
 
@@ -35,7 +41,10 @@ export class Atendimento extends Entity {
   }
 
   static novo() {
-    return new Atendimento({ id: UUID.generate(), status: 'NOVO' });
+    return new Atendimento({
+      id: UUID.generate(),
+      status: StatusAtendimentoEnum.NOVO,
+    });
   }
 
   setServicos(servicosPet: SolicitacaoServicoPet[]) {

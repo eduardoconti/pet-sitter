@@ -1,3 +1,4 @@
+import { AtendimentoModule } from '@atendimento/atendimento.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PessoaModule } from '@pessoa/pessoa.module';
@@ -17,6 +18,7 @@ import { configValidationSchema } from './config';
     }),
     TypeOrmConfigModule,
     PessoaModule,
+    AtendimentoModule,
   ],
 })
 export class MainModule {}

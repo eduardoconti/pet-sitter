@@ -1,7 +1,18 @@
-import { INovoAtendimentoUseCase } from '@atendimento/domain/use-cases';
+import { Atendimento } from '@atendimento/domain/entities';
+import { IAtendimentoRepository } from '@atendimento/domain/repositories';
+import {
+  INovoAtendimentoUseCase,
+  NovoAtendimentoUseCaseOutput,
+} from '@atendimento/domain/use-cases';
 
 export class NovoAtendimentoUseCase implements INovoAtendimentoUseCase {
-  async executar(input: string): Promise<string> {
-    return await Promise.resolve(input);
+  constructor(private readonly repository: IAtendimentoRepository) {}
+  async executar(): Promise<NovoAtendimentoUseCaseOutput> {
+    const atendimento = Atendimento.novo();
+    const saved = await this.repository.save({
+      status: atendimento.status,
+    });
+
+    return await Promise.resolve({ id: saved.id });
   }
 }

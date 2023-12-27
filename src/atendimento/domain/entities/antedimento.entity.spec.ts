@@ -48,7 +48,7 @@ describe('Atendimento', () => {
     const atendimento = Atendimento.novo();
     expect(atendimento).toEqual({
       _id: expect.any(String),
-      _status: 'NOVO',
+      _status: 'N',
     });
   });
 

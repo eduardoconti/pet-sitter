@@ -1,8 +1,8 @@
 import { BaseModel } from '@core/base-model';
 
-import { TemperamentoPetEnum } from '../enums/temperamento.enum';
+import { TemperamentoPetEnum } from '../enums';
 
-export type PetModel = BaseModel & {
-  nome: string;
-  temperamento: TemperamentoPetEnum;
-};
+export class PetModel extends BaseModel {
+  nome!: string;
+  temperamento!: TemperamentoPetEnum;
+}
