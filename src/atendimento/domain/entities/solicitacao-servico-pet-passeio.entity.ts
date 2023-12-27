@@ -1,6 +1,6 @@
 import { Centavos } from '@core/contracts';
 import { UUID } from '@core/uuid.value-object';
-import { Periodo } from '@core/value-objects';
+import { Intervalo } from '@core/value-objects';
 import { PetEntity } from '@pet/domain/entities';
 import { Passeio } from '@servico/domain/entities';
 
@@ -16,7 +16,7 @@ export class SolicitacaoPasseio extends SolicitacaoServicoPet {
     pet,
   }: {
     id: UUID;
-    periodos: Periodo[];
+    periodos: Intervalo[];
     servico: Passeio;
     pet: PetEntity;
   }) {
@@ -28,12 +28,16 @@ export class SolicitacaoPasseio extends SolicitacaoServicoPet {
     });
   }
 
+  get periodos(): Intervalo[] {
+    return this._periodos;
+  }
+
   static create({
     periodos,
     servico,
     pet,
   }: {
-    periodos: Periodo[];
+    periodos: Intervalo[];
     servico: Passeio;
     pet: PetEntity;
   }) {

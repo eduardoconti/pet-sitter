@@ -106,4 +106,38 @@ describe('Periodo', () => {
       },
     );
   });
+
+  describe('diasEntrePeriodo', () => {
+    it('deve calcular 1 diaria', () => {
+      const inicio = new Date('2023-01-01T00:00:00.000Z');
+      const fim = new Date('2023-01-01T12:00:00.000Z');
+      const periodo = Periodo.create({
+        inicio,
+        fim,
+      });
+      expect(periodo.diasEntrePeriodo()).toEqual(1);
+    });
+
+    it('deve calcular 2 diarias', () => {
+      const inicio = new Date('2023-01-01T00:00:00.000Z');
+      const fim = new Date('2023-01-02T12:00:00.000Z');
+      const periodo = Periodo.create({
+        inicio,
+        fim,
+      });
+      console.log(periodo.horasEntrePeriodo());
+      expect(periodo.diasEntrePeriodo()).toEqual(2);
+    });
+
+    it('deve calcular 3 diarias', () => {
+      const inicio = new Date('2023-01-01T08:00:00.000Z');
+      const fim = new Date('2023-01-03T12:00:00.000Z');
+      const periodo = Periodo.create({
+        inicio,
+        fim,
+      });
+      console.log(periodo.horasEntrePeriodo());
+      expect(periodo.diasEntrePeriodo()).toEqual(3);
+    });
+  });
 });

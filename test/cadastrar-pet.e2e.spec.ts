@@ -21,7 +21,7 @@ describe('CadastrarPetController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    const  httpAdapter  = app.get(HttpAdapterHost);
+    const httpAdapter = app.get(HttpAdapterHost);
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
     await app.init();
   });
@@ -53,7 +53,6 @@ describe('CadastrarPetController (e2e)', () => {
 
     describe('BAD REQUEST (400)', () => {
       it('deve lancar erro 400 quando nome fora do range', async () => {
-
         return await request(app.getHttpServer())
           .post(`/${endpoint}`)
           .send()
@@ -61,7 +60,8 @@ describe('CadastrarPetController (e2e)', () => {
           .expect(({ body }) => {
             expect(body).toStrictEqual({
               title: 'Bad request',
-              detail: 'Nome do pet deve ser maior que 1 e menor que 128 carcateres',
+              detail:
+                'Nome do pet deve ser maior que 1 e menor que 128 carcateres',
               status: 400,
               path: '/pet',
             });

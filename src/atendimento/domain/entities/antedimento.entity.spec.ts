@@ -1,12 +1,13 @@
 import { UUID } from '@core/uuid.value-object';
-import { Periodo } from '@core/value-objects';
+import { Intervalo, Periodo } from '@core/value-objects';
 import { PetSitter } from '@pet-sitter/domain/entities';
 import { PetEntity } from '@pet/domain/entities';
 import { TemperamentoPetEnum } from '@pet/domain/enums';
-import { Alimentacao, Passeio } from '@servico/domain/entities';
+import { Alimentacao, Hospedagem, Passeio } from '@servico/domain/entities';
 
 import { Atendimento } from './atendimento.entity';
 import { SolicitacaoAlimentacao } from './solicitacao-servico-pet-alimentacao.entity';
+import { SolicitacaoHospedagem } from './solicitacao-servico-pet-hospedagem.entity';
 import { SolicitacaoPasseio } from './solicitacao-servico-pet-passeio.entity';
 
 describe('Atendimento', () => {
@@ -18,6 +19,11 @@ describe('Atendimento', () => {
   const alimentacao = Alimentacao.create({
     idPetSitter: UUID.generate(),
     valorPorVisita: 50 * 100,
+  });
+
+  const hospedagem = Hospedagem.create({
+    idPetSitter: UUID.generate(),
+    valorDiaria: 150 * 100,
   });
 
   const pet = PetEntity.create({
@@ -49,12 +55,12 @@ describe('Atendimento', () => {
   describe('valor atendimento passeio', () => {
     const atendimento = Atendimento.novo();
     atendimento.setPetSitter(petSitter);
-    it('deve calcular o valor de um antedimento com 1 periodo', () => {
+    it('deve calcular o valor de um antedimento com 1 periodo de 6 horas', () => {
       const servicoPetPasseio = SolicitacaoPasseio.create({
         pet,
         servico: passeio,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T06:00:00'),
           }),
@@ -69,11 +75,11 @@ describe('Atendimento', () => {
         pet,
         servico: passeio,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T06:00:00'),
           }),
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T06:00:00'),
             fim: new Date('2023-01-01T10:00:00'),
           }),
@@ -92,7 +98,7 @@ describe('Atendimento', () => {
         pet,
         servico: alimentacao,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T00:00:00'),
           }),
@@ -107,11 +113,11 @@ describe('Atendimento', () => {
         pet,
         servico: alimentacao,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T00:00:00'),
           }),
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T10:00:00'),
           }),
@@ -131,7 +137,7 @@ describe('Atendimento', () => {
         pet,
         servico: alimentacao,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T00:00:00'),
           }),
@@ -142,7 +148,7 @@ describe('Atendimento', () => {
         pet,
         servico: passeio,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T06:00:00'),
           }),
@@ -156,11 +162,11 @@ describe('Atendimento', () => {
         pet,
         servico: alimentacao,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T00:00:00'),
           }),
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T10:00:00'),
           }),
@@ -171,11 +177,11 @@ describe('Atendimento', () => {
         pet,
         servico: passeio,
         periodos: [
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T00:00:00'),
             fim: new Date('2023-01-01T06:00:00'),
           }),
-          Periodo.create({
+          Intervalo.create({
             inicio: new Date('2023-01-01T06:00:00'),
             fim: new Date('2023-01-01T10:00:00'),
           }),
@@ -183,6 +189,41 @@ describe('Atendimento', () => {
       });
       atendimento.setServicos([servicoPetAlimentacao, servicoPetPasseio]);
       expect(atendimento.valorAtendimento()).toBe(50 * 100 * 2 + 25 * 100 * 10);
+    });
+  });
+
+  describe('valor atendimento hospedagem', () => {
+    const atendimento = Atendimento.novo();
+    atendimento.setPetSitter(petSitter);
+    it('deve calcular o valor de um antedimento com 1 diaria', () => {
+      const servicoPetHospedagem = SolicitacaoHospedagem.create({
+        pet,
+        servico: hospedagem,
+        periodos: [
+          Periodo.create({
+            inicio: new Date('2023-01-01T00:00:00'),
+            fim: new Date('2023-01-01T00:00:00'),
+          }),
+        ],
+      });
+
+      atendimento.setServicos([servicoPetHospedagem]);
+      expect(atendimento.valorAtendimento()).toBe(150 * 100 * 1);
+    });
+    it('deve calcular o valor de um antedimento com 3 diarias', () => {
+      const servicoPetHospedagem = SolicitacaoHospedagem.create({
+        pet,
+        servico: hospedagem,
+        periodos: [
+          Periodo.create({
+            inicio: new Date('2023-01-01T08:00:00'),
+            fim: new Date('2023-01-03T16:00:00'),
+          }),
+        ],
+      });
+
+      atendimento.setServicos([servicoPetHospedagem]);
+      expect(atendimento.valorAtendimento()).toBe(150 * 100 * 3);
     });
   });
 });

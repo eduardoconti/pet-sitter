@@ -34,6 +34,7 @@ export class Periodo extends ValueObject<PeriodoProps> {
       throw new Error('Periodo invalido');
     }
     const { inicio, fim } = input;
+
     const dataInicio = Data.create(inicio);
     const dataFim = Data.create(fim);
 
@@ -51,5 +52,9 @@ export class Periodo extends ValueObject<PeriodoProps> {
     }
     const diferencaEmHoras = Conversao.msToHr(diferencaEmMilisegundos);
     return Math.ceil(diferencaEmHoras);
+  }
+
+  diasEntrePeriodo(): number {
+    return Math.ceil(this.horasEntrePeriodo() / 24);
   }
 }

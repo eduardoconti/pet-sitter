@@ -1,5 +1,11 @@
 import { BaseException, httpStatusMessages } from '@core/base-exception';
-import { Catch, ArgumentsHost, HttpException, HttpStatus, ExceptionFilter } from '@nestjs/common';
+import {
+  Catch,
+  ArgumentsHost,
+  HttpException,
+  HttpStatus,
+  ExceptionFilter,
+} from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 
 @Catch()
@@ -13,7 +19,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
     const ctx = host.switchToHttp();
 
-    const httpStatus = this.getHTTPStatus(exception)
+    const httpStatus = this.getHTTPStatus(exception);
 
     const responseBody = {
       status: httpStatus,
@@ -26,51 +32,40 @@ export class AllExceptionsFilter implements ExceptionFilter {
   }
 
   private getHTTPStatus(exception: unknown): number {
-
-    if(exception instanceof HttpException){
-      return exception.getStatus()
+    if (exception instanceof HttpException) {
+      return exception.getStatus();
     }
 
     if (exception instanceof BaseException) {
-      return exception.statusHttp()
-
+      return exception.statusHttp();
     }
     const httpStatus =
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    return httpStatus
+    return httpStatus;
   }
 
   private getDetail(exception: unknown): string | undefined {
-
-    if(exception instanceof HttpException){
-      return HttpException.getDescriptionFrom(exception)
+    if (exception instanceof HttpException) {
+      return HttpException.getDescriptionFrom(exception);
     }
 
     if (exception instanceof BaseException) {
-      return exception.message
+      return exception.message;
     }
   }
 
   private getTitle(exception: unknown): string {
-
-
-
-
-    if(exception instanceof HttpException){
-      return httpStatusMessages[exception.getStatus()]
+    if (exception instanceof HttpException) {
+      return httpStatusMessages[exception.getStatus()];
     }
 
     if (exception instanceof BaseException) {
-      return exception.title()
-
+      return exception.title();
     }
 
-    return httpStatusMessages[HttpStatus.INTERNAL_SERVER_ERROR]
+    return httpStatusMessages[HttpStatus.INTERNAL_SERVER_ERROR];
   }
-  
 }
-
-

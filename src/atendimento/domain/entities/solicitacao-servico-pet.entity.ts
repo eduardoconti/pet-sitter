@@ -8,9 +8,9 @@ import { Servico } from '@servico/domain/entities';
 
 export abstract class SolicitacaoServicoPet extends Entity {
   protected _servico!: Servico;
+  protected _periodos!: Periodo[];
   private _pet!: PetEntity;
   private _idAtendimento!: UUID;
-  private _periodos!: Periodo[];
 
   protected constructor({
     id,

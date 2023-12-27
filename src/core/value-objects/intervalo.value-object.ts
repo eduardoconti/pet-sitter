@@ -14,7 +14,7 @@ export class Intervalo extends Periodo {
     super(props);
   }
 
-  static create(input?: IPeriodo): Periodo {
+  static create(input?: Partial<IPeriodo>): Periodo {
     if (!input || !input.inicio || !input.fim) {
       throw new Error('Intervalo invalido');
     }

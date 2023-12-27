@@ -23,10 +23,7 @@ export class Hospedagem extends Servico {
     this._valorDiaria = valorDiaria;
   }
 
-  static create({
-    valorDiaria,
-    idPetSitter,
-  }: CreateHospedagemProps) {
+  static create({ valorDiaria, idPetSitter }: CreateHospedagemProps) {
     return new Hospedagem({
       id: UUID.generate(),
       valorDiaria,

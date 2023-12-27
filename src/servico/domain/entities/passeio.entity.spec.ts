@@ -15,6 +15,5 @@ describe('Passeio', () => {
 
       expect(valorPaseio).toBe(200);
     });
-
   });
 });

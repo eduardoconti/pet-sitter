@@ -23,11 +23,11 @@ export abstract class BaseException extends Error {
   }
 
   statusHttp(): number {
-    return 500
+    return 500;
   }
 
   title(): string {
-    return httpStatusMessages[500]
+    return httpStatusMessages[500];
   }
 }
 

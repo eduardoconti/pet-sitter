@@ -49,7 +49,7 @@ export class SolicitacaoHospedagem extends SolicitacaoServicoPet {
   }
 
   valorServico(): Centavos {
-    const frequencia = this.periodos.length;
+    const frequencia = this.periodos[0].diasEntrePeriodo();
 
     return this.servico.valor() * frequencia;
   }

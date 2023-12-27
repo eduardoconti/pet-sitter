@@ -13,9 +13,9 @@ export class Atendimento extends Entity {
   private _petSitter!: PetSitter;
   private _status!: StatusAtendimento;
 
-  private constructor({ id, status }: { id: UUID, status: StatusAtendimento  }) {
+  private constructor({ id, status }: { id: UUID; status: StatusAtendimento }) {
     super({ id: id.value });
-    this._status = status
+    this._status = status;
   }
 
   get servicos(): SolicitacaoServicoPet[] {
