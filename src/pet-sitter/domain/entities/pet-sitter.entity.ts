@@ -7,6 +7,11 @@ export type PetSitterProps = PessoaProps & {
   localAtendimento: LocalAtendimento;
 };
 
+export type CreatePetSitterEntityProps = Omit<
+  PetSitterProps,
+  'localAtendimento'
+>;
+
 export class PetSitter extends Pessoa {
   private _localAtendimento!: LocalAtendimento;
 
@@ -14,7 +19,7 @@ export class PetSitter extends Pessoa {
     nome,
     dataNascimento,
     id,
-  }: Omit<PetSitterProps, 'localAtendimento'>) {
+  }: CreatePetSitterEntityProps) {
     super({ nome, dataNascimento, id });
   }
 
@@ -24,6 +29,14 @@ export class PetSitter extends Pessoa {
 
   set localAtendimento(localAtendimento: LocalAtendimento) {
     this._localAtendimento = localAtendimento;
+  }
+
+  static create({
+    nome,
+    dataNascimento,
+    contato,
+  }: Omit<CreatePetSitterEntityProps, 'id'>): PetSitter {
+    return new PetSitter({ nome, dataNascimento, contato });
   }
 
   static fromModel({
@@ -44,5 +57,13 @@ export class PetSitter extends Pessoa {
     }
 
     return petSitter;
+  }
+
+  static toModel(entity: PetSitter): Omit<PetSitterModel, 'dataInclusao'> {
+    return {
+      id: entity.id,
+      nome: entity.nome,
+      dataNascimento: entity.dataNascimento,
+    };
   }
 }
