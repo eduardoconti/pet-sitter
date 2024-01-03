@@ -27,7 +27,7 @@ export abstract class BaseException extends Error {
   }
 
   title(): string {
-    return httpStatusMessages[500];
+    return httpStatusMessages[this.statusHttp()];
   }
 }
 
@@ -36,9 +36,8 @@ type HttpStatusMessages = {
 };
 
 export const httpStatusMessages: HttpStatusMessages = {
-  200: 'OK',
-  404: 'Not Found',
   400: 'Bad request',
+  404: 'Not Found',
   500: 'Internal Server Error',
   // Adicione mais códigos e mensagens conforme necessário
 };

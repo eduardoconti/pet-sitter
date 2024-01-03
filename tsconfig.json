@@ -24,6 +24,7 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "moduleResolution": "node",
     "paths": {
       "@pet/*": [
         "src/pet/*"

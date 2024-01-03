@@ -8,14 +8,16 @@ import {
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 
+import { ApmService } from '@infra/apm/apm.service';
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
-  constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
+  constructor(
+    private readonly httpAdapterHost: HttpAdapterHost,
+    private readonly apmService: ApmService,
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost): void {
-    // In certain situations `httpAdapter` might not be available in the
-    // constructor method, thus we should resolve it here.
-    console.log(exception);
+    this.apmService.captureException(exception as Error);
     const { httpAdapter } = this.httpAdapterHost;
 
     const ctx = host.switchToHttp();

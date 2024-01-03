@@ -6,6 +6,7 @@ import { PetSitterModule } from '@pet-sitter/pet-sitter.module';
 import { PetModule } from '@pet/pet.module';
 import { TutorModule } from '@tutor/tutor.module';
 
+import { ApmModule } from '@infra/apm/apm.module';
 import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
 
 import { configValidationSchema } from './config';
@@ -23,6 +24,7 @@ import { configValidationSchema } from './config';
     AtendimentoModule,
     PetSitterModule,
     TutorModule,
+    ApmModule,
   ],
 })
 export class MainModule {}
