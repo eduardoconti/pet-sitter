@@ -30,8 +30,9 @@ services:
     command: npm run start:dev
     depends_on:
       - postgres
-    cpus: 1
-    mem_limit: 1024M
+      - apm-server
+    cpus: 0.5
+    mem_limit: 512M
   pet-sitter2:
     <<: *pet-sitter
     hostname: pet-sitter2
@@ -66,6 +67,10 @@ services:
       - es-data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    healthcheck:
+      interval: 30s
+      retries: 10
+      test: curl -s http://localhost:9200/_cluster/health | grep -vq '"status":"red"'
   kibana:
     image: docker.elastic.co/kibana/kibana:7.12.1
     container_name: kibana
@@ -74,14 +79,21 @@ services:
     environment:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     cpus: 0.1
-    mem_limit: 256M 
+    mem_limit: 512M 
     depends_on:
-      - elasticsearch
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      interval: 40s
+      retries: 20
+      test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:5601/api/status
   apm-server:
     image: docker.elastic.co/apm/apm-server:7.17.16
     depends_on:
-      - elasticsearch
-      - kibana
+      elasticsearch:
+        condition: service_healthy
+      kibana:
+        condition: service_healthy
     cap_add: ["CHOWN", "DAC_OVERRIDE", "SETGID", "SETUID"]
     cap_drop: ["ALL"]
     ports:

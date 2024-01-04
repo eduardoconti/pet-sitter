@@ -1,9 +1,13 @@
 config:
-  target: 'http://localhost:3000'
+  target: 'http://localhost:80'
   phases:
-    - duration: 30
-      arrivalRate: 5
-      name: Warm up
+    - duration: 180
+      arrivalRate: 10
+      rampTo: 50
+      name: ramp up
+    - duration: 180
+      arrivalRate: 50
+      name: sustain
   plugins:
     ensure: {}
     apdex: {}
