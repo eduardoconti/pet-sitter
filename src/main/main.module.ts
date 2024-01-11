@@ -8,6 +8,7 @@ import { TutorModule } from '@tutor/tutor.module';
 
 import { ApmModule } from '@infra/apm/apm.module';
 import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
+import { IdempotencyModule } from '@infra/idempotency/idempotency.module';
 
 import { configValidationSchema } from './config';
 
@@ -25,6 +26,7 @@ import { configValidationSchema } from './config';
     PetSitterModule,
     TutorModule,
     ApmModule,
+    IdempotencyModule,
   ],
 })
 export class MainModule {}
