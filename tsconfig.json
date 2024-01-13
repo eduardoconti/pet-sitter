@@ -38,8 +38,8 @@
       "@infra/*": [
         "src/infra/*"
       ],
-      "@pessoa/*": [
-        "src/pessoa/*"
+      "@usuario/*": [
+        "src/usuario/*"
       ],
       "@pet-sitter/*": [
         "src/pet-sitter/*"

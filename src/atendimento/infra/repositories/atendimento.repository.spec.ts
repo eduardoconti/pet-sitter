@@ -1,9 +1,10 @@
-import { StatusAtendimentoEnum } from '@atendimento/domain/enums';
-import { AtendimentoModel } from '@atendimento/domain/models';
-import { IAtendimentoRepository } from '@atendimento/domain/repositories';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
+import { StatusAtendimentoEnum } from '@atendimento/domain/enums';
+import { AtendimentoModel } from '@atendimento/domain/models';
+import { IAtendimentoRepository } from '@atendimento/domain/repositories';
 
 import { AtendimentoSchema } from '../schemas';
 import { AtendimentoRepository } from './atendimento.repository';

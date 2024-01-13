@@ -1,10 +1,11 @@
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { StatusAtendimentoEnum } from '@atendimento/domain/enums';
 import { AtendimentoModel } from '@atendimento/domain/models';
 import { IAtendimentoRepository } from '@atendimento/domain/repositories';
 import { INovoAtendimentoUseCase } from '@atendimento/domain/use-cases';
 import { AtendimentoRepository } from '@atendimento/infra/repositories';
 import { NovoAtendimentoUseCaseProvider } from '@atendimento/main/providers';
-import { Test, TestingModule } from '@nestjs/testing';
 
 import { NovoAtendimentoUseCase } from './novo-atendimento.use-case';
 

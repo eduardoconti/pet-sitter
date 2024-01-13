@@ -1,8 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { PetSitterModel } from '@pet-sitter/domain/models';
 import { IPetSitterRepository } from '@pet-sitter/domain/repositories';
-import { Repository } from 'typeorm';
 
 import { PetSitterSchema } from '../schemas';
 import { PetSitterRepository } from './pet-sitter.repository';

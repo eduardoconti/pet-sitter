@@ -1,9 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 import { PetModel } from '@pet/domain/models';
 import { IPetRepository } from '@pet/domain/repositories';
-import { Repository } from 'typeorm';
 
 import { PetSchema } from '../schemas';
 import { PetRepository } from './pet.repository';

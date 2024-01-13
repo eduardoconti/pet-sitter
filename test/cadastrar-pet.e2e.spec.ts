@@ -1,11 +1,12 @@
 import { INestApplication } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
+import request from 'supertest';
+import { DataSource } from 'typeorm';
+
 import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 import { CadastrarPetDto } from '@pet/presentation';
-import request from 'supertest';
-import { DataSource } from 'typeorm';
 
 import { AllExceptionsFilter } from '@infra/filters';
 

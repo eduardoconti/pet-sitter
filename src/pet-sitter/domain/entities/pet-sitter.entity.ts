@@ -1,9 +1,9 @@
-import { Contato, Pessoa, PessoaProps } from '@pessoa/domain/entities';
+import { Contato, Usuario, UsuarioProps } from 'src/usuario/domain/entities';
 
 import { PetSitterModel } from '../models';
 import { LocalAtendimento } from './local-atendimento';
 
-export type PetSitterProps = PessoaProps & {
+export type PetSitterProps = UsuarioProps & {
   localAtendimento: LocalAtendimento;
 };
 
@@ -12,7 +12,7 @@ export type CreatePetSitterEntityProps = Omit<
   'localAtendimento'
 >;
 
-export class PetSitter extends Pessoa {
+export class PetSitter extends Usuario {
   private _localAtendimento!: LocalAtendimento;
 
   private constructor({

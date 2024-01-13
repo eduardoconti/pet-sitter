@@ -1,9 +1,11 @@
+import { PetSitter } from '@pet-sitter/domain/entities';
+import { PetEntity } from '@pet/domain/entities';
+
 import { Centavos } from '@core/contracts';
 import { Entity } from '@core/entity';
 import { UUID } from '@core/uuid.value-object';
 import { Periodo } from '@core/value-objects';
-import { PetSitter } from '@pet-sitter/domain/entities';
-import { PetEntity } from '@pet/domain/entities';
+
 import { Servico } from '@servico/domain/entities';
 
 export abstract class SolicitacaoServicoPet extends Entity {

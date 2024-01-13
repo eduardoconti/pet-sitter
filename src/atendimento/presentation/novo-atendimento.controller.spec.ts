@@ -1,6 +1,7 @@
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { NovoAtendimentoUseCase } from '@atendimento/app/use-cases';
 import { INovoAtendimentoUseCase } from '@atendimento/domain/use-cases';
-import { Test, TestingModule } from '@nestjs/testing';
 
 import { NovoAtendimentoController } from './novo-atendimento.controller';
 

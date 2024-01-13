@@ -1,5 +1,6 @@
-import { PetSitterModel } from '@pet-sitter/domain/models';
 import { EntitySchema } from 'typeorm';
+
+import { PetSitterModel } from '@pet-sitter/domain/models';
 export const PetSitterSchema = new EntitySchema<PetSitterModel>({
   name: 'PetSitterModel',
   tableName: 'tb_pet_sitter',

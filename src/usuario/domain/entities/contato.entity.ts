@@ -1,5 +1,6 @@
+import { ContatoModel } from 'src/usuario/models';
+
 import { Entity } from '@core/entity';
-import { ContatoModel } from 'src/pessoa/models';
 
 export type ContatoProps = Omit<ContatoModel, 'dataInclusao' | 'id'> & {
   id?: string;

@@ -1,3 +1,3 @@
-import { Pessoa } from '@pessoa/domain/entities';
+import { Usuario } from 'src/usuario/domain/entities';
 
-export class Tutor extends Pessoa {}
+export class Tutor extends Usuario {}

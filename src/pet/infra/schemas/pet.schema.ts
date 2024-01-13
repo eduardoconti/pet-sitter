@@ -1,6 +1,7 @@
+import { EntitySchema } from 'typeorm';
+
 import { TemperamentoPetEnum } from '@pet/domain/enums';
 import { PetModel } from '@pet/domain/models';
-import { EntitySchema } from 'typeorm';
 export const PetSchema = new EntitySchema<PetModel>({
   name: 'PetModel',
   tableName: 'tb_pet',

@@ -1,4 +1,3 @@
-import { BaseException, httpStatusMessages } from '@core/base-exception';
 import {
   Catch,
   ArgumentsHost,
@@ -9,6 +8,8 @@ import {
 import { HttpAdapterHost } from '@nestjs/core';
 
 import { ApmService } from '@infra/apm/apm.service';
+
+import { BaseException, httpStatusMessages } from '@core/base-exception';
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   constructor(

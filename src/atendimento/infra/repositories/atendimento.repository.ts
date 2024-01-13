@@ -1,7 +1,8 @@
-import { AtendimentoModel } from '@atendimento/domain/models';
-import { IAtendimentoRepository } from '@atendimento/domain/repositories';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
+import { AtendimentoModel } from '@atendimento/domain/models';
+import { IAtendimentoRepository } from '@atendimento/domain/repositories';
 
 import { AtendimentoSchema } from '../schemas';
 

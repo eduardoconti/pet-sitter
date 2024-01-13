@@ -1,7 +1,9 @@
+import { PetEntity } from '@pet/domain/entities';
+
 import { Centavos } from '@core/contracts';
 import { UUID } from '@core/uuid.value-object';
 import { Intervalo } from '@core/value-objects';
-import { PetEntity } from '@pet/domain/entities';
+
 import { Passeio } from '@servico/domain/entities';
 
 import { SolicitacaoServicoPet } from './solicitacao-servico-pet.entity';

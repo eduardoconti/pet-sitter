@@ -1,6 +1,7 @@
+import { EntitySchema } from 'typeorm';
+
 import { StatusAtendimentoEnum } from '@atendimento/domain/enums';
 import { AtendimentoModel } from '@atendimento/domain/models/atendimento.model';
-import { EntitySchema } from 'typeorm';
 export const AtendimentoSchema = new EntitySchema<AtendimentoModel>({
   name: 'AtendimentoModel',
   tableName: 'tb_atendimento',

@@ -1,14 +1,18 @@
-import { AtendimentoModule } from '@atendimento/atendimento.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PessoaModule } from '@pessoa/pessoa.module';
+
 import { PetSitterModule } from '@pet-sitter/pet-sitter.module';
 import { PetModule } from '@pet/pet.module';
-import { TutorModule } from '@tutor/tutor.module';
 
 import { ApmModule } from '@infra/apm/apm.module';
 import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
 import { IdempotencyModule } from '@infra/idempotency/idempotency.module';
+
+import { UsuarioModule } from '@usuario/usuario.module';
+
+import { AtendimentoModule } from '@atendimento/atendimento.module';
+
+import { TutorModule } from '@tutor/tutor.module';
 
 import { configValidationSchema } from './config';
 
@@ -21,7 +25,7 @@ import { configValidationSchema } from './config';
     }),
     TypeOrmConfigModule,
     PetModule,
-    PessoaModule,
+    UsuarioModule,
     AtendimentoModule,
     PetSitterModule,
     TutorModule,

@@ -1,4 +1,3 @@
-import { BaseException } from '@core/base-exception';
 import {
   Catch,
   ArgumentsHost,
@@ -7,6 +6,8 @@ import {
   ExceptionFilter,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
+
+import { BaseException } from '@core/base-exception';
 
 import { IdempotencyException } from './idempotency.exception';
 @Catch(IdempotencyException)

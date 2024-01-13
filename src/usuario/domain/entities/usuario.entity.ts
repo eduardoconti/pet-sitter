@@ -1,22 +1,23 @@
+import { ContatoModel, UsuarioModel } from 'src/usuario/models';
+
 import { Entity } from '@core/entity';
-import { ContatoModel, PessoaModel } from 'src/pessoa/models';
 
 import { Contato } from './contato.entity';
 
-export type PessoaProps = Omit<
-  PessoaModel,
+export type UsuarioProps = Omit<
+  UsuarioModel,
   'dataInclusao' | 'contato' | 'id'
 > & {
   contato?: ContatoModel;
   id?: string;
 };
 
-export class Pessoa extends Entity {
+export class Usuario extends Entity {
   private _nome!: string;
   private _dataNascimento!: Date;
   private _contato?: Contato;
 
-  constructor({ nome, dataNascimento, id }: PessoaProps) {
+  constructor({ nome, dataNascimento, id }: UsuarioProps) {
     super({ id });
     this._nome = nome;
     this._dataNascimento = new Date(dataNascimento);
@@ -41,13 +42,18 @@ export class Pessoa extends Entity {
     this._contato = contato;
   }
 
-  static fromModel({ contato, dataNascimento, id, nome }: PessoaModel): Pessoa {
-    const pessoa = new Pessoa({ dataNascimento, id, nome });
+  static fromModel({
+    contato,
+    dataNascimento,
+    id,
+    nome,
+  }: UsuarioModel): Usuario {
+    const usuario = new Usuario({ dataNascimento, id, nome });
 
     if (contato) {
-      pessoa.contato = Contato.fromModel(contato);
+      usuario.contato = Contato.fromModel(contato);
     }
 
-    return pessoa;
+    return usuario;
   }
 }

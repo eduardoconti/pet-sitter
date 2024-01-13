@@ -1,7 +1,8 @@
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { PetModel } from '@pet/domain/models';
 import { IPetRepository } from '@pet/domain/repositories';
-import { Repository } from 'typeorm';
 
 import { PetSchema } from '../schemas/pet.schema';
 

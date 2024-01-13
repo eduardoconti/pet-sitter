@@ -1,8 +1,10 @@
-import { UUID } from '@core/uuid.value-object';
-import { Intervalo, Periodo } from '@core/value-objects';
 import { PetSitter } from '@pet-sitter/domain/entities';
 import { PetEntity } from '@pet/domain/entities';
 import { TemperamentoPetEnum } from '@pet/domain/enums';
+
+import { UUID } from '@core/uuid.value-object';
+import { Intervalo, Periodo } from '@core/value-objects';
+
 import { Alimentacao, Hospedagem, Passeio } from '@servico/domain/entities';
 
 import { Atendimento } from './atendimento.entity';

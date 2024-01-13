@@ -1,6 +1,7 @@
+import { Controller, Inject, Post } from '@nestjs/common';
+
 import { NovoAtendimentoUseCase } from '@atendimento/app/use-cases';
 import { INovoAtendimentoUseCase } from '@atendimento/domain/use-cases';
-import { Controller, Inject, Post } from '@nestjs/common';
 
 @Controller('atendimento')
 export class NovoAtendimentoController {

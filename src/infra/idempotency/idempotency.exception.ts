@@ -1,5 +1,6 @@
-import { BaseException } from '@core/base-exception';
 import { HttpStatus } from '@nestjs/common';
+
+import { BaseException } from '@core/base-exception';
 
 export class IdempotencyException extends BaseException {
   codigoInterno!: 'IDEMPOTENCY';

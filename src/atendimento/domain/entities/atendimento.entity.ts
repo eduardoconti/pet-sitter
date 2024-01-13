@@ -1,7 +1,9 @@
+import { PetSitter } from '@pet-sitter/domain/entities';
+
 import { Centavos } from '@core/contracts';
 import { Entity } from '@core/entity';
 import { UUID } from '@core/uuid.value-object';
-import { PetSitter } from '@pet-sitter/domain/entities';
+
 import { Tutor } from '@tutor/domain/entities';
 
 import { StatusAtendimentoEnum } from '../enums';

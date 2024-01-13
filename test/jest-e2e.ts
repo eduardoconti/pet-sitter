@@ -18,7 +18,7 @@ export default {
       '@main/*': ['src/main/*'],
       '@core/*': ['src/core/*'],
       '@infra/*': ['src/infra/*'],
-      '@pessoa/*': ['src/pessoa/*'],
+      '@usuario/*': ['src/usuario/*'],
       '@pet-sitter/*': ['src/pet-sitter/*'],
       '@servico/*': ['src/servico/*'],
       '@atendimento/*': ['src/atendimento/*'],
