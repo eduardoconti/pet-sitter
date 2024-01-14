@@ -1,13 +1,13 @@
 import { Entity } from '@core/entity';
-import { UUID } from '@core/uuid.value-object';
 
 type LocalAtendimentoConstructorProps = {
-  id?: UUID;
+  id?: number;
   idCidade: number;
   idRegiaoAtendimento?: number;
   raioAtendimento?: number;
+  idPetSitter: number;
 };
-export class LocalAtendimento extends Entity {
+export class LocalAtendimento extends Entity<number> {
   private _idCidade!: number;
   private _idRegiaoAtendimento?: number;
   private _raioAtendimento?: number;
@@ -18,7 +18,7 @@ export class LocalAtendimento extends Entity {
     idRegiaoAtendimento,
     raioAtendimento,
   }: LocalAtendimentoConstructorProps) {
-    super({ id: id?.value });
+    super({ id });
     this._idCidade = idCidade;
     this._idRegiaoAtendimento = idRegiaoAtendimento;
     this._raioAtendimento = raioAtendimento;
@@ -40,11 +40,13 @@ export class LocalAtendimento extends Entity {
     idCidade,
     idRegiaoAtendimento,
     raioAtendimento,
+    idPetSitter,
   }: Omit<LocalAtendimentoConstructorProps, 'id'>): LocalAtendimento {
     return new LocalAtendimento({
       idCidade,
       idRegiaoAtendimento,
       raioAtendimento,
+      idPetSitter,
     });
   }
 }

@@ -2,14 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { PetSitterModel } from '@pet-sitter/domain/models';
 import { IPetSitterRepository } from '@pet-sitter/domain/repositories';
-import { ICadastrarPetSitterUseCase } from '@pet-sitter/domain/use-cases';
+import { IPreCadastroPetSitterUseCase } from '@pet-sitter/domain/use-cases';
 import { PetSitterRepository } from '@pet-sitter/infra/repositories';
 import { CadastrarPetSitterUseCaseProvider } from '@pet-sitter/main/providers';
 
-import { CadastrarPetSitterUseCase } from './cadastrar-pet-sitter.use-case';
+import { PreCadastroPetSitterUseCase } from './pre-cadastro-pet-sitter.use-case';
 
 describe('CadastrarPetSitterUseCase', () => {
-  let cadastrarPetSitterUseCase: ICadastrarPetSitterUseCase;
+  let cadastrarPetSitterUseCase: IPreCadastroPetSitterUseCase;
   let petSitterRepository: IPetSitterRepository;
 
   beforeEach(async () => {
@@ -25,8 +25,8 @@ describe('CadastrarPetSitterUseCase', () => {
       ],
     }).compile();
 
-    cadastrarPetSitterUseCase = module.get<ICadastrarPetSitterUseCase>(
-      CadastrarPetSitterUseCase,
+    cadastrarPetSitterUseCase = module.get<IPreCadastroPetSitterUseCase>(
+      PreCadastroPetSitterUseCase,
     );
     petSitterRepository = module.get<IPetSitterRepository>(PetSitterRepository);
 
@@ -40,26 +40,40 @@ describe('CadastrarPetSitterUseCase', () => {
   it('deve cadastrar um petSitter', async () => {
     const petSitterModelMock: PetSitterModel = {
       id: 'fakeUUid',
-      nome: 'Gus',
+      idUsuario: '63410879-ea97-4dbd-a942-183ce558716f',
       dataInclusao: new Date(),
-      dataNascimento: new Date(),
+      usuario: {
+        id: '63410879-ea97-4dbd-a942-183ce558716f',
+        nome: 'Eduardo',
+        email: 'es.eduardoconti@gmail.com',
+        senha: 'fake!12',
+        dataNascimento: new Date('1995-12-05'),
+        dataInclusao: new Date(),
+      },
     };
     jest
       .spyOn(petSitterRepository, 'save')
       .mockResolvedValue(petSitterModelMock);
     const result = await cadastrarPetSitterUseCase.executar({
-      ...petSitterModelMock,
       id: undefined,
+      dataNascimento: petSitterModelMock.usuario.dataNascimento,
+      email: petSitterModelMock.usuario.email,
+      senha: petSitterModelMock.usuario.senha,
+      nome: petSitterModelMock.usuario.nome,
     });
 
     expect(result).toEqual({
-      id: petSitterModelMock.id,
-      nome: petSitterModelMock.nome,
-      dataNascimento: petSitterModelMock.dataNascimento,
+      id: petSitterModelMock.idUsuario,
+      email: petSitterModelMock.usuario.email,
+      nome: petSitterModelMock.usuario.nome,
+      dataNascimento: petSitterModelMock.usuario.dataNascimento,
     });
     expect(petSitterRepository.save).toBeCalledWith({
-      nome: petSitterModelMock.nome,
-      dataNascimento: petSitterModelMock.dataNascimento,
+      usuario: {
+        ...petSitterModelMock.usuario,
+        dataInclusao: expect.any(String),
+        id: undefined,
+      },
     });
   });
 });

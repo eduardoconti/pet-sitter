@@ -43,9 +43,16 @@ describe('PetSitterRepository', () => {
       const data = Date.now();
       const petSitterModelMock: PetSitterModel = {
         id: '1',
-        nome: 'Eduardo',
         dataInclusao: data,
-        dataNascimento: data,
+        idUsuario: '63410879-ea97-4dbd-a942-183ce558716f',
+        usuario: {
+          id: '63410879-ea97-4dbd-a942-183ce558716f',
+          email: '',
+          nome: 'Eduardo',
+          dataNascimento: data,
+          senha: 'fake@123',
+          dataInclusao: new Date('2024-01-01'),
+        },
       };
 
       jest
@@ -53,14 +60,15 @@ describe('PetSitterRepository', () => {
         .mockResolvedValue(petSitterModelMock);
 
       const result = await petSitterRepository.save({
-        nome: petSitterModelMock.nome,
-        dataNascimento: petSitterModelMock.dataNascimento,
+        usuario: petSitterModelMock.usuario,
       });
 
       expect(petSitterRepositoryOrm.save).toBeCalledWith({
-        nome: petSitterModelMock.nome,
-        dataNascimento: petSitterModelMock.dataNascimento,
-        dataInclusao: expect.any(String),
+        dataInclusao: expect.anything(),
+        usuario: {
+          ...petSitterModelMock.usuario,
+          dataInclusao: expect.anything(),
+        },
       });
 
       expect(result).toBe(petSitterModelMock);

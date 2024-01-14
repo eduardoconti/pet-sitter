@@ -1,20 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CadastrarPetSitterUseCase } from '@pet-sitter/app/use-cases';
-import { ICadastrarPetSitterUseCase } from '@pet-sitter/domain/use-cases';
+import { PreCadastroPetSitterUseCase } from '@pet-sitter/app/use-cases';
+import { IPreCadastroPetSitterUseCase } from '@pet-sitter/domain/use-cases';
 
-import { CadastrarPetSitterController } from './cadastrar-pet-sitter.controller';
+import { PreCadastroPetSitterController } from './pre-cadastro-pet-sitter.controller';
 
 describe('CadastrarPetSitterController', () => {
-  let controller: CadastrarPetSitterController;
-  let cadastrarPetSitterUseCase: ICadastrarPetSitterUseCase;
+  let controller: PreCadastroPetSitterController;
+  let cadastrarPetSitterUseCase: IPreCadastroPetSitterUseCase;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [CadastrarPetSitterController],
+      controllers: [PreCadastroPetSitterController],
       providers: [
         {
-          provide: CadastrarPetSitterUseCase,
+          provide: PreCadastroPetSitterUseCase,
           useValue: {
             executar: jest.fn(),
           },
@@ -22,11 +22,11 @@ describe('CadastrarPetSitterController', () => {
       ],
     }).compile();
 
-    controller = module.get<CadastrarPetSitterController>(
-      CadastrarPetSitterController,
+    controller = module.get<PreCadastroPetSitterController>(
+      PreCadastroPetSitterController,
     );
-    cadastrarPetSitterUseCase = module.get<ICadastrarPetSitterUseCase>(
-      CadastrarPetSitterUseCase,
+    cadastrarPetSitterUseCase = module.get<IPreCadastroPetSitterUseCase>(
+      PreCadastroPetSitterUseCase,
     );
 
     jest.clearAllMocks();
@@ -42,10 +42,13 @@ describe('CadastrarPetSitterController', () => {
       id: 'FakeUUID',
       nome: 'Eduardo',
       dataNascimento: new Date('1995-12-05'),
+      email: 'es.eduardoconti@gmail.com',
     });
 
     const result = await controller.handle({
       nome: 'Eduardo',
+      email: 'es.eduardoconti@gmail.com',
+      senha: 'fake!12',
       dataNascimento: new Date('1995-12-05'),
     });
 
@@ -53,10 +56,13 @@ describe('CadastrarPetSitterController', () => {
       id: 'FakeUUID',
       nome: 'Eduardo',
       dataNascimento: new Date('1995-12-05'),
+      email: 'es.eduardoconti@gmail.com',
     });
 
     expect(cadastrarPetSitterUseCase.executar).toBeCalledWith({
       nome: 'Eduardo',
+      email: 'es.eduardoconti@gmail.com',
+      senha: 'fake!12',
       dataNascimento: new Date('1995-12-05'),
     });
   });

@@ -6,24 +6,37 @@ export const PetSitterSchema = new EntitySchema<PetSitterModel>({
   tableName: 'tb_pet_sitter',
   target: PetSitterModel,
   columns: {
-    id: {
-      name: 'id',
+    idUsuario: {
       type: 'uuid',
+      name: 'id_usuario',
+    },
+    id: {
+      type: Number,
       primary: true,
+      generated: 'increment',
       primaryKeyConstraintName: 'pk_tb_pet_sitter',
-      default: () => 'uuid_generate_v4()',
-    },
-    nome: {
-      type: String,
-      length: 128,
-    },
-    dataNascimento: {
-      name: 'data_nascimento',
-      type: 'timestamp with time zone',
+      name: 'id',
     },
     dataInclusao: {
       name: 'data_inclusao',
       type: 'timestamp with time zone',
+    },
+  },
+  relations: {
+    localAtendimento: {
+      type: 'one-to-many',
+      target: 'LocalAtendimentoModel',
+      inverseSide: 'petSitter',
+    },
+    usuario: {
+      target: 'UsuarioModel',
+      type: 'one-to-one',
+      joinColumn: {
+        name: 'id_usuario',
+        foreignKeyConstraintName: 'fk_tb_pet_sitter_tb_usuario',
+        referencedColumnName: 'id',
+      },
+      cascade: true,
     },
   },
 });

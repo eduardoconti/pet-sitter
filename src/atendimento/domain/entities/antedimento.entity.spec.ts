@@ -33,14 +33,14 @@ describe('Atendimento', () => {
     temperamento: TemperamentoPetEnum.DOCIL,
   });
 
-  const petSitter = PetSitter.fromModel({
+  const petSitter = new PetSitter({
     id: UUID.generate().value,
     dataNascimento: new Date(),
-    dataInclusao: new Date(),
-    nome: ' asdf',
+    nome: 'asdf',
+    email: 'es.eduardoconti@gmail.com',
+    senha: 'fake@!123',
     contato: {
       id: UUID.generate().value,
-      email: '',
       telefone: '',
       dataInclusao: new Date(),
     },

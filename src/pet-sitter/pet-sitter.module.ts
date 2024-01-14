@@ -4,10 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PetSitterRepository } from './infra/repositories';
 import { PetSitterSchema } from './infra/schemas';
 import { CadastrarPetSitterUseCaseProvider } from './main/providers';
-import { CadastrarPetSitterController } from './presentation';
+import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
 
 @Module({
-  controllers: [CadastrarPetSitterController],
+  controllers: [PreCadastroPetSitterController],
   imports: [TypeOrmModule.forFeature([PetSitterSchema])],
   providers: [CadastrarPetSitterUseCaseProvider, PetSitterRepository],
 })
