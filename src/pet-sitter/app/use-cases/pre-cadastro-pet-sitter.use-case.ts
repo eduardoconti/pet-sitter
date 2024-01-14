@@ -6,10 +6,15 @@ import {
   IPreCadastroPetSitterUseCase,
 } from '@pet-sitter/domain/use-cases';
 
+import { IHash } from '@core/contracts';
+
 export class PreCadastroPetSitterUseCase
   implements IPreCadastroPetSitterUseCase
 {
-  constructor(private readonly petSitterRepository: IPetSitterRepository) {}
+  constructor(
+    private readonly petSitterRepository: IPetSitterRepository,
+    private readonly passwordHash: IHash,
+  ) {}
 
   async executar(
     input: PreCadastroPetSitterUseCaseInput,
@@ -21,7 +26,7 @@ export class PreCadastroPetSitterUseCase
       usuario: {
         nome: pet.nome,
         email: pet.email,
-        senha: pet.senha,
+        senha: await this.passwordHash.hash(pet.senha),
         dataNascimento: pet.dataNascimento,
         dataInclusao: new Date().toISOString(),
       },
