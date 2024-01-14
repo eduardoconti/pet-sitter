@@ -9,6 +9,7 @@ export interface EnvironmentVariables {
   DATABASE_NAME: string;
   DATABASE_LOGGING: boolean;
   DATABASE_SYNCHRONIZE: boolean;
+  JWT_SECRET: string;
 }
 
 export const configValidationSchema = Joi.object({
@@ -20,4 +21,5 @@ export const configValidationSchema = Joi.object({
   DATABASE_NAME: Joi.string().required(),
   DATABASE_LOGGING: Joi.boolean().optional().default(true),
   DATABASE_SYNCHRONIZE: Joi.boolean().optional().default(false),
+  JWT_SECRET: Joi.string().required(),
 });

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from 'src/auth/auth.module';
 
 import { PetSitterModule } from '@pet-sitter/pet-sitter.module';
 import { PetModule } from '@pet/pet.module';
@@ -31,6 +32,7 @@ import { configValidationSchema } from './config';
     TutorModule,
     ApmModule,
     IdempotencyModule,
+    AuthModule,
   ],
 })
 export class MainModule {}

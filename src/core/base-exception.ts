@@ -37,6 +37,7 @@ type HttpStatusMessages = {
 
 export const httpStatusMessages: HttpStatusMessages = {
   400: 'Bad request',
+  401: 'Unauthorized',
   404: 'Not Found',
   500: 'Internal Server Error',
   // Adicione mais códigos e mensagens conforme necessário

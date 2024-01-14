@@ -16,13 +16,12 @@ services:
     mem_limit: 256M
   pet-sitter1: &pet-sitter
     hostname: pet-sitter1
-    restart: on-failure
+    restart: always
     build:
       context: .
       dockerfile: ./Dockerfile
     volumes:
       - .:/app
-      - /app/node_modules
     expose:
       - "3000"
     env_file:

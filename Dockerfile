@@ -14,6 +14,8 @@ FROM node:18.12.0-alpine
 
 WORKDIR /app
 
+#RUN yarn global add pm2
+
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package.json ./package.json

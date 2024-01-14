@@ -16,7 +16,7 @@ export const getTypeOrmModuleOptions = (
     password: config.getOrThrow('DATABASE_PASSWORD'),
     database: config.getOrThrow('DATABASE_NAME'),
     entities: [__dirname + './../../**/*.schema{.ts,.js}'],
-    synchronize: true,
+    synchronize: config.getOrThrow('DATABASE_SYNCHRONIZE'),
     logging: config.getOrThrow('DATABASE_LOGGING'),
   } as TypeOrmModuleOptions);
 

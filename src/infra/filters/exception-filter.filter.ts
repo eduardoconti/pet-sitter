@@ -19,6 +19,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
   catch(exception: unknown, host: ArgumentsHost): void {
     this.apmService.captureException(exception as Error);
+
     const { httpAdapter } = this.httpAdapterHost;
 
     const ctx = host.switchToHttp();
@@ -53,7 +54,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
   private getDetail(exception: unknown): string | undefined {
     if (exception instanceof HttpException) {
-      return HttpException.getDescriptionFrom(exception);
+      return exception.message;
     }
 
     if (exception instanceof BaseException) {
