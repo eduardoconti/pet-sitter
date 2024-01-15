@@ -53,6 +53,9 @@
       "@tutor/*": [
         "src/tutor/*"
       ],
+      "@localizacao/*": [
+        "src/localizacao/*"
+      ],
     }
   }
 }

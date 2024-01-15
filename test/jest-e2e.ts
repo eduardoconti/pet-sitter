@@ -23,6 +23,7 @@ export default {
       '@servico/*': ['src/servico/*'],
       '@atendimento/*': ['src/atendimento/*'],
       '@tutor/*': ['src/tutor/*'],
+      '@localizacao/*': ['src/localizacao/*'],
     },
     {
       prefix: '<rootDir>/../',

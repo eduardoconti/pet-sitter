@@ -3,9 +3,9 @@ import { BaseModel } from '@core/base-model';
 import { PetSitterModel } from './pet-sitter.model';
 
 export class LocalAtendimentoModel extends BaseModel {
-  idRegiao!: number;
   idCidade!: number;
   idPetSitter!: number;
-  raioAtendimento!: number;
+  idRegiao?: number | null;
+  raioAtendimento?: number | null;
   petSitter?: PetSitterModel;
 }

@@ -4,18 +4,35 @@ import { AuthModule } from 'src/auth/auth.module';
 
 import { PasswordModule } from '@infra/bcrypt/password.module';
 
+import { LocalizacaoModule } from '@localizacao/localizacao.module';
+
 import { PetSitterRepository } from './infra/repositories';
-import { PetSitterSchema } from './infra/schemas';
-import { CadastrarPetSitterUseCaseProvider } from './main/providers';
+import { LocalAtendimentoRepository } from './infra/repositories';
+import { LocalAtendimentoSchema, PetSitterSchema } from './infra/schemas';
+import {
+  AdicionarLocalAtendimentoUseCaseProvider,
+  CadastrarPetSitterUseCaseProvider,
+} from './main/providers';
+import { AdicionarLocalAtendimentoController } from './presentation/local-atendimento';
 import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
 
 @Module({
-  controllers: [PreCadastroPetSitterController],
+  controllers: [
+    PreCadastroPetSitterController,
+    AdicionarLocalAtendimentoController,
+  ],
   imports: [
     TypeOrmModule.forFeature([PetSitterSchema]),
+    TypeOrmModule.forFeature([LocalAtendimentoSchema]),
     PasswordModule,
     AuthModule,
+    LocalizacaoModule,
   ],
-  providers: [CadastrarPetSitterUseCaseProvider, PetSitterRepository],
+  providers: [
+    CadastrarPetSitterUseCaseProvider,
+    PetSitterRepository,
+    AdicionarLocalAtendimentoUseCaseProvider,
+    LocalAtendimentoRepository,
+  ],
 })
 export class PetSitterModule {}

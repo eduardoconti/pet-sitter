@@ -38,6 +38,7 @@ module.exports = {
           '/^@atendimento/',
           '/^@servico/',
           '/^@tutor/',
+          '/^@localizacao/',
           ['parent', 'sibling', 'index'],
         ],
         alphabetize: { order: 'asc', ignoreCase: true },

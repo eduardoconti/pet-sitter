@@ -11,4 +11,6 @@ export interface IPetSitterRepository {
       usuario: Omit<UsuarioModel, 'id'>;
     },
   ): Promise<PetSitterModel>;
+
+  get(idUsuario: string): Promise<PetSitterModel>;
 }

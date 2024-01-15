@@ -1,7 +1,7 @@
 import { EntitySchema } from 'typeorm';
 
 import { LocalAtendimentoModel } from '@pet-sitter/domain/models';
-export const LocalAtendimento = new EntitySchema<LocalAtendimentoModel>({
+export const LocalAtendimentoSchema = new EntitySchema<LocalAtendimentoModel>({
   name: 'LocalAtendimentoModel',
   tableName: 'tb_local_atendimento',
   target: LocalAtendimentoModel,
@@ -17,8 +17,14 @@ export const LocalAtendimento = new EntitySchema<LocalAtendimentoModel>({
       name: 'id_pet_sitter',
     },
     idRegiao: {
-      type: String,
-      length: 128,
+      type: Number,
+      nullable: true,
+      name: 'id_regiao',
+    },
+    idCidade: {
+      type: Number,
+      nullable: false,
+      name: 'id_cidade',
     },
     raioAtendimento: {
       type: Number,
@@ -40,4 +46,14 @@ export const LocalAtendimento = new EntitySchema<LocalAtendimentoModel>({
       },
     },
   },
+  uniques: [
+    {
+      name: 'uk_id_pet_sitter_id_cidade',
+      columns: ['idPetSitter', 'idCidade'],
+    },
+    {
+      name: 'uk_id_pet_sitter_id_regiao',
+      columns: ['idPetSitter', 'idRegiao'],
+    },
+  ],
 });

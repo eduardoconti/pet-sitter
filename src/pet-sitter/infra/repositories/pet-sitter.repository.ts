@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -19,5 +20,21 @@ export class PetSitterRepository implements IPetSitterRepository {
       ...model,
       dataInclusao: new Date().toISOString(),
     });
+  }
+
+  async get(idUsuario: string): Promise<PetSitterModel> {
+    const petSitterModel = await this.petRepository.find({
+      where: { idUsuario },
+      select: {
+        id: true,
+        usuario: {
+          id: true,
+        },
+      },
+    });
+    if (!petSitterModel || !petSitterModel.length) {
+      throw new NotFoundException('Pet sitter nao encontrado');
+    }
+    return petSitterModel[0];
   }
 }
