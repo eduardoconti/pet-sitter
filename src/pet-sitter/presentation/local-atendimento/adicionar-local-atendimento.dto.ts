@@ -11,8 +11,4 @@ export class AdicionarLocalAtendimentoDto {
   @IsNumber({}, { message: 'Id cidade invalido' })
   @IsOptional()
   idRegiaoAtendimento?: number;
-
-  @IsNumber({}, { message: 'Id cidade invalido' })
-  @IsOptional()
-  raioAtendimento?: number;
 }

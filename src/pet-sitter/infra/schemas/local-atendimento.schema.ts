@@ -26,11 +26,6 @@ export const LocalAtendimentoSchema = new EntitySchema<LocalAtendimentoModel>({
       nullable: false,
       name: 'id_cidade',
     },
-    raioAtendimento: {
-      type: Number,
-      name: 'raio_atendimento',
-      nullable: true,
-    },
     dataInclusao: {
       name: 'data_inclusao',
       type: 'timestamp with time zone',

@@ -9,7 +9,6 @@ type AdicionarLocalAtendimentoUseCaseInput = {
   idCidade: number;
   idUsuario: string;
   idRegiao?: number;
-  raioAtendimento?: number;
 };
 
 export class AdicionarLocalAtendimentoUseCase
@@ -24,14 +23,12 @@ export class AdicionarLocalAtendimentoUseCase
     idCidade,
     idUsuario,
     idRegiao,
-    raioAtendimento,
   }: AdicionarLocalAtendimentoUseCaseInput): Promise<any> {
     const petSitterModel = await this.petSitterRepository.get(idUsuario);
     await this.localAtendimentoRepository.save({
       idPetSitter: petSitterModel.id,
       idCidade,
       idRegiao: idRegiao ?? null,
-      raioAtendimento: raioAtendimento ?? null,
     });
   }
 }
