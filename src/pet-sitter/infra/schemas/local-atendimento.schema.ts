@@ -37,13 +37,23 @@ export const LocalAtendimentoSchema = new EntitySchema<LocalAtendimentoModel>({
     },
   },
   relations: {
-    idPetSitter: {
+    petSitter: {
       type: 'many-to-one',
       target: 'PetSitterModel',
       joinColumn: {
         foreignKeyConstraintName: 'fk_tb_usuario_tb_pet_sitter',
         name: 'id_pet_sitter',
       },
+      inverseSide: 'localAtendimento',
+    },
+    cidade: {
+      type: 'many-to-one',
+      target: 'CidadeModel',
+      joinColumn: {
+        foreignKeyConstraintName: 'fk_tb_usuario_tb_cidade',
+        name: 'id_cidade',
+      },
+      inverseSide: 'localAtendimento',
     },
   },
   uniques: [

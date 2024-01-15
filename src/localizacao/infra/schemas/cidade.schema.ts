@@ -1,6 +1,6 @@
 import { EntitySchema } from 'typeorm';
 
-import { CidadeModel, EstadoModel } from '@localizacao/domain/models';
+import { CidadeModel } from '@localizacao/domain/models';
 
 export const CidadeSchema = new EntitySchema<CidadeModel>({
   name: 'CidadeModel',
@@ -30,11 +30,16 @@ export const CidadeSchema = new EntitySchema<CidadeModel>({
   relations: {
     estado: {
       type: 'many-to-one',
-      target: EstadoModel.name,
+      target: 'EstadoModel',
       joinColumn: {
         foreignKeyConstraintName: 'fk_tb_cidade_tb_estado',
         name: 'id_estado',
       },
+      inverseSide: 'cidade',
+    },
+    localAtendimento: {
+      type: 'one-to-many',
+      target: 'LocalAtendimentoModel',
       inverseSide: 'cidade',
     },
   },

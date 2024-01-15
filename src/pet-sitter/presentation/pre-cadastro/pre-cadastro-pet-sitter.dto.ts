@@ -1,22 +1,19 @@
-import { IsNotEmpty, IsString, Max } from 'class-validator';
+import { IsEmail, IsISO8601, IsNotEmpty, IsString } from 'class-validator';
 
 export class PreCadastroPetSitterDto {
   @IsString({ message: 'Nome invalido' })
   @IsNotEmpty({ message: 'Nome obrigatorio' })
-  @Max(128)
   nome!: string;
 
-  @IsString({ message: 'Data nascimento invalida' })
+  @IsISO8601({}, { message: 'Data nascimento invalida' })
   @IsNotEmpty({ message: 'Data nascimento obrigatoria' })
   dataNascimento!: Date;
 
   @IsNotEmpty({ message: 'Email obrigatorio' })
-  @IsString({ message: 'Email invalido' })
-  @Max(256)
+  @IsEmail({}, { message: 'Email invalido' })
   email!: string;
 
   @IsNotEmpty({ message: 'Senha obrigatoria' })
   @IsString({ message: 'Senha invalida' })
-  @Max(128)
   senha!: string;
 }

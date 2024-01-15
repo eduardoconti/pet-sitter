@@ -13,6 +13,7 @@ import {
   AdicionarLocalAtendimentoUseCaseProvider,
   CadastrarPetSitterUseCaseProvider,
 } from './main/providers';
+import { EncontrarPetSitterController } from './presentation/encontrar-pet-sitter/encontrar-pet-sitter.controller';
 import { AdicionarLocalAtendimentoController } from './presentation/local-atendimento';
 import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
 
@@ -20,6 +21,7 @@ import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
   controllers: [
     PreCadastroPetSitterController,
     AdicionarLocalAtendimentoController,
+    EncontrarPetSitterController,
   ],
   imports: [
     TypeOrmModule.forFeature([PetSitterSchema]),

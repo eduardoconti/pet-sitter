@@ -1,9 +1,11 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { PetSitterModel } from '@pet-sitter/domain/models';
 import { IPetSitterRepository } from '@pet-sitter/domain/repositories';
+
+import { PostgresEnumErro } from '@infra/pg/enum';
 
 import { PetSitterSchema } from '../schemas';
 
@@ -16,10 +18,17 @@ export class PetSitterRepository implements IPetSitterRepository {
   async save(
     model: Omit<PetSitterModel, 'dataInclusao'>,
   ): Promise<PetSitterModel> {
-    return await this.petRepository.save({
-      ...model,
-      dataInclusao: new Date().toISOString(),
-    });
+    return await this.petRepository
+      .save({
+        ...model,
+        dataInclusao: new Date().toISOString(),
+      })
+      .catch((error: any) => {
+        if (error.code === PostgresEnumErro.unique_key_violation) {
+          throw new BadRequestException('Email ja cadastrdo');
+        }
+        throw error;
+      });
   }
 
   async get(idUsuario: string): Promise<PetSitterModel> {
