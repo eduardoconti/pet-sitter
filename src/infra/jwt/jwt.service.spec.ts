@@ -1,40 +1,64 @@
-import jwt from "jsonwebtoken";
+import { ConfigService } from '@nestjs/config';
+import { Test, TestingModule } from '@nestjs/testing';
+import jwt from 'jsonwebtoken';
 
-import { JwtService } from "./jwt.service";
-jest.mock("jsonwebtoken", () => ({
-   verify: jest.fn().mockReturnValue(true),
-   sign: jest.fn().mockReturnValue("mocked-jwt-payload")
+import { IJWtService } from '@core/contracts';
+
+import { JwtService } from './jwt.service';
+jest.mock('jsonwebtoken', () => ({
+  verify: jest.fn().mockReturnValue(true),
+  sign: jest.fn().mockReturnValue('mocked-jwt-payload'),
+  decode: jest.fn().mockReturnValue({ id: 'Fake', nome: 'FakeNome' }),
 }));
-describe("JwtService", ()=>{
+describe('JwtService', () => {
+  let jwtService: IJWtService;
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        JwtService,
+        {
+          provide: ConfigService,
+          useValue: {
+            getOrThrow: jest.fn().mockReturnValue('jwtsecret'),
+          },
+        },
+      ],
+    }).compile();
 
-   process.env.JWT_SECRET = "jwtsecret";
+    jwtService = module.get<IJWtService>(JwtService);
 
-   const jwtService = new JwtService();
+    jest.clearAllMocks();
+  });
 
-   it("should be defined", () =>{
-      expect(jwtService).toBeDefined();
-   });
+  it('deve estar definido', () => {
+    expect(jwtService).toBeDefined();
+  });
 
-   it("should be generate token", ()=>{
-      const token = jwtService.sign<{
-         fake: string
-      }>({
-         fake: "fake"
-      });
+  it('deve gerar um token', () => {
+    const token = jwtService.sign<{
+      fake: string;
+    }>({
+      fake: 'fake',
+    });
 
-      expect(token).toBeDefined();
-   });
+    expect(token).toBeDefined();
+  });
 
-   it("should be verify return true", ()=>{
-      const verification = jwtService.verify("faketokwn");
-      expect(verification).toBeTruthy();
-   });
+  it('deve passar na verificacao', () => {
+    const verification = jwtService.verify('faketoken');
+    expect(verification).toBeTruthy();
+  });
 
-   it("should be verify return false", ()=>{
-      jest.spyOn(jwt, "verify").mockImplementation(() => {
-         throw new Error("");
-      });
-      const verification = jwtService.verify("faketoken");
-      expect(verification).toBeFalsy();
-   });
+  it('nao deve passar na verificacao quando acontece um erro', () => {
+    jest.spyOn(jwt, 'verify').mockImplementation(() => {
+      throw new Error('');
+    });
+    const verification = jwtService.verify('faketoken');
+    expect(verification).toBeFalsy();
+  });
+
+  it('deve decodar um token', () => {
+    const decoded = jwtService.decode('faketoken');
+    expect(decoded).toEqual({ id: 'Fake', nome: 'FakeNome' });
+  });
 });

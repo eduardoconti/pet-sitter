@@ -42,7 +42,7 @@ describe('PetSitterRepository', () => {
     it('deve salvar um petSitter', async () => {
       const data = Date.now();
       const petSitterModelMock: PetSitterModel = {
-        id: '1',
+        id: 1,
         dataInclusao: data,
         idUsuario: '63410879-ea97-4dbd-a942-183ce558716f',
         usuario: {
