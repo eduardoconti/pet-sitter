@@ -6,7 +6,7 @@ import { EstadoModel } from './estado.model';
 
 export class CidadeModel extends BaseModel {
   nome!: string;
-  idEstado!: string;
+  idEstado!: number;
   estado?: EstadoModel;
   localAtendimento?: LocalAtendimentoModel[];
 }

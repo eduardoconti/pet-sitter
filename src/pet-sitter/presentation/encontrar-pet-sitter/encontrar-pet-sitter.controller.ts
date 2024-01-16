@@ -76,11 +76,9 @@ export class EncontrarPetSitterController {
       },
       select: {
         id: true,
-        idUsuario: true,
         usuario: {
-          email: true,
           nome: true,
-          dataNascimento: true,
+          dataInclusao: true,
         },
         servicoAlimentacao: {
           tipoServico: true,
@@ -105,8 +103,7 @@ export class EncontrarPetSitterController {
       petSitters: petSitterModel.map(
         ({
           id,
-          idUsuario,
-          usuario: { nome, email, dataNascimento },
+          usuario: { nome, dataInclusao },
           servicoAlimentacao,
           servicoHospedagem,
           servicoPasseio,
@@ -125,10 +122,8 @@ export class EncontrarPetSitterController {
 
           return {
             id: id,
-            idUsuario: idUsuario,
             nome: nome,
-            email,
-            dataNascimento,
+            membroDesde: dataInclusao,
             servicos,
           };
         },
