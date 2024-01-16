@@ -2,11 +2,12 @@ import {
   BadRequestException,
   Controller,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import {
   LocalAtendimentoModel,
@@ -37,60 +38,98 @@ export class EncontrarPetSitterController {
     )
     idCidade: number,
   ) {
-    const [[localAtendimento], petSitterModel] = await Promise.all([
-      this.localAtendimentoRepository.find({
-        where: {
-          idCidade: 1,
-        },
-        relations: {
-          cidade: { estado: true },
-        },
-        select: {
-          id: true,
-          idCidade: true,
-          cidade: {
+    const localAtendimento = await this.localAtendimentoRepository.find({
+      where: {
+        idCidade: idCidade,
+      },
+      relations: {
+        cidade: { estado: true },
+      },
+      select: {
+        id: true,
+        idCidade: true,
+        cidade: {
+          nome: true,
+          estado: {
             nome: true,
-            estado: {
-              nome: true,
-            },
           },
         },
-      }),
-      this.repository.find({
-        where: {
-          localAtendimento: {
-            idCidade: idCidade,
-          },
+        idPetSitter: true,
+      },
+    });
+
+    if (!localAtendimento || !localAtendimento.length) {
+      throw new NotFoundException('Nenhum Pet Sitter atende nessa regiao');
+    }
+
+    const idsPetSitter = localAtendimento.map((e) => e.idPetSitter);
+
+    const petSitterModel = await this.repository.find({
+      where: {
+        id: In(idsPetSitter),
+      },
+      relations: {
+        usuario: true,
+        servicoAlimentacao: true,
+        servicoHospedagem: true,
+        servicoPasseio: true,
+      },
+      select: {
+        id: true,
+        idUsuario: true,
+        usuario: {
+          email: true,
+          nome: true,
+          dataNascimento: true,
         },
-        relations: {
-          usuario: true,
+        servicoAlimentacao: {
+          tipoServico: true,
         },
-        select: {
-          id: true,
-          idUsuario: true,
-          usuario: {
-            email: true,
-            nome: true,
-            dataNascimento: true,
-          },
+        servicoPasseio: {
+          tipoServico: true,
         },
-      }),
-    ]);
+        servicoHospedagem: {
+          tipoServico: true,
+        },
+      },
+      order: {
+        dataInclusao: 'ASC',
+      },
+    });
 
     return {
       localAtendimento: {
-        id: localAtendimento.id,
-        cidade: localAtendimento.cidade?.nome,
-        estado: localAtendimento.cidade?.estado?.nome,
+        cidade: localAtendimento[0].cidade?.nome,
+        estado: localAtendimento[0].cidade?.estado?.nome,
       },
       petSitters: petSitterModel.map(
-        ({ id, idUsuario, usuario: { nome, email, dataNascimento } }) => {
+        ({
+          id,
+          idUsuario,
+          usuario: { nome, email, dataNascimento },
+          servicoAlimentacao,
+          servicoHospedagem,
+          servicoPasseio,
+        }) => {
+          const servicos = [];
+
+          if (servicoAlimentacao) {
+            servicos.push(servicoAlimentacao.tipoServico);
+          }
+          if (servicoHospedagem) {
+            servicos.push(servicoHospedagem.tipoServico);
+          }
+          if (servicoPasseio) {
+            servicos.push(servicoPasseio.tipoServico);
+          }
+
           return {
             id: id,
             idUsuario: idUsuario,
             nome: nome,
             email,
             dataNascimento,
+            servicos,
           };
         },
       ),
