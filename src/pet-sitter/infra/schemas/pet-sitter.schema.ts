@@ -38,19 +38,9 @@ export const PetSitterSchema = new EntitySchema<PetSitterModel>({
       },
       cascade: true,
     },
-    servicoAlimentacao: {
-      type: 'one-to-one',
-      target: 'AlimentacaoModel',
-      inverseSide: 'petSitter',
-    },
-    servicoPasseio: {
-      type: 'one-to-one',
-      target: 'PasseioModel',
-      inverseSide: 'petSitter',
-    },
-    servicoHospedagem: {
-      type: 'one-to-one',
-      target: 'HospedagemModel',
+    servicos: {
+      type: 'one-to-many',
+      target: 'ServicoModel',
       inverseSide: 'petSitter',
     },
   },

@@ -1,18 +1,18 @@
 import { EntitySchema } from 'typeorm';
 
-import { PasseioModel } from '@servico/domain/models';
+import { ServicoModel } from '@servico/domain/models';
 
-export const PasseioSchema = new EntitySchema<PasseioModel>({
-  name: 'PasseioModel',
-  tableName: 'tb_passeio',
-  target: PasseioModel,
+export const ServicoSchema = new EntitySchema<ServicoModel>({
+  name: 'ServicoModel',
+  tableName: 'tb_servico',
+  target: ServicoModel,
   columns: {
     id: {
       name: 'id',
       primary: true,
       type: Number,
       generated: 'increment',
-      primaryKeyConstraintName: 'pk_tb_passeio',
+      primaryKeyConstraintName: 'pk_tb_servico',
     },
     tipoServico: {
       name: 'tipo_servico',
@@ -32,22 +32,22 @@ export const PasseioSchema = new EntitySchema<PasseioModel>({
       type: 'many-to-one',
       target: 'PetSitterModel',
       joinColumn: {
-        foreignKeyConstraintName: 'fk_tb_passeio_tb_pet_sitter',
+        foreignKeyConstraintName: 'fk_tb_servico_tb_pet_sitter',
         name: 'id_pet_sitter',
       },
-      inverseSide: 'servicoPasseio',
+      inverseSide: 'servicoServico',
     },
   },
   uniques: [
     {
-      columns: ['idPetSitter'],
-      name: 'uq_tb_passeio_id_pet_sitter',
+      columns: ['idPetSitter', 'tipoServico'],
+      name: 'uq_tb_servico_id_pet_sitter_tipo_servico',
     },
   ],
   checks: [
     {
-      name: 'ck_tb_passeio',
-      expression: '"tipo_servico" = \'P\'',
+      name: 'ck_tb_servico_tipo',
+      expression: "\"tipo_servico\" IN ('A', 'H', 'P')",
     },
   ],
 });

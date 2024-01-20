@@ -1,11 +1,4 @@
-import {
-  BadRequestException,
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-  ParseIntPipe,
-} from '@nestjs/common';
+import { Controller, Get, NotFoundException, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 
@@ -26,21 +19,19 @@ export class EncontrarPetSitterController {
     @InjectRepository(LocalAtendimentoSchema)
     private readonly localAtendimentoRepository: Repository<LocalAtendimentoModel>,
   ) {}
-  @Get('encontrar/cidade/:idCidade')
+  @Get('encontrar')
   async encontrarPetSitterPorCidade(
-    @Param(
-      'idCidade',
-      new ParseIntPipe({
-        exceptionFactory: () => {
-          throw new BadRequestException('Id cidade deve ser numerico');
-        },
-      }),
-    )
+    @Query('idCidade')
     idCidade: number,
+    @Query('idEstado')
+    idEstado: number,
   ) {
     const localAtendimento = await this.localAtendimentoRepository.find({
       where: {
         idCidade: idCidade,
+        cidade: {
+          idEstado,
+        },
       },
       relations: {
         cidade: { estado: true },
@@ -70,9 +61,7 @@ export class EncontrarPetSitterController {
       },
       relations: {
         usuario: true,
-        servicoAlimentacao: true,
-        servicoHospedagem: true,
-        servicoPasseio: true,
+        servicos: true,
       },
       select: {
         id: true,
@@ -80,54 +69,21 @@ export class EncontrarPetSitterController {
           nome: true,
           dataInclusao: true,
         },
-        servicoAlimentacao: {
-          tipoServico: true,
-        },
-        servicoPasseio: {
-          tipoServico: true,
-        },
-        servicoHospedagem: {
-          tipoServico: true,
-        },
       },
       order: {
         dataInclusao: 'ASC',
       },
     });
 
-    return {
-      localAtendimento: {
-        cidade: localAtendimento[0].cidade?.nome,
-        estado: localAtendimento[0].cidade?.estado?.nome,
+    return petSitterModel.map(
+      ({ id, usuario: { nome, dataInclusao }, servicos }) => {
+        return {
+          id: id,
+          nome: nome,
+          membroDesde: dataInclusao,
+          servicos: servicos?.map((e) => e.tipoServico),
+        };
       },
-      petSitters: petSitterModel.map(
-        ({
-          id,
-          usuario: { nome, dataInclusao },
-          servicoAlimentacao,
-          servicoHospedagem,
-          servicoPasseio,
-        }) => {
-          const servicos = [];
-
-          if (servicoAlimentacao) {
-            servicos.push(servicoAlimentacao.tipoServico);
-          }
-          if (servicoHospedagem) {
-            servicos.push(servicoHospedagem.tipoServico);
-          }
-          if (servicoPasseio) {
-            servicos.push(servicoPasseio.tipoServico);
-          }
-
-          return {
-            id: id,
-            nome: nome,
-            membroDesde: dataInclusao,
-            servicos,
-          };
-        },
-      ),
-    };
+    );
   }
 }
