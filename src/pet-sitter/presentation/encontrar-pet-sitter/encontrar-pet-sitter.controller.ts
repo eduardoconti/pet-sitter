@@ -69,9 +69,15 @@ export class EncontrarPetSitterController {
           nome: true,
           dataInclusao: true,
         },
+        servicos: {
+          tipoServico: true,
+        },
       },
       order: {
         dataInclusao: 'ASC',
+        servicos: {
+          tipoServico: 'ASC',
+        },
       },
     });
 

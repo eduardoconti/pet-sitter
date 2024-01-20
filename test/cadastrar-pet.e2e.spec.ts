@@ -8,6 +8,7 @@ import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { TemperamentoPetEnum } from '@pet/domain/enums/temperamento.enum';
 import { CadastrarPetDto } from '@pet/presentation';
 
+import { ApmService } from '@infra/apm/apm.service';
 import { AllExceptionsFilter } from '@infra/filters';
 
 import { MainModule } from '@main/main.module';
@@ -23,7 +24,8 @@ describe('CadastrarPetController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     const httpAdapter = app.get(HttpAdapterHost);
-    app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
+    const apmService = app.get(ApmService);
+    app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, apmService));
     await app.init();
   });
 
