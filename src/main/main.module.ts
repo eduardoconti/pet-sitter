@@ -1,6 +1,6 @@
+import { AuthModule } from '@auth/auth.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from 'src/auth/auth.module';
 
 import { PetSitterModule } from '@pet-sitter/pet-sitter.module';
 import { PetModule } from '@pet/pet.module';

@@ -1,6 +1,6 @@
-import { ContatoModel, UsuarioModel } from 'src/usuario/models';
-
 import { Entity } from '@core/entity';
+
+import { ContatoModel, UsuarioModel } from '@usuario/models';
 
 import { Contato } from './contato.entity';
 

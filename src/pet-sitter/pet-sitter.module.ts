@@ -1,6 +1,6 @@
+import { AuthModule } from '@auth/auth.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/auth/auth.module';
 
 import { PasswordModule } from '@infra/bcrypt/password.module';
 
@@ -16,7 +16,7 @@ import {
   AdicionarServicoUseCaseProvider,
   CadastrarPetSitterUseCaseProvider,
 } from './main/providers';
-import { EncontrarPetSitterController } from './presentation/encontrar-pet-sitter/encontrar-pet-sitter.controller';
+import { EncontrarPetSitterController } from './presentation/encontrar-pet-sitter';
 import { AdicionarLocalAtendimentoController } from './presentation/local-atendimento';
 import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
 import { AdicionarServicoController } from './presentation/servico';

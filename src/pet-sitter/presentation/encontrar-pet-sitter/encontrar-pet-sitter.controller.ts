@@ -1,6 +1,7 @@
-import { Controller, Get, NotFoundException, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { IFindPaginado } from '@presentation/paginacao';
+import { FindOptionsWhere, In, Repository } from 'typeorm';
 
 import {
   LocalAtendimentoModel,
@@ -11,6 +12,8 @@ import {
   PetSitterSchema,
 } from '@pet-sitter/infra/schemas';
 
+import { EncontrarPetSitterResponseDto } from './';
+
 @Controller('pet-sitter')
 export class EncontrarPetSitterController {
   constructor(
@@ -19,43 +22,45 @@ export class EncontrarPetSitterController {
     @InjectRepository(LocalAtendimentoSchema)
     private readonly localAtendimentoRepository: Repository<LocalAtendimentoModel>,
   ) {}
+
   @Get('encontrar')
   async encontrarPetSitterPorCidade(
     @Query('idCidade')
-    idCidade: number,
+    idCidade: string,
     @Query('idEstado')
     idEstado: number,
-  ) {
+    @Query('servicos')
+    servicos?: string,
+  ): Promise<IFindPaginado<EncontrarPetSitterResponseDto>> {
+    const where: FindOptionsWhere<LocalAtendimentoModel> = {
+      cidade: {
+        idEstado,
+      },
+    };
+
+    if (idCidade) {
+      const cidades = idCidade.split(',');
+      where.idCidade = In(cidades);
+    }
+
+    if (servicos) {
+      const tipos = servicos.split(',');
+      where.petSitter = {
+        servicos: { tipoServico: In(tipos) },
+      };
+    }
+
     const localAtendimento = await this.localAtendimentoRepository.find({
-      where: {
-        idCidade: idCidade,
-        cidade: {
-          idEstado,
-        },
-      },
-      relations: {
-        cidade: { estado: true },
-      },
+      where,
       select: {
-        id: true,
-        idCidade: true,
-        cidade: {
-          nome: true,
-          estado: {
-            nome: true,
-          },
-        },
         idPetSitter: true,
       },
     });
 
-    if (!localAtendimento || !localAtendimento.length) {
-      throw new NotFoundException('Nenhum Pet Sitter atende nessa regiao');
-    }
-
-    const idsPetSitter = localAtendimento.map((e) => e.idPetSitter);
-
-    const petSitterModel = await this.repository.find({
+    const idsPetSitter = [
+      ...new Set(localAtendimento.map((e) => e.idPetSitter)),
+    ];
+    const [petSitterModel, total] = await this.repository.findAndCount({
       where: {
         id: In(idsPetSitter),
       },
@@ -81,15 +86,20 @@ export class EncontrarPetSitterController {
       },
     });
 
-    return petSitterModel.map(
-      ({ id, usuario: { nome, dataInclusao }, servicos }) => {
-        return {
-          id: id,
-          nome: nome,
-          membroDesde: dataInclusao,
-          servicos: servicos?.map((e) => e.tipoServico),
-        };
-      },
-    );
+    return {
+      totalLinhas: total,
+      numeroPagina: 1,
+      tamanhoPagina: 20,
+      data: petSitterModel.map(
+        ({ id, usuario: { nome, dataInclusao }, servicos }) => {
+          return {
+            id: id,
+            nome: nome,
+            membroDesde: dataInclusao as Date,
+            servicos: servicos?.map((e) => e.tipoServico),
+          };
+        },
+      ),
+    };
   }
 }

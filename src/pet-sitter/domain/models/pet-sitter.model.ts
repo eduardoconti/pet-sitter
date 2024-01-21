@@ -1,6 +1,6 @@
-import { UsuarioModel } from 'src/usuario/models';
-
 import { BaseModel } from '@core/base-model';
+
+import { UsuarioModel } from '@usuario/models';
 
 import { ServicoModel } from '@servico/domain/models';
 

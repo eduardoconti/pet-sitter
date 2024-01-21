@@ -27,6 +27,8 @@ export default {
       '@atendimento/*': ['src/atendimento/*'],
       '@tutor/*': ['src/tutor/*'],
       '@localizacao/*': ['src/localizacao/*'],
+      '@auth/*': ['src/auth/*'],
+      '@presentation/*': ['src/presentation/*'],
     },
     {
       prefix: '<rootDir>/../',

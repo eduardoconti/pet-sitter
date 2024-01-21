@@ -1,5 +1,5 @@
+import { AuthGuard } from '@auth/guard/auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/guard/auth.guard';
 
 import { AdicionarServicoUseCase } from '@pet-sitter/app/use-cases/adicionar-servico.use-case';
 

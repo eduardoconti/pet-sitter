@@ -56,6 +56,12 @@
       "@localizacao/*": [
         "src/localizacao/*"
       ],
+      "@auth/*": [
+        "src/auth/*"
+      ],
+      "@presentation/*": [
+        "src/presentation/*"
+      ],
     }
   }
 }
