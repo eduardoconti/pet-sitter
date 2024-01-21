@@ -18,17 +18,30 @@ export class Usuario extends Entity {
   private _contato?: Contato;
   private _email!: string;
   private _senha!: string;
+  private _sobreNome!: string;
 
-  constructor({ nome, dataNascimento, id, email, senha }: UsuarioProps) {
+  constructor({
+    nome,
+    dataNascimento,
+    id,
+    email,
+    senha,
+    sobreNome,
+  }: UsuarioProps) {
     super({ id });
     this._nome = nome;
     this._dataNascimento = new Date(dataNascimento);
     this._email = email;
     this._senha = senha;
+    this._sobreNome = sobreNome;
   }
 
   get nome(): string {
     return this._nome;
+  }
+
+  get sobreNome(): string {
+    return this._sobreNome;
   }
 
   get dataNascimento(): Date {

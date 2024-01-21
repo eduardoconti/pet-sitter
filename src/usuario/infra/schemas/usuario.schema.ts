@@ -18,6 +18,12 @@ export const UsuarioSchema = new EntitySchema<UsuarioModel>({
       type: String,
       length: 128,
     },
+    sobreNome: {
+      name: 'sobrenome',
+      type: String,
+      length: 128,
+      nullable: false,
+    },
     email: {
       type: String,
       length: 256,

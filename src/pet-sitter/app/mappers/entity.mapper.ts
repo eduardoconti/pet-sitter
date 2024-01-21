@@ -10,6 +10,7 @@ export class PetSitterEntityMapper {
       email: usuario.email,
       nome: usuario.nome,
       senha: '',
+      sobreNome: usuario.sobreNome,
     });
   }
 }

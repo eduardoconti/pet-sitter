@@ -6,6 +6,7 @@ import { ContatoModel } from './contato.model';
 
 export abstract class UsuarioModel extends BaseModel {
   nome!: string;
+  sobreNome!: string;
   dataNascimento!: Date | string | number;
   contato?: ContatoModel;
   email!: string;

@@ -35,7 +35,7 @@ export const ServicoSchema = new EntitySchema<ServicoModel>({
         foreignKeyConstraintName: 'fk_tb_servico_tb_pet_sitter',
         name: 'id_pet_sitter',
       },
-      inverseSide: 'servicoServico',
+      inverseSide: 'servicos',
     },
   },
   uniques: [

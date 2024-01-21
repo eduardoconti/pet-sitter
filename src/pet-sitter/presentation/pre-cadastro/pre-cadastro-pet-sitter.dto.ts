@@ -5,6 +5,10 @@ export class PreCadastroPetSitterDto {
   @IsNotEmpty({ message: 'Nome obrigatorio' })
   nome!: string;
 
+  @IsString({ message: 'Sobrenome invalido' })
+  @IsNotEmpty({ message: 'Sobrenome obrigatorio' })
+  sobreNome!: string;
+
   @IsISO8601({}, { message: 'Data nascimento invalida' })
   @IsNotEmpty({ message: 'Data nascimento obrigatoria' })
   dataNascimento!: Date;

@@ -21,7 +21,7 @@ export class PreCadastroPetSitterUseCase
   ): Promise<PreCadastroPetSitterUseCaseOutput> {
     const pet = PetSitter.preCadastro(input);
     const {
-      usuario: { nome, dataNascimento, id, email },
+      usuario: { nome, dataNascimento, id, email, sobreNome },
     } = await this.petSitterRepository.save({
       usuario: {
         nome: pet.nome,
@@ -29,8 +29,9 @@ export class PreCadastroPetSitterUseCase
         senha: await this.passwordHash.hash(pet.senha),
         dataNascimento: pet.dataNascimento,
         dataInclusao: new Date().toISOString(),
+        sobreNome: pet.sobreNome,
       },
     });
-    return { id, nome, email, dataNascimento };
+    return { id, nome, email, dataNascimento, sobreNome };
   }
 }

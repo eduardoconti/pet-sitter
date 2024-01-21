@@ -28,10 +28,16 @@ export class EncontrarPetSitterController {
     @Query('idCidade')
     idCidade: string,
     @Query('idEstado')
-    idEstado: number,
+    idEstadoStr: string,
+    @Query('numeroPagina')
+    numeroPaginaStr: string,
     @Query('servicos')
     servicos?: string,
   ): Promise<IFindPaginado<EncontrarPetSitterResponseDto>> {
+    const tamanhoPagina = 20;
+    const idEstado = Number(idEstadoStr);
+    const numeroPagina = Number(numeroPaginaStr);
+
     const where: FindOptionsWhere<LocalAtendimentoModel> = {
       cidade: {
         idEstado,
@@ -72,11 +78,14 @@ export class EncontrarPetSitterController {
         id: true,
         usuario: {
           nome: true,
+          sobreNome: true,
           dataInclusao: true,
         },
         servicos: {
+          id: true,
           tipoServico: true,
         },
+        dataInclusao: true,
       },
       order: {
         dataInclusao: 'ASC',
@@ -84,22 +93,34 @@ export class EncontrarPetSitterController {
           tipoServico: 'ASC',
         },
       },
+      take: tamanhoPagina,
+      skip: this.calcularSkip({ numeroPagina, tamanhoPagina }),
     });
 
     return {
       totalLinhas: total,
-      numeroPagina: 1,
-      tamanhoPagina: 20,
+      numeroPagina,
+      tamanhoPagina,
       data: petSitterModel.map(
-        ({ id, usuario: { nome, dataInclusao }, servicos }) => {
+        ({ id, usuario: { nome, dataInclusao, sobreNome }, servicos }) => {
           return {
             id: id,
-            nome: nome,
+            nome: `${nome} ${sobreNome}`,
             membroDesde: dataInclusao as Date,
             servicos: servicos?.map((e) => e.tipoServico),
           };
         },
       ),
     };
+  }
+
+  private calcularSkip({
+    numeroPagina,
+    tamanhoPagina,
+  }: {
+    numeroPagina: number;
+    tamanhoPagina: number;
+  }): number {
+    return (numeroPagina - 1) * tamanhoPagina;
   }
 }
