@@ -28,7 +28,7 @@ export class EncontrarPetSitterController {
   @Get('encontrar')
   async encontrarPetSitterPorCidade(
     @Query('idCidade')
-    idCidade: string,
+    idCidadeStr: string,
     @Query('idEstado')
     idEstadoStr: string,
     @Query('numeroPagina')
@@ -39,24 +39,26 @@ export class EncontrarPetSitterController {
     const tamanhoPagina = 20;
     const idEstado = Number(idEstadoStr);
     const numeroPagina = Number(numeroPaginaStr);
-
+    const wherePetSitter: FindOptionsWhere<PetSitterModel> = {
+      usuario: { status: StatusUsuario.ATIVO },
+    };
     const where: FindOptionsWhere<LocalAtendimentoModel> = {
       cidade: {
         idEstado,
       },
     };
 
-    if (idCidade) {
-      const cidades = idCidade.split(',');
+    if (idCidadeStr) {
+      const cidades = idCidadeStr.split(',');
       where.idCidade = In(cidades);
     }
 
     if (servicos) {
       const tipos = servicos.split(',');
-      where.petSitter = {
-        servicos: { tipoServico: In(tipos) },
-      };
+      wherePetSitter.servicos = { tipoServico: In(tipos) };
     }
+
+    where.petSitter = wherePetSitter;
 
     const localAtendimento = await this.localAtendimentoRepository.find({
       where,
@@ -72,63 +74,36 @@ export class EncontrarPetSitterController {
     const totalLinhas = await this.repository.count({
       where: {
         id: In(idsPetSitter),
-        usuario: {
-          status: StatusUsuario.ATIVO,
-        },
-      },
-      relations: {
-        usuario: true,
       },
     });
 
-    const petSitterModel = await this.repository.find({
-      where: {
-        id: In(idsPetSitter),
-        usuario: {
-          status: StatusUsuario.ATIVO,
-        },
-      },
-      relations: {
-        usuario: true,
-        servicos: true,
-      },
-      select: {
-        id: true,
-        usuario: {
-          nome: true,
-          sobreNome: true,
-          dataInclusao: true,
-        },
-        servicos: {
-          id: true,
-          tipoServico: true,
-        },
-        dataInclusao: true,
-      },
-      order: {
-        dataInclusao: 'ASC',
-        servicos: {
-          tipoServico: 'ASC',
-        },
-      },
-      take: tamanhoPagina,
-      skip: this.calcularSkip({ numeroPagina, tamanhoPagina }),
-    });
+    const petSitterModel: EncontrarPetSitterResponseDto[] =
+      await this.repository.query(
+        `SELECT
+    tps.id,
+       CONCAT(tu.nome, ' ', tu.sobrenome) as nome,
+       tu.data_inclusao as "membroDesde",
+       JSONB_AGG(ts.tipo_servico ORDER BY ts.tipo_servico) as "servicos"
+    FROM
+      tb_pet_sitter tps
+    LEFT JOIN tb_usuario tu on
+      tu.id = tps.id_usuario
+    LEFT JOIN tb_servico ts on
+      ts.id_pet_sitter = tps.id
+    WHERE
+      tps.id IN(${idsPetSitter.toString()})
+      GROUP BY tps.id, tu.nome, tu.sobrenome, tu.data_inclusao
+    ORDER BY tu.data_inclusao
+    LIMIT $1
+    OFFSET $2`,
+        [tamanhoPagina, this.calcularSkip({ numeroPagina, tamanhoPagina })],
+      );
 
     return {
       totalLinhas,
       numeroPagina,
       tamanhoPagina,
-      data: petSitterModel.map(
-        ({ id, usuario: { nome, dataInclusao, sobreNome }, servicos }) => {
-          return {
-            id: id,
-            nome: `${nome} ${sobreNome}`,
-            membroDesde: dataInclusao as Date,
-            servicos: servicos?.map((e) => e.tipoServico),
-          };
-        },
-      ),
+      data: petSitterModel,
     };
   }
 
