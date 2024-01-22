@@ -43,4 +43,10 @@ export const CidadeSchema = new EntitySchema<CidadeModel>({
       inverseSide: 'cidade',
     },
   },
+  indices: [
+    {
+      name: 'idx_tb_cidade_tb_estado',
+      columns: ['idEstado'],
+    },
+  ],
 });

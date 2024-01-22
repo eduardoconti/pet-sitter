@@ -53,4 +53,10 @@ export const EstadoSchema = new EntitySchema<EstadoModel>({
       name: 'uq_tb_estado_nome',
     },
   ],
+  indices: [
+    {
+      name: 'idx_tb_estado_tb_pais',
+      columns: ['idPais'],
+    },
+  ],
 });

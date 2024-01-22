@@ -71,12 +71,16 @@ export class EncontrarPetSitterController {
       ...new Set(localAtendimento.map((e) => e.idPetSitter)),
     ];
 
-    const totalLinhas = await this.repository.count({
-      where: {
-        id: In(idsPetSitter),
-      },
-    });
+    const totalLinhas = idsPetSitter.length;
 
+    if (!totalLinhas) {
+      return {
+        totalLinhas,
+        numeroPagina,
+        tamanhoPagina,
+        data: [],
+      };
+    }
     const petSitterModel: EncontrarPetSitterResponseDto[] =
       await this.repository.query(
         `SELECT

@@ -63,5 +63,9 @@ export const LocalAtendimentoSchema = new EntitySchema<LocalAtendimentoModel>({
   ],
   indices: [
     { name: 'idx_tb_local_atendimento_tb_cidade', columns: ['idCidade'] },
+    {
+      name: 'idx_tb_local_atendimento_tb_pet_sitter',
+      columns: ['idPetSitter'],
+    },
   ],
 });
