@@ -30,8 +30,10 @@ export class PreCadastroPetSitterUseCase
         dataNascimento: pet.dataNascimento,
         dataInclusao: new Date().toISOString(),
         sobreNome: pet.sobreNome,
+        status: pet.status,
       },
     });
+
     return { id, nome, email, dataNascimento, sobreNome };
   }
 }

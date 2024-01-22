@@ -12,6 +12,8 @@ import {
   PetSitterSchema,
 } from '@pet-sitter/infra/schemas';
 
+import { StatusUsuario } from '@usuario/domain/enums';
+
 import { EncontrarPetSitterResponseDto } from './';
 
 @Controller('pet-sitter')
@@ -66,9 +68,25 @@ export class EncontrarPetSitterController {
     const idsPetSitter = [
       ...new Set(localAtendimento.map((e) => e.idPetSitter)),
     ];
-    const [petSitterModel, total] = await this.repository.findAndCount({
+
+    const totalLinhas = await this.repository.count({
       where: {
         id: In(idsPetSitter),
+        usuario: {
+          status: StatusUsuario.ATIVO,
+        },
+      },
+      relations: {
+        usuario: true,
+      },
+    });
+
+    const petSitterModel = await this.repository.find({
+      where: {
+        id: In(idsPetSitter),
+        usuario: {
+          status: StatusUsuario.ATIVO,
+        },
       },
       relations: {
         usuario: true,
@@ -98,7 +116,7 @@ export class EncontrarPetSitterController {
     });
 
     return {
-      totalLinhas: total,
+      totalLinhas,
       numeroPagina,
       tamanhoPagina,
       data: petSitterModel.map(

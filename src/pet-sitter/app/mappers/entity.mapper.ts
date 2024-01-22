@@ -9,8 +9,9 @@ export class PetSitterEntityMapper {
       dataNascimento: usuario.dataNascimento,
       email: usuario.email,
       nome: usuario.nome,
-      senha: '',
+      senha: usuario.senha,
       sobreNome: usuario.sobreNome,
+      status: usuario.status,
     });
   }
 }

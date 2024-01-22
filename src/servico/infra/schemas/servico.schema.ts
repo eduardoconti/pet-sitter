@@ -55,5 +55,9 @@ export const ServicoSchema = new EntitySchema<ServicoModel>({
       name: 'idx_tb_servico_tipo',
       columns: ['tipoServico'],
     },
+    {
+      name: 'idx_tb_servico_tb_pet_sitter_id',
+      columns: ['idPetSitter'],
+    },
   ],
 });

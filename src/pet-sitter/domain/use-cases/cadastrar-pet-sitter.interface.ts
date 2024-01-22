@@ -4,11 +4,11 @@ import { CreatePetSitterEntityProps } from '../entities';
 
 export type PreCadastroPetSitterUseCaseInput = Omit<
   CreatePetSitterEntityProps,
-  'idPetSitter'
+  'idPetSitter' | 'status'
 >;
 export type PreCadastroPetSitterUseCaseOutput = Omit<
   CreatePetSitterEntityProps,
-  'senha' | 'idPetSitter'
+  'senha' | 'idPetSitter' | 'status'
 > & {
   id: string;
 };

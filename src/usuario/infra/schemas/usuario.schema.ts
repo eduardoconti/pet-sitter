@@ -32,6 +32,11 @@ export const UsuarioSchema = new EntitySchema<UsuarioModel>({
       type: String,
       length: 128,
     },
+    status: {
+      name: 'status',
+      type: 'char',
+      default: 'P',
+    },
     dataNascimento: {
       name: 'data_nascimento',
       type: 'timestamp with time zone',
@@ -41,10 +46,22 @@ export const UsuarioSchema = new EntitySchema<UsuarioModel>({
       type: 'timestamp with time zone',
     },
   },
+  checks: [
+    {
+      name: 'ck_tb_usuario_status',
+      expression: "\"status\" IN ('A', 'S', 'P')",
+    },
+  ],
   uniques: [
     {
       columns: ['email'],
       name: 'uq_tb_usuario_email',
+    },
+  ],
+  indices: [
+    {
+      name: 'idx_tb_usuario_status',
+      columns: ['status'],
     },
   ],
 });

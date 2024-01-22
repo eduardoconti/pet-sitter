@@ -1,4 +1,5 @@
 import { Usuario, UsuarioProps } from '@usuario/domain/entities';
+import { StatusUsuario } from '@usuario/domain/enums';
 
 import { LocalAtendimento } from './local-atendimento';
 
@@ -24,10 +25,11 @@ export class PetSitter extends Usuario {
     senha,
     idPetSitter,
     sobreNome,
+    status,
   }: Omit<CreatePetSitterEntityProps, 'idPetSitter'> & {
     idPetSitter?: number;
   }) {
-    super({ nome, dataNascimento, id, email, senha, sobreNome });
+    super({ nome, dataNascimento, id, email, senha, sobreNome, status });
     this._idPetSitter = idPetSitter;
   }
   get idPetSitter(): number {
@@ -54,7 +56,10 @@ export class PetSitter extends Usuario {
     email,
     senha,
     sobreNome,
-  }: Omit<CreatePetSitterEntityProps, 'id' | 'idPetSitter'>): PetSitter {
+  }: Omit<
+    CreatePetSitterEntityProps,
+    'id' | 'idPetSitter' | 'status'
+  >): PetSitter {
     return new PetSitter({
       nome,
       dataNascimento,
@@ -62,6 +67,7 @@ export class PetSitter extends Usuario {
       email,
       senha,
       sobreNome,
+      status: StatusUsuario.PENDENTE_ATIVACAO,
     });
   }
 }

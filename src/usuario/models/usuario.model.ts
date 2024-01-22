@@ -2,6 +2,8 @@ import { PetSitterModel } from '@pet-sitter/domain/models';
 
 import { BaseModel } from '@core/base-model';
 
+import { StatusUsuario } from '@usuario/domain/enums';
+
 import { ContatoModel } from './contato.model';
 
 export abstract class UsuarioModel extends BaseModel {
@@ -12,4 +14,5 @@ export abstract class UsuarioModel extends BaseModel {
   email!: string;
   senha!: string;
   petSitter?: PetSitterModel;
+  status!: StatusUsuario;
 }

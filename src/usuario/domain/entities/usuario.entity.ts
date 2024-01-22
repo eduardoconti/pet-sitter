@@ -2,6 +2,7 @@ import { Entity } from '@core/entity';
 
 import { ContatoModel, UsuarioModel } from '@usuario/models';
 
+import { StatusUsuario } from '../enums';
 import { Contato } from './contato.entity';
 
 export type UsuarioProps = Omit<
@@ -19,6 +20,7 @@ export class Usuario extends Entity {
   private _email!: string;
   private _senha!: string;
   private _sobreNome!: string;
+  private _status!: StatusUsuario;
 
   constructor({
     nome,
@@ -56,6 +58,10 @@ export class Usuario extends Entity {
     return this._senha;
   }
 
+  get status(): StatusUsuario {
+    return this._status;
+  }
+
   get contato(): Contato {
     if (!this._contato) {
       throw new Error('Contato nao encontrado!');
@@ -67,20 +73,11 @@ export class Usuario extends Entity {
     this._contato = contato;
   }
 
-  // static fromModel({
-  //   contato,
-  //   dataNascimento,
-  //   id,
-  //   nome,
-  //   email,
-  //   senha,
-  // }: UsuarioModel): Usuario {
-  //   const usuario = new Usuario({ dataNascimento, id, nome, email, senha });
+  ativar() {
+    this._status = StatusUsuario.ATIVO;
+  }
 
-  //   if (contato) {
-  //     usuario.contato = Contato.fromModel(contato);
-  //   }
-
-  //   return usuario;
-  // }
+  suspender() {
+    this._status = StatusUsuario.SUSPENSO;
+  }
 }
