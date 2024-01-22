@@ -47,7 +47,13 @@ export const ServicoSchema = new EntitySchema<ServicoModel>({
   checks: [
     {
       name: 'ck_tb_servico_tipo',
-      expression: "\"tipo_servico\" IN ('A', 'H', 'P')",
+      expression: "\"tipo_servico\" IN ('A', 'H', 'P', 'L')",
+    },
+  ],
+  indices: [
+    {
+      name: 'idx_tb_servico_tipo',
+      columns: ['tipoServico'],
     },
   ],
 });
