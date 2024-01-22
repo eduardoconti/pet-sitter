@@ -11,6 +11,7 @@ import { Atendimento } from './atendimento.entity';
 import { SolicitacaoAlimentacao } from './solicitacao-servico-pet-alimentacao.entity';
 import { SolicitacaoHospedagem } from './solicitacao-servico-pet-hospedagem.entity';
 import { SolicitacaoPasseio } from './solicitacao-servico-pet-passeio.entity';
+import { StatusUsuario } from '@usuario/domain/enums';
 
 describe('Atendimento', () => {
   const passeio = Passeio.create({
@@ -39,6 +40,8 @@ describe('Atendimento', () => {
     nome: 'asdf',
     email: 'es.eduardoconti@gmail.com',
     senha: 'fake@!123',
+    sobreNome: 'Conti',
+    status: StatusUsuario.ATIVO,
     contato: {
       id: UUID.generate().value,
       telefone: '',

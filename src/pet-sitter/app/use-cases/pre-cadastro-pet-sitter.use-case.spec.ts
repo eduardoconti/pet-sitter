@@ -11,6 +11,7 @@ import { PasswordService } from '@infra/bcrypt';
 import { IHash } from '@core/contracts';
 
 import { PreCadastroPetSitterUseCase } from './pre-cadastro-pet-sitter.use-case';
+import { StatusUsuario } from '@usuario/domain/enums';
 
 describe('PreCadastroPetSitterUseCase', () => {
   let predCadastroPetSitterUseCase: IPreCadastroPetSitterUseCase;
@@ -61,6 +62,8 @@ describe('PreCadastroPetSitterUseCase', () => {
         senha: 'fake@123',
         dataNascimento: new Date('1995-12-05'),
         dataInclusao: new Date(),
+        sobreNome: 'Conti',
+        status: StatusUsuario.PENDENTE_ATIVACAO
       },
     };
     jest
@@ -72,6 +75,7 @@ describe('PreCadastroPetSitterUseCase', () => {
       email: petSitterModelMock.usuario.email,
       senha: petSitterModelMock.usuario.senha,
       nome: petSitterModelMock.usuario.nome,
+      sobreNome: petSitterModelMock.usuario.sobreNome,
     });
 
     expect(result).toEqual({
@@ -79,6 +83,7 @@ describe('PreCadastroPetSitterUseCase', () => {
       email: petSitterModelMock.usuario.email,
       nome: petSitterModelMock.usuario.nome,
       dataNascimento: petSitterModelMock.usuario.dataNascimento,
+      sobreNome: petSitterModelMock.usuario.sobreNome,
     });
     expect(petSitterRepository.save).toBeCalledWith({
       usuario: {
@@ -86,6 +91,7 @@ describe('PreCadastroPetSitterUseCase', () => {
         senha: 'hashPass',
         dataInclusao: expect.any(String),
         id: undefined,
+        status: StatusUsuario.PENDENTE_ATIVACAO
       },
     });
     expect(passwordService.hash).toBeCalledWith(
