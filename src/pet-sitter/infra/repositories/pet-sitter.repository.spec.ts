@@ -7,6 +7,7 @@ import { IPetSitterRepository } from '@pet-sitter/domain/repositories';
 
 import { PetSitterSchema } from '../schemas';
 import { PetSitterRepository } from './pet-sitter.repository';
+import { StatusUsuario } from '@usuario/domain/enums';
 
 describe('PetSitterRepository', () => {
   let petSitterRepository: IPetSitterRepository;
@@ -49,6 +50,8 @@ describe('PetSitterRepository', () => {
           id: '63410879-ea97-4dbd-a942-183ce558716f',
           email: '',
           nome: 'Eduardo',
+          sobreNome:'Conti',
+          status: StatusUsuario.PENDENTE_ATIVACAO,
           dataNascimento: data,
           senha: 'fake@123',
           dataInclusao: new Date('2024-01-01'),
