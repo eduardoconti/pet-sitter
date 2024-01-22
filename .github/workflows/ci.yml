@@ -1,0 +1,15 @@
+on:
+  push:
+    branches:
+      - main
+
+name: Ci
+
+jobs:
+  test:
+    name: Test
+    uses: ./.github/workflows/test.yml
+
+  test-e2e:
+    name: Test E2E
+    uses: ./.github/workflows/test-e2e.yml

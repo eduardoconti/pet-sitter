@@ -1,0 +1,66 @@
+name: Tests e2e
+on:
+  workflow_call:
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  start-postgres:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.10.0
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile.pg
+          tags: pg-image:latest
+          outputs: type=docker,dest=/tmp/pg-image.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: pg-image
+          path: /tmp/pg-image.tar
+
+  test-e2e:
+    needs: start-postgres
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.10.0
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: pg-image
+          path: /tmp
+      - name: Load Docker image
+        run: |
+          docker load --input /tmp/pg-image.tar
+          docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d pg-image 
+      - name: Instala dependencias
+        run: yarn install --ignore-engines
+      - name: Run teste e2e
+        run: yarn test:e2e
+        env:
+          NODE_ENV: test
+          DATABASE_HOST: localhost
+          DATABASE_PASSWORD: postgres
+          DATABASE_NAME: postgres
+          DATABASE_USER: postgres
+          DATABASE_PORT: 5432
+          DATABASE_SYNCHRONIZE: true
+          DATABASE_LOGGING: false
+          JWT_SECRET: YourSecret
+        
