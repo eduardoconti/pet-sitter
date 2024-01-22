@@ -43,6 +43,7 @@ describe('CadastrarPetSitterController', () => {
       nome: 'Eduardo',
       dataNascimento: new Date('1995-12-05'),
       email: 'es.eduardoconti@gmail.com',
+      sobreNome: 'Conti'
     });
 
     const result = await controller.handle({
@@ -50,6 +51,7 @@ describe('CadastrarPetSitterController', () => {
       email: 'es.eduardoconti@gmail.com',
       senha: 'fake!12',
       dataNascimento: new Date('1995-12-05'),
+      sobreNome: 'Conti'
     });
 
     expect(result).toEqual({
@@ -57,6 +59,7 @@ describe('CadastrarPetSitterController', () => {
       nome: 'Eduardo',
       dataNascimento: new Date('1995-12-05'),
       email: 'es.eduardoconti@gmail.com',
+      sobreNome: 'Conti'
     });
 
     expect(cadastrarPetSitterUseCase.executar).toBeCalledWith({
@@ -64,6 +67,7 @@ describe('CadastrarPetSitterController', () => {
       email: 'es.eduardoconti@gmail.com',
       senha: 'fake!12',
       dataNascimento: new Date('1995-12-05'),
+      sobreNome: 'Conti'
     });
   });
 });
