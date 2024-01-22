@@ -6,8 +6,8 @@ on:
 name: Ci
 
 jobs:
-  test:
-    name: Test
+  test-unit:
+    name: Test Unit
     uses: ./.github/workflows/test.yml
 
   test-e2e:
