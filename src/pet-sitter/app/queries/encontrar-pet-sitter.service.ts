@@ -32,7 +32,6 @@ export class EncontrarPetSitterService extends QueryService {
     idCidades?: number[],
     servicos?: TipoServicoEnum[],
   ): Promise<IFindPaginado<EncontrarPetSitterResponseDto>> {
-    const tamanhoPagina = 20;
     const wherePetSitter: FindOptionsWhere<PetSitterModel> = {
       usuario: { status: StatusUsuario.ATIVO },
     };
@@ -69,7 +68,8 @@ export class EncontrarPetSitterService extends QueryService {
       return {
         totalLinhas,
         numeroPagina,
-        tamanhoPagina,
+        tamanhoPagina: this.tamanhoPagina,
+        quantidadePaginas: 0,
         data: [],
       };
     }
@@ -92,13 +92,16 @@ export class EncontrarPetSitterService extends QueryService {
     ORDER BY tu.data_inclusao
     LIMIT $1
     OFFSET $2`,
-        [tamanhoPagina, this.calcularSkip({ numeroPagina, tamanhoPagina })],
+        [this.tamanhoPagina, this.calcularSkip({ numeroPagina })],
       );
 
     return {
       totalLinhas,
       numeroPagina,
-      tamanhoPagina,
+      tamanhoPagina: this.tamanhoPagina,
+      quantidadePaginas: this.quantidadePaginas({
+        totalLinhas,
+      }),
       data: petSitterModel,
     };
   }

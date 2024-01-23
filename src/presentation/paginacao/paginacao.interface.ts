@@ -1,5 +1,6 @@
 export interface IFindPaginado<Resultado> extends IFiltroPaginado {
   totalLinhas: number;
+  quantidadePaginas: number;
   data: Resultado[];
 }
 

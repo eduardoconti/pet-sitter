@@ -1,0 +1,28 @@
+config:
+  target: 'http://localhost:80'
+  phases:
+    - duration: 10
+      arrivalRate: 10
+      rampTo: 30
+      name: ramp up
+    - duration: 10
+      arrivalRate: 30
+      name: sustain
+  plugins:
+    ensure: {}
+    apdex: {}
+    metrics-by-endpoint: {}
+  apdex:
+    threshold: 200
+  ensure:
+    thresholds:
+      - http.response_time.p99: 200
+      - http.response_time.p95: 175
+      - http.response_time.p90: 120
+scenarios:
+  - flow:
+      - get:
+          url: '/pet-sitter/encontrar'
+          qs:
+            idEstado: 1
+            numeroPagina: 1
