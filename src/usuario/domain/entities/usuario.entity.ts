@@ -29,7 +29,7 @@ export class Usuario extends Entity {
     email,
     senha,
     sobreNome,
-    status
+    status,
   }: UsuarioProps) {
     super({ id });
     this._nome = nome;
@@ -37,7 +37,7 @@ export class Usuario extends Entity {
     this._email = email;
     this._senha = senha;
     this._sobreNome = sobreNome;
-    this._status = status
+    this._status = status;
   }
 
   get nome(): string {

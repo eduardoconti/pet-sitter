@@ -20,6 +20,7 @@ import { EncontrarPetSitterController } from './presentation/encontrar-pet-sitte
 import { AdicionarLocalAtendimentoController } from './presentation/local-atendimento';
 import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
 import { AdicionarServicoController } from './presentation/servico';
+import { EncontrarPetSitterService } from './app/queries';
 
 @Module({
   controllers: [
@@ -43,6 +44,7 @@ import { AdicionarServicoController } from './presentation/servico';
     LocalAtendimentoRepository,
     ServicoRepository,
     AdicionarServicoUseCaseProvider,
+    EncontrarPetSitterService,
   ],
 })
 export class PetSitterModule {}

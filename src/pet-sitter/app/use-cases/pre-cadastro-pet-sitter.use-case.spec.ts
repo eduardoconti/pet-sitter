@@ -63,7 +63,7 @@ describe('PreCadastroPetSitterUseCase', () => {
         dataNascimento: new Date('1995-12-05'),
         dataInclusao: new Date(),
         sobreNome: 'Conti',
-        status: StatusUsuario.PENDENTE_ATIVACAO
+        status: StatusUsuario.PENDENTE_ATIVACAO,
       },
     };
     jest
@@ -91,7 +91,7 @@ describe('PreCadastroPetSitterUseCase', () => {
         senha: 'hashPass',
         dataInclusao: expect.any(String),
         id: undefined,
-        status: StatusUsuario.PENDENTE_ATIVACAO
+        status: StatusUsuario.PENDENTE_ATIVACAO,
       },
     });
     expect(passwordService.hash).toBeCalledWith(

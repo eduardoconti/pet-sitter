@@ -12,7 +12,7 @@ async function bootstrap() {
   const httpAdapter = app.get(HttpAdapterHost);
   const apmService = app.get(ApmService);
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, apmService));
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.enableCors();
   await app.listen(3000);
 }
