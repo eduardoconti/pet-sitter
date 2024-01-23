@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   ExceptionFilter,
+  BadRequestException,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 
@@ -53,6 +54,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
   }
 
   private getDetail(exception: unknown): string | undefined {
+    if (exception instanceof BadRequestException) {
+      return (exception.getResponse() as any).message;
+    }
+
     if (exception instanceof HttpException) {
       return exception.message;
     }

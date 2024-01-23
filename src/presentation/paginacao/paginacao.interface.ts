@@ -6,5 +6,5 @@ export interface IFindPaginado<Resultado> extends IFiltroPaginado {
 
 export interface IFiltroPaginado {
   numeroPagina: number;
-  tamanhoPagina: number;
+  tamanhoPagina?: number;
 }
