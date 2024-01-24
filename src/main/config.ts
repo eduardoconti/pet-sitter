@@ -10,6 +10,8 @@ export interface EnvironmentVariables {
   DATABASE_LOGGING: boolean;
   DATABASE_SYNCHRONIZE: boolean;
   JWT_SECRET: string;
+  MAILER_USER: string;
+  MAILER_PASS: string;
 }
 
 export const configValidationSchema = Joi.object({
@@ -22,4 +24,6 @@ export const configValidationSchema = Joi.object({
   DATABASE_LOGGING: Joi.boolean().optional().default(true),
   DATABASE_SYNCHRONIZE: Joi.boolean().optional().default(false),
   JWT_SECRET: Joi.string().required(),
+  MAILER_USER: Joi.string().optional(),
+  MAILER_PASS: Joi.string().optional(),
 });
