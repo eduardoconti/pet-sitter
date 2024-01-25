@@ -16,6 +16,7 @@ import { AtendimentoModule } from '@atendimento/atendimento.module';
 import { TutorModule } from '@tutor/tutor.module';
 
 import { configValidationSchema } from './config';
+import { MailerModule } from '@infra/mailer/mailer.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { configValidationSchema } from './config';
     ApmModule,
     IdempotencyModule,
     AuthModule,
+    MailerModule,
   ],
 })
 export class MainModule {}

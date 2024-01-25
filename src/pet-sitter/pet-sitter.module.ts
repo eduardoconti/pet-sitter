@@ -20,7 +20,11 @@ import { EncontrarPetSitterController } from './presentation/encontrar-pet-sitte
 import { AdicionarLocalAtendimentoController } from './presentation/local-atendimento';
 import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
 import { AdicionarServicoController } from './presentation/servico';
-import { EncontrarPetSitterService } from './app/queries';
+import {
+  EncontrarPetSitterService,
+  ExibirPerfilPetSitterService,
+} from './app/queries';
+import { ExibirPerfilPetSitter } from './presentation/perfil';
 
 @Module({
   controllers: [
@@ -28,6 +32,7 @@ import { EncontrarPetSitterService } from './app/queries';
     AdicionarLocalAtendimentoController,
     EncontrarPetSitterController,
     AdicionarServicoController,
+    ExibirPerfilPetSitter,
   ],
   imports: [
     TypeOrmModule.forFeature([PetSitterSchema]),
@@ -45,6 +50,7 @@ import { EncontrarPetSitterService } from './app/queries';
     ServicoRepository,
     AdicionarServicoUseCaseProvider,
     EncontrarPetSitterService,
+    ExibirPerfilPetSitterService,
   ],
 })
 export class PetSitterModule {}

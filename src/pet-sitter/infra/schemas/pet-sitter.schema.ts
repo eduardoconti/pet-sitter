@@ -44,9 +44,9 @@ export const PetSitterSchema = new EntitySchema<PetSitterModel>({
       inverseSide: 'petSitter',
     },
   },
-  indices: [
+  uniques: [
     {
-      name: 'idx_tb_pet_sitter_id_usuario',
+      name: 'uq_tb_pet_sitter_id_usuario',
       columns: ['idUsuario'],
     },
   ],

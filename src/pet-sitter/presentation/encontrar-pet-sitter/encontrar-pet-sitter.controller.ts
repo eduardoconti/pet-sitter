@@ -1,6 +1,6 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { IFindPaginado } from '@presentation/paginacao';
-import { EncontrarPetSitterResponseDto } from './';
+import { EncontrarPetSitterResponse } from './';
 import { EncontrarPetSitterService } from '@pet-sitter/app/queries';
 import { EncontrarPetSitterFiltro } from './encontrar-pet-sitter.filtro';
 
@@ -12,7 +12,7 @@ export class EncontrarPetSitterController {
   async handle(
     @Query()
     { idEstado, numeroPagina, idCidade, servicos }: EncontrarPetSitterFiltro,
-  ): Promise<IFindPaginado<EncontrarPetSitterResponseDto>> {
+  ): Promise<IFindPaginado<EncontrarPetSitterResponse>> {
     return await this.queryService.find(
       idEstado,
       numeroPagina,

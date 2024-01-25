@@ -75,6 +75,10 @@ export class Usuario extends Entity {
     this._contato = contato;
   }
 
+  get nomeCompleto() {
+    return `${this.nome} ${this.sobreNome}`;
+  }
+
   ativar() {
     this._status = StatusUsuario.ATIVO;
   }

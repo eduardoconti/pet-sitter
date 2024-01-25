@@ -9,7 +9,7 @@ import {
   LocalAtendimentoSchema,
   PetSitterSchema,
 } from '@pet-sitter/infra/schemas';
-import { EncontrarPetSitterResponseDto } from '@pet-sitter/presentation/encontrar-pet-sitter';
+import { EncontrarPetSitterResponse } from '@pet-sitter/presentation/encontrar-pet-sitter';
 import { IFindPaginado } from '@presentation/paginacao';
 import { TipoServicoEnum } from '@servico/domain/enums';
 import { StatusUsuario } from '@usuario/domain/enums';
@@ -31,7 +31,7 @@ export class EncontrarPetSitterService extends QueryService {
     numeroPagina: number,
     idCidades?: number[],
     servicos?: TipoServicoEnum[],
-  ): Promise<IFindPaginado<EncontrarPetSitterResponseDto>> {
+  ): Promise<IFindPaginado<EncontrarPetSitterResponse>> {
     const wherePetSitter: FindOptionsWhere<PetSitterModel> = {
       usuario: { status: StatusUsuario.ATIVO },
     };
@@ -73,7 +73,7 @@ export class EncontrarPetSitterService extends QueryService {
         data: [],
       };
     }
-    const petSitterModel: EncontrarPetSitterResponseDto[] =
+    const petSitterModel: EncontrarPetSitterResponse[] =
       await this.repository.query(
         `SELECT
     tps.id,

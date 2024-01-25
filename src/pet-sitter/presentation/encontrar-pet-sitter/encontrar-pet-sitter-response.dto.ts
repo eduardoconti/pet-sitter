@@ -1,6 +1,6 @@
 import { TipoServicoEnum } from '@servico/domain/enums';
 
-export class EncontrarPetSitterResponseDto {
+export class EncontrarPetSitterResponse {
   id!: number;
   nome!: string;
   membroDesde!: Date;
