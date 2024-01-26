@@ -21,4 +21,19 @@ export class UsuarioRepository implements IUsuarioRepository {
 
     return user[0];
   }
+
+  async update(model: Partial<UsuarioModel>): Promise<Partial<UsuarioModel>> {
+    await this.repository.update({ id: model.id }, model);
+    return model;
+  }
+
+  async findById(id: string): Promise<UsuarioModel> {
+    const user = await this.repository.find({ where: { id } });
+
+    if (!user || !user.length) {
+      throw new NotFoundException('Usuario nao encontrado');
+    }
+
+    return user[0];
+  }
 }
