@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { IUsuarioRepository } from '@usuario/domain/repositories';
 import { UsuarioModel } from '@usuario/models';
 
-import { UsuarioSchema } from '../schemas/usuario.schema';
+import { UsuarioSchema } from '../schemas';
 
 export class UsuarioRepository implements IUsuarioRepository {
   constructor(
@@ -23,7 +23,8 @@ export class UsuarioRepository implements IUsuarioRepository {
   }
 
   async update(model: Partial<UsuarioModel>): Promise<Partial<UsuarioModel>> {
-    await this.repository.update({ id: model.id }, model);
+    const { id, ...rest } = model;
+    await this.repository.update({ id }, rest);
     return model;
   }
 

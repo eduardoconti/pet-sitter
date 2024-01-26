@@ -12,11 +12,14 @@ import { IHash } from '@core/contracts';
 
 import { PreCadastroPetSitterUseCase } from './pre-cadastro-pet-sitter.use-case';
 import { StatusUsuario } from '@usuario/domain/enums';
+import { IAtivarCadastroMailerService } from '@usuario/app/services';
+import { AtivarCadastroMailerService } from '@usuario/infra/services';
 
 describe('PreCadastroPetSitterUseCase', () => {
   let predCadastroPetSitterUseCase: IPreCadastroPetSitterUseCase;
   let petSitterRepository: IPetSitterRepository;
   let passwordService: IHash;
+  let mailerServce: IAtivarCadastroMailerService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -34,6 +37,12 @@ describe('PreCadastroPetSitterUseCase', () => {
             hash: jest.fn().mockResolvedValue('hashPass'),
           },
         },
+        {
+          provide: AtivarCadastroMailerService,
+          useValue: {
+            send: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
@@ -42,12 +51,16 @@ describe('PreCadastroPetSitterUseCase', () => {
     );
     petSitterRepository = module.get<IPetSitterRepository>(PetSitterRepository);
     passwordService = module.get<IHash>(PasswordService);
+    mailerServce = module.get<IAtivarCadastroMailerService>(
+      AtivarCadastroMailerService,
+    );
     jest.clearAllMocks();
   });
   it('deve estar definido', () => {
     expect(predCadastroPetSitterUseCase).toBeDefined();
     expect(petSitterRepository).toBeDefined();
     expect(passwordService).toBeDefined();
+    expect(mailerServce).toBeDefined();
   });
 
   it('deve cadastrar um petSitter', async () => {
@@ -96,6 +109,10 @@ describe('PreCadastroPetSitterUseCase', () => {
     });
     expect(passwordService.hash).toBeCalledWith(
       petSitterModelMock.usuario.senha,
+    );
+    expect(mailerServce.send).toBeCalledWith(
+      petSitterModelMock.usuario.email,
+      petSitterModelMock.usuario.id,
     );
   });
 });

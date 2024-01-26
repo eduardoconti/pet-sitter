@@ -17,13 +17,18 @@ import {
 import { PasswordService } from '@infra/bcrypt';
 
 import { IHash } from '@core/contracts';
+import { AtivarCadastroMailerService } from '@usuario/infra/services';
 
 export const CadastrarPetSitterUseCaseProvider: Provider = {
   provide: PreCadastroPetSitterUseCase,
-  useFactory(repository: IPetSitterRepository, hash: IHash) {
-    return new PreCadastroPetSitterUseCase(repository, hash);
+  useFactory(
+    repository: IPetSitterRepository,
+    hash: IHash,
+    mailerService: AtivarCadastroMailerService,
+  ) {
+    return new PreCadastroPetSitterUseCase(repository, hash, mailerService);
   },
-  inject: [PetSitterRepository, PasswordService],
+  inject: [PetSitterRepository, PasswordService, AtivarCadastroMailerService],
 };
 
 export const AdicionarLocalAtendimentoUseCaseProvider: Provider = {

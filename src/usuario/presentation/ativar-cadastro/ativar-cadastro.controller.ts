@@ -11,7 +11,7 @@ export class AtivarCadastroController {
   ) {}
 
   @Get('ativar')
-  async handle(@Query() { id }: AtivarCadastroParams): Promise<void> {
-    await this.ativarCadastroUseCase.executar(id);
+  async handle(@Query() { id }: AtivarCadastroParams): Promise<string> {
+    return await this.ativarCadastroUseCase.executar(id);
   }
 }

@@ -7,6 +7,7 @@ import {
 } from '@pet-sitter/domain/use-cases';
 
 import { IHash } from '@core/contracts';
+import { IAtivarCadastroMailerService } from '@usuario/app/services';
 
 export class PreCadastroPetSitterUseCase
   implements IPreCadastroPetSitterUseCase
@@ -14,6 +15,7 @@ export class PreCadastroPetSitterUseCase
   constructor(
     private readonly petSitterRepository: IPetSitterRepository,
     private readonly passwordHash: IHash,
+    private readonly mailerService: IAtivarCadastroMailerService,
   ) {}
 
   async executar(
@@ -33,6 +35,8 @@ export class PreCadastroPetSitterUseCase
         status: pet.status,
       },
     });
+
+    this.mailerService.send(pet.email, id);
 
     return { id, nome, email, dataNascimento, sobreNome };
   }

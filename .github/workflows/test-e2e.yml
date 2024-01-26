@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - main
-      
+
 jobs:
   start-postgres:
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
       - name: Load Docker image
         run: |
           docker load --input /tmp/pg-image.tar
-          docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d pg-image 
+          docker run -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d pg-image
       - name: Instala dependencias
         run: yarn install --ignore-engines
       - name: Run teste e2e
@@ -63,4 +63,7 @@ jobs:
           DATABASE_SYNCHRONIZE: true
           DATABASE_LOGGING: false
           JWT_SECRET: YourSecret
-        
+          MAILER_HOST: smtp.ethereal.email
+          MAILER_PORT: 587
+          MAILER_USER: elizabeth.wyman50@ethereal.email
+          MAILER_PASS: wGPFC4WGc78DgUA7MS

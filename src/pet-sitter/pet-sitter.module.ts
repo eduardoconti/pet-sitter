@@ -25,6 +25,7 @@ import {
   ExibirPerfilPetSitterService,
 } from './app/queries';
 import { ExibirPerfilPetSitter } from './presentation/perfil';
+import { UsuarioModule } from '@usuario/usuario.module';
 
 @Module({
   controllers: [
@@ -41,6 +42,7 @@ import { ExibirPerfilPetSitter } from './presentation/perfil';
     PasswordModule,
     AuthModule,
     LocalizacaoModule,
+    UsuarioModule,
   ],
   providers: [
     CadastrarPetSitterUseCaseProvider,

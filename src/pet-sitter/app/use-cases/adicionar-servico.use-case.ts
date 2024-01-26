@@ -3,18 +3,12 @@ import {
   IServicoRepository,
 } from '@pet-sitter/domain/repositories';
 
-import { IUseCase } from '@core/use-case.interface';
+import {
+  AdicionarServicoUseCaseInput,
+  IAdicionarServicoUseCase,
+} from '@pet-sitter/domain/use-cases';
 
-import { TipoServicoEnum } from '@servico/domain/enums';
-
-type AdicionarServicoUseCaseInput = {
-  idUsuario: string;
-  tipoServico: TipoServicoEnum;
-};
-
-export class AdicionarServicoUseCase
-  implements IUseCase<AdicionarServicoUseCaseInput, any>
-{
+export class AdicionarServicoUseCase implements IAdicionarServicoUseCase {
   constructor(
     private readonly petSitterRepository: IPetSitterRepository,
     private readonly servicoRepository: IServicoRepository,
@@ -23,7 +17,7 @@ export class AdicionarServicoUseCase
   async executar({
     idUsuario,
     tipoServico,
-  }: AdicionarServicoUseCaseInput): Promise<any> {
+  }: AdicionarServicoUseCaseInput): Promise<void> {
     const petSitterModel = await this.petSitterRepository.get(idUsuario);
     await this.servicoRepository.save({
       idPetSitter: petSitterModel.id,
