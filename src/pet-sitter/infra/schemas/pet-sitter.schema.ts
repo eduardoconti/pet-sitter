@@ -17,6 +17,11 @@ export const PetSitterSchema = new EntitySchema<PetSitterModel>({
       primaryKeyConstraintName: 'pk_tb_pet_sitter',
       name: 'id',
     },
+    bio: {
+      name: 'bio',
+      type: 'text',
+      nullable: true,
+    },
     dataInclusao: {
       name: 'data_inclusao',
       type: 'timestamp with time zone',
@@ -41,6 +46,11 @@ export const PetSitterSchema = new EntitySchema<PetSitterModel>({
     servicos: {
       type: 'one-to-many',
       target: 'ServicoModel',
+      inverseSide: 'petSitter',
+    },
+    avaliacoes: {
+      type: 'one-to-many',
+      target: 'AvaliacaoModel',
       inverseSide: 'petSitter',
     },
   },

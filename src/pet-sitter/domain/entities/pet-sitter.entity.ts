@@ -2,10 +2,13 @@ import { Usuario, UsuarioProps } from '@usuario/domain/entities';
 import { StatusUsuario } from '@usuario/domain/enums';
 
 import { LocalAtendimento } from './local-atendimento';
+import { Avaliacao } from './avaliacao.entity';
 
 export type PetSitterProps = UsuarioProps & {
   localAtendimento: LocalAtendimento[];
   idPetSitter: number;
+  bio?: string;
+  avaliacoes?: Avaliacao[];
 };
 
 export type CreatePetSitterEntityProps = Omit<
@@ -16,6 +19,8 @@ export type CreatePetSitterEntityProps = Omit<
 export class PetSitter extends Usuario {
   private _localAtendimento!: LocalAtendimento[];
   private _idPetSitter!: number | undefined;
+  private _bio?: string;
+  private _avaliacoes?: Avaliacao[];
 
   constructor({
     nome,
@@ -26,11 +31,15 @@ export class PetSitter extends Usuario {
     idPetSitter,
     sobreNome,
     status,
+    bio,
+    avaliacoes,
   }: Omit<CreatePetSitterEntityProps, 'idPetSitter'> & {
     idPetSitter?: number;
   }) {
     super({ nome, dataNascimento, id, email, senha, sobreNome, status });
     this._idPetSitter = idPetSitter;
+    this._bio = bio;
+    this._avaliacoes = avaliacoes;
   }
   get idPetSitter(): number {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -39,6 +48,14 @@ export class PetSitter extends Usuario {
 
   get idUsuario() {
     return this.id;
+  }
+
+  get bio() {
+    return this._bio;
+  }
+
+  get avaliacoes() {
+    return this._avaliacoes;
   }
 
   get localAtendimento(): LocalAtendimento[] {
