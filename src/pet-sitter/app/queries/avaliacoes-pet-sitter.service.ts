@@ -88,4 +88,24 @@ export class AvaliacoesPetSitterService extends QueryService {
       }),
     };
   }
+
+  async resumo({
+    id,
+  }: {
+    id: number;
+  }): Promise<{ quantidadeAvaliacoes: number; rating: number }> {
+    const [{ quantidadeAvaliacoes, rating }]: [
+      { quantidadeAvaliacoes: number; rating: number },
+    ] = await this.repository.query(`
+      select count(tpsa.id) as "quantidadeAvaliacoes",
+      round(avg(tpsa.rating),2) as "rating"
+      from
+        tb_pet_sitter_avaliacao tpsa
+      where
+        tpsa.id_pet_sitter = ${id}`);
+    return {
+      quantidadeAvaliacoes: Number(quantidadeAvaliacoes),
+      rating: Number(rating),
+    };
+  }
 }

@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -9,6 +10,7 @@ import { PetSitterSchema } from '@pet-sitter/infra/schemas';
 import { TipoServicoEnum } from '@servico/domain/enums';
 import { StatusUsuario } from '@usuario/domain/enums';
 import { Repository } from 'typeorm';
+import { AvaliacoesPetSitterService } from './avaliacoes-pet-sitter.service';
 
 export interface IExibirPerfilPetSitterResponse {
   id: number;
@@ -17,12 +19,15 @@ export interface IExibirPerfilPetSitterResponse {
   servicos: TipoServicoEnum[];
   localAtendimento: { cidade: string }[];
   membroDesde: Date;
+  avaliacoes: { quantidadeAvaliacoes: number; rating: number };
 }
 @Injectable()
 export class ExibirPerfilPetSitterService {
   constructor(
     @InjectRepository(PetSitterSchema)
     private readonly repository: Repository<PetSitterModel>,
+    @Inject(AvaliacoesPetSitterService)
+    private readonly avaliacoesService: AvaliacoesPetSitterService,
   ) {}
 
   async find(idPetSitter: number): Promise<IExibirPerfilPetSitterResponse> {
@@ -81,6 +86,8 @@ export class ExibirPerfilPetSitterService {
       throw new InternalServerErrorException();
     }
 
+    const avaliacoes = await this.avaliacoesService.resumo({ id: idPetSitter });
+
     const resultado: IExibirPerfilPetSitterResponse = {
       id: petSitter.id,
       nome: `${petSitter.usuario.nome} ${petSitter.usuario.sobreNome}`,
@@ -92,6 +99,7 @@ export class ExibirPerfilPetSitterService {
           cidade: `${e.cidade?.nome}, ${e.cidade?.estado?.nome}`,
         };
       }),
+      avaliacoes,
     };
 
     return resultado;

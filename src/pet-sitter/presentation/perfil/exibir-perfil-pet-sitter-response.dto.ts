@@ -10,4 +10,5 @@ export class ExibirPerfilPetSitterResponse
   servicos!: TipoServicoEnum[];
   localAtendimento!: { cidade: string }[];
   membroDesde!: Date;
+  avaliacoes!: { quantidadeAvaliacoes: number; rating: number };
 }
