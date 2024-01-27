@@ -4,7 +4,8 @@ import { CadastrarPetUseCase } from '@pet/app/use-cases';
 import { ICadastrarPetUseCase } from '@pet/domain/use-cases';
 
 import { CadastrarPetDto } from './cadastrar-pet.dto';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('pet')
 @Controller('pet')
 export class CadastrarPetController {
   constructor(

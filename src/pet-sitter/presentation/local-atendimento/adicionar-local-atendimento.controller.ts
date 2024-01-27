@@ -8,7 +8,8 @@ import { User } from '@infra/decorators/user.decorator';
 import { TokenPayload } from '@core/contracts';
 
 import { AdicionarLocalAtendimentoDto } from './adicionar-local-atendimento.dto';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('local-atendimento')
 @Controller('local-atendimento')
 export class AdicionarLocalAtendimentoController {
   constructor(

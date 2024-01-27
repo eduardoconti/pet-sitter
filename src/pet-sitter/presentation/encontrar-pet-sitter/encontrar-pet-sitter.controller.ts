@@ -3,7 +3,8 @@ import { IFindPaginado } from '@presentation/paginacao';
 import { EncontrarPetSitterResponse } from './';
 import { EncontrarPetSitterService } from '@pet-sitter/app/queries';
 import { EncontrarPetSitterFiltro } from './encontrar-pet-sitter.filtro';
-
+import { ApiTags } from '@nestjs/swagger';
+@ApiTags('pet-sitter')
 @Controller('pet-sitter')
 export class EncontrarPetSitterController {
   constructor(private readonly queryService: EncontrarPetSitterService) {}
