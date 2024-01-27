@@ -33,6 +33,9 @@ export class ExibirPerfilPetSitterService {
             estado: true,
           },
         },
+        avaliacoes: {
+          tutor: { usuario: true },
+        },
       },
       select: {
         id: true,

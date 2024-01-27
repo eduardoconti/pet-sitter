@@ -8,6 +8,7 @@ export abstract class QueryService {
   get tamanhoPagina(): number {
     return this._tamanhoPagina;
   }
+
   calcularSkip({ numeroPagina }: { numeroPagina: number }): number {
     return (numeroPagina - 1) * this.tamanhoPagina;
   }

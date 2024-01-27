@@ -10,7 +10,11 @@ import { LocalizacaoModule } from '@localizacao/localizacao.module';
 
 import { PetSitterRepository, ServicoRepository } from './infra/repositories';
 import { LocalAtendimentoRepository } from './infra/repositories';
-import { LocalAtendimentoSchema, PetSitterSchema } from './infra/schemas';
+import {
+  LocalAtendimentoSchema,
+  PetSitterSchema,
+  AvaliacaoSchema,
+} from './infra/schemas';
 import {
   AdicionarLocalAtendimentoUseCaseProvider,
   AdicionarServicoUseCaseProvider,
@@ -23,9 +27,11 @@ import { AdicionarServicoController } from './presentation/servico';
 import {
   EncontrarPetSitterService,
   ExibirPerfilPetSitterService,
+  AvaliacoesPetSitterService,
 } from './app/queries';
 import { ExibirPerfilPetSitter } from './presentation/perfil';
 import { UsuarioModule } from '@usuario/usuario.module';
+import { AvaliacoesPetSitterController } from './presentation/avaliacoes-pet-sitter';
 
 @Module({
   controllers: [
@@ -34,11 +40,13 @@ import { UsuarioModule } from '@usuario/usuario.module';
     EncontrarPetSitterController,
     AdicionarServicoController,
     ExibirPerfilPetSitter,
+    AvaliacoesPetSitterController,
   ],
   imports: [
     TypeOrmModule.forFeature([PetSitterSchema]),
     TypeOrmModule.forFeature([LocalAtendimentoSchema]),
     TypeOrmModule.forFeature([ServicoSchema]),
+    TypeOrmModule.forFeature([AvaliacaoSchema]),
     PasswordModule,
     AuthModule,
     LocalizacaoModule,
@@ -53,6 +61,7 @@ import { UsuarioModule } from '@usuario/usuario.module';
     AdicionarServicoUseCaseProvider,
     EncontrarPetSitterService,
     ExibirPerfilPetSitterService,
+    AvaliacoesPetSitterService,
   ],
 })
 export class PetSitterModule {}
