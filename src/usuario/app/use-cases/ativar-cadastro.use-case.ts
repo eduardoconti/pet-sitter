@@ -9,12 +9,14 @@ export class AtivarCadastroUseCase implements IAtivarCadastroUseCase {
     const usuario = await this.usuarioRepository.findById(idUsuario);
     const usuarioEntity = new Usuario(usuario);
 
-    usuarioEntity.ativar();
+    if (usuarioEntity.isPendente()) {
+      usuarioEntity.ativar();
 
-    await this.usuarioRepository.update({
-      id: idUsuario,
-      status: usuarioEntity.status,
-    });
+      await this.usuarioRepository.update({
+        id: idUsuario,
+        status: usuarioEntity.status,
+      });
+    }
 
     return `${usuarioEntity.nomeCompleto}, Obrigado por se cadastrar em nosso site!`;
   }

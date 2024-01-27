@@ -79,7 +79,15 @@ export class EncontrarPetSitterService extends QueryService {
     tps.id,
        CONCAT(tu.nome, ' ', tu.sobrenome) as nome,
        tu.data_inclusao as "membroDesde",
-       JSONB_AGG(ts.tipo_servico ORDER BY ts.tipo_servico) as "servicos"
+       JSONB_AGG(ts.tipo_servico ORDER BY ts.tipo_servico) as "servicos",
+       (
+        SELECT JSONB_BUILD_OBJECT(
+          'quantidadeAvaliacoes', COUNT(tpsa.id),
+          'rating', ROUND(AVG(tpsa.rating),2)
+        )
+        FROM tb_pet_sitter_avaliacao tpsa
+        WHERE tpsa.id_pet_sitter = tps.id
+      ) as avaliacoes
     FROM
       tb_pet_sitter tps
     LEFT JOIN tb_usuario tu on

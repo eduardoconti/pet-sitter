@@ -79,6 +79,10 @@ export class Usuario extends Entity {
     return `${this.nome} ${this.sobreNome}`;
   }
 
+  isPendente() {
+    return this._status === StatusUsuario.PENDENTE_ATIVACAO;
+  }
+
   ativar() {
     this._status = StatusUsuario.ATIVO;
   }

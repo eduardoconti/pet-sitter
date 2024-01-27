@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Query } from '@nestjs/common';
+import { Controller, Inject, Patch, Query } from '@nestjs/common';
 import { AtivarCadastroUseCase } from '@usuario/app/use-cases';
 import { IAtivarCadastroUseCase } from '@usuario/domain/use-cases';
 import { AtivarCadastroParams } from './ativar-cadastro.params';
@@ -10,7 +10,7 @@ export class AtivarCadastroController {
     private readonly ativarCadastroUseCase: IAtivarCadastroUseCase,
   ) {}
 
-  @Get('ativar')
+  @Patch('ativar')
   async handle(@Query() { id }: AtivarCadastroParams): Promise<string> {
     return await this.ativarCadastroUseCase.executar(id);
   }

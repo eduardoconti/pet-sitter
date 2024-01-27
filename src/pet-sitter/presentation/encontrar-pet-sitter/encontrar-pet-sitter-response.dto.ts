@@ -5,4 +5,5 @@ export class EncontrarPetSitterResponse {
   nome!: string;
   membroDesde!: Date;
   servicos?: TipoServicoEnum[];
+  avaliacoes?: { rating: number; quantidadeAvaliacoes: number };
 }
