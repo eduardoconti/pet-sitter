@@ -2,7 +2,11 @@ import { PetSitter } from '@pet-sitter/domain/entities';
 import { PetSitterModel } from '@pet-sitter/domain/models';
 
 export class PetSitterEntityMapper {
-  static toEntity({ id, usuario }: PetSitterModel): PetSitter {
+  static toEntity({
+    id,
+    bio,
+    usuario,
+  }: Omit<PetSitterModel, 'idUsuario' | 'dataInclusao'>): PetSitter {
     return new PetSitter({
       idPetSitter: id,
       id: usuario.id,
@@ -12,6 +16,7 @@ export class PetSitterEntityMapper {
       senha: usuario.senha,
       sobreNome: usuario.sobreNome,
       status: usuario.status,
+      bio,
     });
   }
 }

@@ -45,6 +45,18 @@ export const UsuarioSchema = new EntitySchema<UsuarioModel>({
       type: 'timestamp with time zone',
     },
   },
+  relations: {
+    petSitter: {
+      target: 'PetSitterModel',
+      type: 'one-to-one',
+      inverseSide: 'usuario',
+    },
+    tutor: {
+      target: 'TutorModel',
+      type: 'one-to-one',
+      inverseSide: 'usuario',
+    },
+  },
   checks: [
     {
       name: 'ck_tb_usuario_status',

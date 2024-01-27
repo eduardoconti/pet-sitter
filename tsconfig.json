@@ -26,42 +26,19 @@
     "noUnusedParameters": true,
     "moduleResolution": "node",
     "paths": {
-      "@pet/*": [
-        "src/pet/*"
-      ],
-      "@main/*": [
-        "src/main/*"
-      ],
-      "@core/*": [
-        "src/core/*"
-      ],
-      "@infra/*": [
-        "src/infra/*"
-      ],
-      "@usuario/*": [
-        "src/usuario/*"
-      ],
-      "@pet-sitter/*": [
-        "src/pet-sitter/*"
-      ],
-      "@servico/*": [
-        "src/servico/*"
-      ],
-      "@atendimento/*": [
-        "src/atendimento/*"
-      ],
-      "@tutor/*": [
-        "src/tutor/*"
-      ],
-      "@localizacao/*": [
-        "src/localizacao/*"
-      ],
-      "@auth/*": [
-        "src/auth/*"
-      ],
-      "@presentation/*": [
-        "src/presentation/*"
-      ],
+      "@pet/*": ["src/pet/*"],
+      "@main/*": ["src/main/*"],
+      "@core/*": ["src/core/*"],
+      "@infra/*": ["src/infra/*"],
+      "@usuario/*": ["src/usuario/*"],
+      "@pet-sitter/*": ["src/pet-sitter/*"],
+      "@servico/*": ["src/servico/*"],
+      "@atendimento/*": ["src/atendimento/*"],
+      "@tutor/*": ["src/tutor/*"],
+      "@localizacao/*": ["src/localizacao/*"],
+      "@auth/*": ["src/auth/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@factories/*": ["src/factories/*"]
     }
   }
 }

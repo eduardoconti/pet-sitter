@@ -13,7 +13,10 @@ export class UsuarioRepository implements IUsuarioRepository {
     private readonly repository: Repository<UsuarioModel>,
   ) {}
   async findByEmail(email: string): Promise<UsuarioModel> {
-    const user = await this.repository.find({ where: { email } });
+    const user = await this.repository.find({
+      where: { email },
+      relations: { petSitter: true, tutor: true },
+    });
 
     if (!user || !user.length) {
       throw new NotFoundException('Usuario nao encontrado');

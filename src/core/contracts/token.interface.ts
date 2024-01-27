@@ -1,7 +1,10 @@
+import { PerfilUsuarioEnum } from '@usuario/domain/enums';
+
 export type TokenPayload = {
   id: string;
   nome: string;
   email: string;
+  perfil: PerfilUsuarioEnum;
 };
 
 export interface ISign {

@@ -32,6 +32,7 @@ import {
 import { ExibirPerfilPetSitter } from './presentation/perfil';
 import { UsuarioModule } from '@usuario/usuario.module';
 import { AvaliacoesPetSitterController } from './presentation/avaliacoes-pet-sitter';
+import { ConfiguracaoPerfilPetSitterController } from './presentation/perfil/configuracoes-perfil-pet-sitter.controller';
 
 @Module({
   controllers: [
@@ -41,6 +42,7 @@ import { AvaliacoesPetSitterController } from './presentation/avaliacoes-pet-sit
     AdicionarServicoController,
     ExibirPerfilPetSitter,
     AvaliacoesPetSitterController,
+    ConfiguracaoPerfilPetSitterController,
   ],
   imports: [
     TypeOrmModule.forFeature([PetSitterSchema]),

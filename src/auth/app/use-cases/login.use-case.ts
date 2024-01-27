@@ -4,6 +4,7 @@ import { ICompareHash, IJWtService, TokenPayload } from '@core/contracts';
 import { IUseCase } from '@core/use-case.interface';
 
 import { IUsuarioRepository } from '@usuario/domain/repositories';
+import { UsuarioFacatory } from '@factories/usuario';
 
 type LoginInput = {
   email: string;
@@ -17,22 +18,21 @@ export class LoginUseCase implements IUseCase<LoginInput, string> {
   ) {}
 
   async executar({ email, senha }: LoginInput): Promise<string> {
-    const {
-      id,
-      nome,
-      senha: encrypted,
-    } = await this.usuarioRepository.findByEmail(email);
+    const model = await this.usuarioRepository.findByEmail(email);
 
-    const compareHash = await this.compareHash.compare(senha, encrypted);
+    const usuario = UsuarioFacatory.perfil(model);
+
+    const compareHash = await this.compareHash.compare(senha, usuario.senha);
 
     if (!compareHash) {
       throw new UnauthorizedException('Credenciais invalidas');
     }
 
     return this.jwtService.sign<TokenPayload>({
-      id: id,
-      nome: nome,
-      email: email,
+      id: usuario.id,
+      nome: usuario.nomeCompleto,
+      email: usuario.email,
+      perfil: usuario.perfil(),
     });
   }
 }

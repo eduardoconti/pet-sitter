@@ -21,6 +21,24 @@ export interface IExibirPerfilPetSitterResponse {
   membroDesde: Date;
   avaliacoes: { quantidadeAvaliacoes: number; rating: number };
 }
+
+export interface IConfiguracoesPerfilPetSitterResponse {
+  id: number;
+  idUsuario: string;
+  nome: string;
+  sobreNome: string;
+  dataNascimento: Date;
+  email: string;
+  bio?: string;
+  servicos?: { id: number; tipoServico: TipoServicoEnum }[];
+  localAtendimento?: {
+    id: number;
+    idCidade: number;
+    idEstado: number;
+    nomeCidade: string;
+    nomeEstado: string;
+  }[];
+}
 @Injectable()
 export class ExibirPerfilPetSitterService {
   constructor(
@@ -103,5 +121,86 @@ export class ExibirPerfilPetSitterService {
     };
 
     return resultado;
+  }
+
+  async configuracoes({
+    idUsuario,
+  }: {
+    idUsuario: string;
+  }): Promise<IConfiguracoesPerfilPetSitterResponse> {
+    const perfil = await this.repository.find({
+      where: { idUsuario },
+      relations: {
+        localAtendimento: {
+          cidade: {
+            estado: true,
+          },
+        },
+        servicos: true,
+        usuario: true,
+      },
+      select: {
+        id: true,
+        bio: true,
+        idUsuario: true,
+        usuario: {
+          id: true,
+          nome: true,
+          sobreNome: true,
+          dataNascimento: true,
+          email: true,
+          senha: false,
+          dataInclusao: false,
+        },
+        localAtendimento: {
+          id: true,
+          idCidade: true,
+          cidade: {
+            id: true,
+            idEstado: true,
+            nome: true,
+            estado: {
+              id: true,
+              nome: true,
+            },
+          },
+        },
+        servicos: {
+          id: true,
+          tipoServico: true,
+        },
+      },
+    });
+
+    if (!perfil || !perfil.length) {
+      throw new NotFoundException('Perfil nao encontrado');
+    }
+
+    const [{ id, bio, usuario, servicos, localAtendimento }] = perfil;
+
+    return {
+      id,
+      idUsuario: usuario.id,
+      nome: usuario.nome,
+      sobreNome: usuario.sobreNome,
+      email: usuario.email,
+      dataNascimento: new Date(usuario.dataNascimento),
+      bio,
+      servicos: servicos?.map((e) => {
+        return {
+          id: e.id,
+          tipoServico: e.tipoServico,
+        };
+      }),
+      localAtendimento: localAtendimento?.map(({ id, cidade }) => {
+        return {
+          id,
+          idCidade: cidade.id,
+          nomeCidade: cidade.nome,
+          idEstado: cidade.estado.id,
+          nomeEstado: cidade.estado.nome,
+        };
+      }),
+    };
   }
 }
