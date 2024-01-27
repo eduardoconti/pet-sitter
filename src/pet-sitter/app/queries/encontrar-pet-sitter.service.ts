@@ -9,12 +9,19 @@ import {
   LocalAtendimentoSchema,
   PetSitterSchema,
 } from '@pet-sitter/infra/schemas';
-import { EncontrarPetSitterResponse } from '@pet-sitter/presentation/encontrar-pet-sitter';
 import { IFindPaginado } from '@presentation/paginacao';
 import { TipoServicoEnum } from '@servico/domain/enums';
 import { StatusUsuario } from '@usuario/domain/enums';
 import { FindOptionsWhere, In, Repository } from 'typeorm';
 
+export interface IEncontrarPetSitterResponse {
+  id: number;
+  nome: string;
+  dataNascimento: Date;
+  membroDesde: Date;
+  servicos: TipoServicoEnum[];
+  localAtendimento: { cidade: string }[];
+}
 @Injectable()
 export class EncontrarPetSitterService extends QueryService {
   constructor(
@@ -31,7 +38,7 @@ export class EncontrarPetSitterService extends QueryService {
     numeroPagina: number,
     idCidades?: number[],
     servicos?: TipoServicoEnum[],
-  ): Promise<IFindPaginado<EncontrarPetSitterResponse>> {
+  ): Promise<IFindPaginado<IEncontrarPetSitterResponse>> {
     const wherePetSitter: FindOptionsWhere<PetSitterModel> = {
       usuario: { status: StatusUsuario.ATIVO },
     };
@@ -73,7 +80,7 @@ export class EncontrarPetSitterService extends QueryService {
         data: [],
       };
     }
-    const petSitterModel: EncontrarPetSitterResponse[] =
+    const petSitterModel: IEncontrarPetSitterResponse[] =
       await this.repository.query(
         `SELECT
     tps.id,

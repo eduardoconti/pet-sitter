@@ -1,6 +1,9 @@
+import { IExibirPerfilPetSitterResponse } from '@pet-sitter/app/queries';
 import { TipoServicoEnum } from '@servico/domain/enums';
 
-export class ExibirPerfilPetSitterResponse {
+export class ExibirPerfilPetSitterResponse
+  implements IExibirPerfilPetSitterResponse
+{
   id!: number;
   nome!: string;
   dataNascimento!: Date;

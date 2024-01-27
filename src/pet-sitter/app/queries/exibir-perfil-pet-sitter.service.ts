@@ -6,10 +6,18 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { PetSitterModel } from '@pet-sitter/domain/models';
 import { PetSitterSchema } from '@pet-sitter/infra/schemas';
-import { ExibirPerfilPetSitterResponse } from '@pet-sitter/presentation/perfil';
+import { TipoServicoEnum } from '@servico/domain/enums';
 import { StatusUsuario } from '@usuario/domain/enums';
 import { Repository } from 'typeorm';
 
+export interface IExibirPerfilPetSitterResponse {
+  id: number;
+  nome: string;
+  dataNascimento: Date;
+  servicos: TipoServicoEnum[];
+  localAtendimento: { cidade: string }[];
+  membroDesde: Date;
+}
 @Injectable()
 export class ExibirPerfilPetSitterService {
   constructor(
@@ -17,7 +25,7 @@ export class ExibirPerfilPetSitterService {
     private readonly repository: Repository<PetSitterModel>,
   ) {}
 
-  async find(idPetSitter: number): Promise<ExibirPerfilPetSitterResponse> {
+  async find(idPetSitter: number): Promise<IExibirPerfilPetSitterResponse> {
     const petSitterModel = await this.repository.find({
       where: {
         id: idPetSitter,
@@ -73,7 +81,7 @@ export class ExibirPerfilPetSitterService {
       throw new InternalServerErrorException();
     }
 
-    const resultado: ExibirPerfilPetSitterResponse = {
+    const resultado: IExibirPerfilPetSitterResponse = {
       id: petSitter.id,
       nome: `${petSitter.usuario.nome} ${petSitter.usuario.sobreNome}`,
       dataNascimento: new Date(petSitter.usuario.dataNascimento),

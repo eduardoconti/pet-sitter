@@ -14,7 +14,6 @@ export class ExibirPerfilPetSitter {
   async handle(
     @Query() { id }: ExibirPerfilParams,
   ): Promise<ExibirPerfilPetSitterResponse> {
-    console.log(id);
     return await this.exibirPerfilService.find(id);
   }
 }
