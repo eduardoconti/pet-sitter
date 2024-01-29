@@ -1,8 +1,11 @@
-import { EnvironmentVariables } from '@main/config';
-import { ConfigService } from '@nestjs/config';
-import { MailerService } from '../../../infra/mailer/mailer-service';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
+import { EnvironmentVariables } from '@main/config';
+
 import { IAtivarCadastroMailerService } from '@usuario/app/services';
+
+import { MailerService } from '../../../infra/mailer/mailer-service';
 
 @Injectable()
 export class AtivarCadastroMailerService

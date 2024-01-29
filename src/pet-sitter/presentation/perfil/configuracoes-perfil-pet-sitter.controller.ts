@@ -1,10 +1,12 @@
-import { Controller, Get, Inject, UseGuards } from '@nestjs/common';
-
-import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '@auth/guard/auth.guard';
-import { PetSitter } from '@infra/decorators/user.decorator';
-import { TokenPayload } from '@core/contracts';
+import { Controller, Get, Inject, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
 import { ExibirPerfilPetSitterService } from '@pet-sitter/app/queries';
+
+import { PetSitter } from '@infra/decorators/user.decorator';
+
+import { TokenPayload } from '@core/contracts';
 
 import { ConfiguracoesPerfilPetSitterResponse } from './';
 @ApiTags('pet-sitter')

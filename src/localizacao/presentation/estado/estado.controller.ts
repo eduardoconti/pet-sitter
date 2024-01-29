@@ -1,10 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { EstadoModel } from '@localizacao/domain/models';
 import { EstadoSchema } from '@localizacao/infra/schemas';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('localizacao')
 @Controller('localizacao')

@@ -39,6 +39,7 @@ module.exports = {
           '/^@servico/',
           '/^@tutor/',
           '/^@localizacao/',
+          '/^@factories/',
           ['parent', 'sibling', 'index'],
         ],
         alphabetize: { order: 'asc', ignoreCase: true },

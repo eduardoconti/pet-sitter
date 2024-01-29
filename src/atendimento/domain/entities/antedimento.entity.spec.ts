@@ -5,13 +5,14 @@ import { TemperamentoPetEnum } from '@pet/domain/enums';
 import { UUID } from '@core/uuid.value-object';
 import { Intervalo, Periodo } from '@core/value-objects';
 
+import { StatusUsuario } from '@usuario/domain/enums';
+
 import { Alimentacao, Hospedagem, Passeio } from '@servico/domain/entities';
 
 import { Atendimento } from './atendimento.entity';
 import { SolicitacaoAlimentacao } from './solicitacao-servico-pet-alimentacao.entity';
 import { SolicitacaoHospedagem } from './solicitacao-servico-pet-hospedagem.entity';
 import { SolicitacaoPasseio } from './solicitacao-servico-pet-passeio.entity';
-import { StatusUsuario } from '@usuario/domain/enums';
 
 describe('Atendimento', () => {
   const passeio = Passeio.create({

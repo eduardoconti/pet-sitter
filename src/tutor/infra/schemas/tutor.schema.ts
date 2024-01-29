@@ -1,5 +1,6 @@
-import { TutorModel } from '@tutor/domain/models';
 import { EntitySchema } from 'typeorm';
+
+import { TutorModel } from '@tutor/domain/models';
 
 export const TutorSchema = new EntitySchema<TutorModel>({
   name: 'TutorModel',

@@ -1,10 +1,10 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { PreCadastroPetSitterUseCase } from '@pet-sitter/app/use-cases';
 import { IPreCadastroPetSitterUseCase } from '@pet-sitter/domain/use-cases';
 
 import { PreCadastroPetSitterDto } from './pre-cadastro-pet-sitter.dto';
-import { ApiTags } from '@nestjs/swagger';
 @ApiTags('pet-sitter')
 @Controller('pet-sitter')
 export class PreCadastroPetSitterController {

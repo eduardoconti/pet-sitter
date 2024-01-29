@@ -7,6 +7,7 @@ import {
 } from '@pet-sitter/domain/use-cases';
 
 import { IHash } from '@core/contracts';
+
 import { IAtivarCadastroMailerService } from '@usuario/app/services';
 
 export class PreCadastroPetSitterUseCase

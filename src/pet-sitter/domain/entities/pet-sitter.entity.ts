@@ -5,8 +5,8 @@ import {
 } from '@usuario/domain/entities';
 import { PerfilUsuarioEnum, StatusUsuario } from '@usuario/domain/enums';
 
-import { LocalAtendimento } from './local-atendimento';
 import { Avaliacao } from './avaliacao.entity';
+import { LocalAtendimento } from './local-atendimento';
 
 export type PetSitterProps = UsuarioProps & {
   localAtendimento: LocalAtendimento[];
@@ -70,10 +70,6 @@ export class PetSitter extends Usuario implements IPerfilUsuario {
     this._localAtendimento = localAtendimento;
   }
 
-  perfil(): PerfilUsuarioEnum {
-    return PerfilUsuarioEnum.PET_SITTER;
-  }
-
   static preCadastro({
     nome,
     dataNascimento,
@@ -94,5 +90,9 @@ export class PetSitter extends Usuario implements IPerfilUsuario {
       sobreNome,
       status: StatusUsuario.PENDENTE_ATIVACAO,
     });
+  }
+
+  perfil(): PerfilUsuarioEnum {
+    return PerfilUsuarioEnum.PET_SITTER;
   }
 }

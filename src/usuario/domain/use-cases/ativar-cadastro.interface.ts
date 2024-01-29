@@ -1,3 +1,3 @@
 import { IUseCase } from '@core/use-case.interface';
 
-export interface IAtivarCadastroUseCase extends IUseCase<string, string> {}
+export type IAtivarCadastroUseCase = IUseCase<string, string>;

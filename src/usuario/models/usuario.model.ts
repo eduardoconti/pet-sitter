@@ -4,8 +4,9 @@ import { BaseModel } from '@core/base-model';
 
 import { StatusUsuario } from '@usuario/domain/enums';
 
-import { ContatoModel } from './contato.model';
 import { TutorModel } from '@tutor/domain/models';
+
+import { ContatoModel } from './contato.model';
 
 export abstract class UsuarioModel extends BaseModel {
   nome!: string;

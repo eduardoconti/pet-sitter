@@ -1,9 +1,11 @@
 import { Controller, Get, Query } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { IFindPaginado } from '@presentation/paginacao';
+
+import { AvaliacoesPetSitterService } from '@pet-sitter/app/queries';
+
 import { AvaliacoesPetSitterResponse } from '.';
 import { AvaliacoesPetSitterFiltro } from './avaliacoes-pet-sitter.filtro';
-import { AvaliacoesPetSitterService } from '@pet-sitter/app/queries';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('pet-sitter')
 @Controller('pet-sitter')

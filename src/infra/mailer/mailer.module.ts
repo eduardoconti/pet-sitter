@@ -1,9 +1,11 @@
 import { Global, Module } from '@nestjs/common';
-import { MailerService } from '@infra/mailer';
-import { createTransport } from 'nodemailer';
 import { ConfigService } from '@nestjs/config';
-import { EnvironmentVariables } from '@main/config';
+import { createTransport } from 'nodemailer';
+
 import { ApmService } from '@infra/apm/apm.service';
+import { MailerService } from '@infra/mailer';
+
+import { EnvironmentVariables } from '@main/config';
 
 const provider = {
   provide: MailerService,

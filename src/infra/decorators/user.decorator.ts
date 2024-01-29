@@ -6,6 +6,7 @@ import {
 import { Request } from 'express';
 
 import { TokenPayload } from '@core/contracts';
+
 import { PerfilUsuarioEnum } from '@usuario/domain/enums';
 
 export const User = createParamDecorator(

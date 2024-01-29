@@ -4,6 +4,7 @@ import { ICompareHash, IJWtService, TokenPayload } from '@core/contracts';
 import { IUseCase } from '@core/use-case.interface';
 
 import { IUsuarioRepository } from '@usuario/domain/repositories';
+
 import { UsuarioFacatory } from '@factories/usuario';
 
 type LoginInput = {

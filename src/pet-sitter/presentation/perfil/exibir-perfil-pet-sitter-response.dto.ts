@@ -1,4 +1,5 @@
 import { IExibirPerfilPetSitterResponse } from '@pet-sitter/app/queries';
+
 import { TipoServicoEnum } from '@servico/domain/enums';
 
 export class ExibirPerfilPetSitterResponse

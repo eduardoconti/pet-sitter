@@ -64,6 +64,10 @@ export class Usuario extends Entity {
     return this._status;
   }
 
+  get nomeCompleto() {
+    return `${this.nome} ${this.sobreNome}`;
+  }
+
   get contato(): Contato {
     if (!this._contato) {
       throw new Error('Contato nao encontrado!');
@@ -73,10 +77,6 @@ export class Usuario extends Entity {
 
   set contato(contato: Contato) {
     this._contato = contato;
-  }
-
-  get nomeCompleto() {
-    return `${this.nome} ${this.sobreNome}`;
   }
 
   isPendente() {

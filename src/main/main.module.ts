@@ -8,6 +8,7 @@ import { PetModule } from '@pet/pet.module';
 import { ApmModule } from '@infra/apm/apm.module';
 import { TypeOrmConfigModule } from '@infra/database/typeorm.module';
 import { IdempotencyModule } from '@infra/idempotency/idempotency.module';
+import { MailerModule } from '@infra/mailer/mailer.module';
 
 import { UsuarioModule } from '@usuario/usuario.module';
 
@@ -16,7 +17,6 @@ import { AtendimentoModule } from '@atendimento/atendimento.module';
 import { TutorModule } from '@tutor/tutor.module';
 
 import { configValidationSchema } from './config';
-import { MailerModule } from '@infra/mailer/mailer.module';
 
 @Module({
   imports: [

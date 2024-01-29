@@ -1,10 +1,12 @@
-import { IAtivarCadastroUseCase } from '@usuario/domain/use-cases';
-import { AtivarCadastroUseCase } from './ativar-cadastro.use-case';
-import { IUsuarioRepository } from '@usuario/domain/repositories';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsuarioRepository } from '@usuario/infra/repositories';
+
 import { StatusUsuario } from '@usuario/domain/enums';
+import { IUsuarioRepository } from '@usuario/domain/repositories';
+import { IAtivarCadastroUseCase } from '@usuario/domain/use-cases';
+import { UsuarioRepository } from '@usuario/infra/repositories';
 import { ProvideAtivarCadastroUseCase } from '@usuario/usuario.module';
+
+import { AtivarCadastroUseCase } from './ativar-cadastro.use-case';
 
 const mockUsuario = {
   id: 'fakeuUID',

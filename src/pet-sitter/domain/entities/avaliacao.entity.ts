@@ -1,4 +1,5 @@
 import { Entity } from '@core/entity';
+
 import { AvaliacaoModel } from '../models/avaliacao.model';
 
 export type CreateAvaliacaoEntityProps = Omit<AvaliacaoModel, 'dataInclusao'>;
@@ -23,7 +24,7 @@ export class Avaliacao extends Entity<number> {
     this._descricao = descricao;
   }
   get idPetSitter(): number {
-    return this._idPetSitter!;
+    return this._idPetSitter;
   }
 
   get idTutor() {

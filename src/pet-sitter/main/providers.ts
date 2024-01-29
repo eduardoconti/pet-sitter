@@ -17,6 +17,7 @@ import {
 import { PasswordService } from '@infra/bcrypt';
 
 import { IHash } from '@core/contracts';
+
 import { AtivarCadastroMailerService } from '@usuario/infra/services';
 
 export const CadastrarPetSitterUseCaseProvider: Provider = {

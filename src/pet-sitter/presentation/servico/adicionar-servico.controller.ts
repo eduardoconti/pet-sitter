@@ -1,5 +1,6 @@
 import { AuthGuard } from '@auth/guard/auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { AdicionarServicoUseCase } from '@pet-sitter/app/use-cases/adicionar-servico.use-case';
 
@@ -8,7 +9,6 @@ import { User } from '@infra/decorators/user.decorator';
 import { TokenPayload } from '@core/contracts';
 
 import { AdicionarServicoDto } from './adicionar-servico.dto';
-import { ApiTags } from '@nestjs/swagger';
 @ApiTags('servico')
 @Controller('servico')
 export class AdicionarServicoController {

@@ -5,9 +5,10 @@ import { Repository } from 'typeorm';
 import { PetSitterModel } from '@pet-sitter/domain/models';
 import { IPetSitterRepository } from '@pet-sitter/domain/repositories';
 
+import { StatusUsuario } from '@usuario/domain/enums';
+
 import { PetSitterSchema } from '../schemas';
 import { PetSitterRepository } from './pet-sitter.repository';
-import { StatusUsuario } from '@usuario/domain/enums';
 
 describe('PetSitterRepository', () => {
   let petSitterRepository: IPetSitterRepository;

@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AtivarCadastroMailerService } from '@usuario/infra/services';
+
+import { AtivarCadastroUseCase } from './app/use-cases';
+import { IUsuarioRepository } from './domain/repositories';
 import { UsuarioRepository } from './infra/repositories';
 import { UsuarioSchema } from './infra/schemas';
-import { AtivarCadastroUseCase } from './app/use-cases';
 import { AtivarCadastroController } from './presentation/ativar-cadastro';
-import { IUsuarioRepository } from './domain/repositories';
-import { AtivarCadastroMailerService } from '@usuario/infra/services';
 
 export const ProvideAtivarCadastroUseCase = {
   provide: AtivarCadastroUseCase,

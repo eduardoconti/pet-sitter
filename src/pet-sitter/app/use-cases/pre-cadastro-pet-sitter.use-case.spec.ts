@@ -10,10 +10,11 @@ import { PasswordService } from '@infra/bcrypt';
 
 import { IHash } from '@core/contracts';
 
-import { PreCadastroPetSitterUseCase } from './pre-cadastro-pet-sitter.use-case';
-import { StatusUsuario } from '@usuario/domain/enums';
 import { IAtivarCadastroMailerService } from '@usuario/app/services';
+import { StatusUsuario } from '@usuario/domain/enums';
 import { AtivarCadastroMailerService } from '@usuario/infra/services';
+
+import { PreCadastroPetSitterUseCase } from './pre-cadastro-pet-sitter.use-case';
 
 describe('PreCadastroPetSitterUseCase', () => {
   let predCadastroPetSitterUseCase: IPreCadastroPetSitterUseCase;

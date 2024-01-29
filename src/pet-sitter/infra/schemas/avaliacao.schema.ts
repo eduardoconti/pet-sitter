@@ -1,5 +1,6 @@
-import { AvaliacaoModel } from '@pet-sitter/domain/models/avaliacao.model';
 import { EntitySchema } from 'typeorm';
+
+import { AvaliacaoModel } from '@pet-sitter/domain/models/avaliacao.model';
 
 export const AvaliacaoSchema = new EntitySchema<AvaliacaoModel>({
   name: 'AvaliacaoModel',

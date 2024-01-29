@@ -1,5 +1,6 @@
 import { AuthGuard } from '@auth/guard/auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { AdicionarLocalAtendimentoUseCase } from '@pet-sitter/app/use-cases/adicionar-local-atendimento.use-case';
 
@@ -8,7 +9,6 @@ import { User } from '@infra/decorators/user.decorator';
 import { TokenPayload } from '@core/contracts';
 
 import { AdicionarLocalAtendimentoDto } from './adicionar-local-atendimento.dto';
-import { ApiTags } from '@nestjs/swagger';
 @ApiTags('local-atendimento')
 @Controller('local-atendimento')
 export class AdicionarLocalAtendimentoController {

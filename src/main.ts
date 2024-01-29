@@ -1,12 +1,12 @@
 import { ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { ApmService } from '@infra/apm/apm.service';
 
 import { MainModule } from '@main/main.module';
 
 import { AllExceptionsFilter } from './infra/filters';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(MainModule);

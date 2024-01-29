@@ -1,9 +1,10 @@
+import { ApmService } from '@infra/apm/apm.service';
+
 import {
   IEmailService,
   ITransporter,
   SendEmailProps,
 } from '@core/mailer.interface';
-import { ApmService } from '@infra/apm/apm.service';
 
 export class MailerService implements IEmailService {
   constructor(

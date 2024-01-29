@@ -1,6 +1,8 @@
-import { QueryService } from '@core/querie.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IFindPaginado } from '@presentation/paginacao';
+import { FindOptionsWhere, In, Repository } from 'typeorm';
+
 import {
   LocalAtendimentoModel,
   PetSitterModel,
@@ -9,10 +11,12 @@ import {
   LocalAtendimentoSchema,
   PetSitterSchema,
 } from '@pet-sitter/infra/schemas';
-import { IFindPaginado } from '@presentation/paginacao';
-import { TipoServicoEnum } from '@servico/domain/enums';
+
+import { QueryService } from '@core/querie.service';
+
 import { StatusUsuario } from '@usuario/domain/enums';
-import { FindOptionsWhere, In, Repository } from 'typeorm';
+
+import { TipoServicoEnum } from '@servico/domain/enums';
 
 export interface IEncontrarPetSitterResponse {
   id: number;

@@ -1,4 +1,5 @@
 import { IUseCase } from '@core/use-case.interface';
+
 import { TipoServicoEnum } from '@servico/domain/enums';
 
 export type AdicionarServicoUseCaseInput = {
@@ -6,5 +7,7 @@ export type AdicionarServicoUseCaseInput = {
   tipoServico: TipoServicoEnum;
 };
 
-export interface IAdicionarServicoUseCase
-  extends IUseCase<AdicionarServicoUseCaseInput, void> {}
+export type IAdicionarServicoUseCase = IUseCase<
+  AdicionarServicoUseCaseInput,
+  void
+>;

@@ -5,11 +5,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
 import { PetSitterModel } from '@pet-sitter/domain/models';
 import { PetSitterSchema } from '@pet-sitter/infra/schemas';
-import { TipoServicoEnum } from '@servico/domain/enums';
+
 import { StatusUsuario } from '@usuario/domain/enums';
-import { Repository } from 'typeorm';
+
+import { TipoServicoEnum } from '@servico/domain/enums';
+
 import { AvaliacoesPetSitterService } from './avaliacoes-pet-sitter.service';
 
 export interface IExibirPerfilPetSitterResponse {

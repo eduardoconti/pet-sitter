@@ -1,12 +1,12 @@
-import { QueryService } from '@core/querie.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IFindPaginado } from '@presentation/paginacao';
+import { Repository } from 'typeorm';
 
 import { AvaliacaoModel } from '@pet-sitter/domain/models/avaliacao.model';
 import { AvaliacaoSchema } from '@pet-sitter/infra/schemas/avaliacao.schema';
 
-import { IFindPaginado } from '@presentation/paginacao';
-import { Repository } from 'typeorm';
+import { QueryService } from '@core/querie.service';
 
 export interface IAvaliacoesPetSitterServiceResponse {
   tutor: string;

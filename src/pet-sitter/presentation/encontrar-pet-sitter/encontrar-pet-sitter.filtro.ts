@@ -1,7 +1,8 @@
 import { IFiltroPaginado } from '@presentation/paginacao';
-import { TipoServicoEnum } from '@servico/domain/enums';
 import { Transform } from 'class-transformer';
 import { IsArray, IsEnum, IsNumber, IsOptional, Min } from 'class-validator';
+
+import { TipoServicoEnum } from '@servico/domain/enums';
 
 export class EncontrarPetSitterFiltro implements IFiltroPaginado {
   @Transform(({ value }) => Number(value))

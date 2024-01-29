@@ -1,7 +1,10 @@
-import { MailerService } from './mailer-service';
-import { IEmailService, ITransporter } from '@core/mailer.interface';
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { ApmService } from '@infra/apm/apm.service';
+
+import { IEmailService, ITransporter } from '@core/mailer.interface';
+
+import { MailerService } from './mailer-service';
 
 const makeFakeBody = {
   body: '<h1>fakebody</h1>',
