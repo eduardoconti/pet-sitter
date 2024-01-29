@@ -174,6 +174,19 @@ export class ExibirPerfilPetSitterService {
           tipoServico: true,
         },
       },
+      order: {
+        servicos: {
+          tipoServico: 'ASC',
+        },
+        localAtendimento: {
+          cidade: {
+            estado: {
+              nome: 'ASC',
+            },
+            nome: 'ASC',
+          },
+        },
+      },
     });
 
     if (!perfil || !perfil.length) {
