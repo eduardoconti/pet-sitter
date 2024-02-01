@@ -1,4 +1,4 @@
-FROM node:18.12.0-alpine AS build
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
@@ -10,11 +10,9 @@ COPY . .
 
 RUN yarn build
 
-FROM node:18.12.0-alpine
+FROM node:18-alpine
 
 WORKDIR /app
-
-#RUN yarn global add pm2
 
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist

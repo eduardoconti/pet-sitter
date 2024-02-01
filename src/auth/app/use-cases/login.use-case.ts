@@ -34,6 +34,7 @@ export class LoginUseCase implements IUseCase<LoginInput, string> {
       nome: usuario.nomeCompleto,
       email: usuario.email,
       perfil: usuario.perfil(),
+      idPerfil: usuario.idPerfil(),
     });
   }
 }

@@ -5,6 +5,7 @@ export type TokenPayload = {
   nome: string;
   email: string;
   perfil: PerfilUsuarioEnum;
+  idPerfil: number;
 };
 
 export interface ISign {

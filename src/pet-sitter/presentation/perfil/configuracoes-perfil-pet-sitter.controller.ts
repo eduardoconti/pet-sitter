@@ -1,6 +1,6 @@
 import { AuthGuard } from '@auth/guard/auth.guard';
 import { Controller, Get, Inject, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { ExibirPerfilPetSitterService } from '@pet-sitter/app/queries';
 
@@ -17,6 +17,7 @@ export class ConfiguracaoPerfilPetSitterController {
     private readonly exibirPerfilService: ExibirPerfilPetSitterService,
   ) {}
 
+  @ApiBearerAuth()
   @Get('perfil')
   @UseGuards(AuthGuard)
   async handle(

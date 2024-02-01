@@ -3,6 +3,7 @@ import { Provider } from '@nestjs/common';
 import { PreCadastroPetSitterUseCase } from '@pet-sitter/app/use-cases';
 import { AdicionarLocalAtendimentoUseCase } from '@pet-sitter/app/use-cases';
 import { AdicionarServicoUseCase } from '@pet-sitter/app/use-cases/adicionar-servico.use-case';
+import { AtualizarCadastroPetSitterUseCase } from '@pet-sitter/app/use-cases/atualizar-cadastro-pet-sitter.use-case';
 import {
   ILocalAtendimentoRepository,
   IPetSitterRepository,
@@ -55,4 +56,12 @@ export const AdicionarServicoUseCaseProvider: Provider = {
     return new AdicionarServicoUseCase(repository, localAtendimentoRepository);
   },
   inject: [PetSitterRepository, ServicoRepository],
+};
+
+export const AtualizarCadastroPetSitterCaseUseProvider: Provider = {
+  provide: AtualizarCadastroPetSitterUseCase,
+  useFactory(repository: IPetSitterRepository) {
+    return new AtualizarCadastroPetSitterUseCase(repository);
+  },
+  inject: [PetSitterRepository],
 };

@@ -3,7 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { PetSitterModel } from '@pet-sitter/domain/models';
-import { IPetSitterRepository } from '@pet-sitter/domain/repositories';
+import {
+  IPetSitterRepository,
+  UpdatePetSitterInput,
+} from '@pet-sitter/domain/repositories';
 
 import { PostgresEnumErro } from '@infra/pg/enum';
 
@@ -12,13 +15,13 @@ import { PetSitterSchema } from '../schemas';
 export class PetSitterRepository implements IPetSitterRepository {
   constructor(
     @InjectRepository(PetSitterSchema)
-    private readonly petRepository: Repository<PetSitterModel>,
+    private readonly petSitterRepository: Repository<PetSitterModel>,
   ) {}
 
   async save(
     model: Omit<PetSitterModel, 'dataInclusao'>,
   ): Promise<PetSitterModel> {
-    return await this.petRepository
+    return await this.petSitterRepository
       .save({
         ...model,
         dataInclusao: new Date().toISOString(),
@@ -32,7 +35,7 @@ export class PetSitterRepository implements IPetSitterRepository {
   }
 
   async get(idUsuario: string): Promise<PetSitterModel> {
-    const petSitterModel = await this.petRepository.find({
+    const petSitterModel = await this.petSitterRepository.find({
       where: { idUsuario },
       select: {
         id: true,
@@ -45,5 +48,14 @@ export class PetSitterRepository implements IPetSitterRepository {
       throw new NotFoundException('Pet sitter nao encontrado');
     }
     return petSitterModel[0];
+  }
+
+  async update(model: UpdatePetSitterInput): Promise<UpdatePetSitterInput> {
+    console.log(model);
+    const { id, ...petSitter } = model;
+
+    await this.petSitterRepository.save({ ...petSitter, id });
+
+    return model;
   }
 }

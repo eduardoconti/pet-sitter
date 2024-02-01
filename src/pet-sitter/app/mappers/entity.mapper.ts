@@ -8,7 +8,7 @@ export class PetSitterEntityMapper {
     usuario,
   }: Omit<PetSitterModel, 'idUsuario' | 'dataInclusao'>): PetSitter {
     return new PetSitter({
-      idPetSitter: id,
+      petSitter: { id } as PetSitterModel,
       id: usuario.id,
       dataNascimento: usuario.dataNascimento,
       email: usuario.email,

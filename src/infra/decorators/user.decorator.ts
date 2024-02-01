@@ -24,7 +24,7 @@ export const PetSitter = createParamDecorator(
       .switchToHttp()
       .getRequest<Request & { user: TokenPayload }>();
 
-    if (request.user.perfil !== PerfilUsuarioEnum.PET_SITTER) {
+    if (request.user?.perfil !== PerfilUsuarioEnum.PET_SITTER) {
       throw new UnauthorizedException('Perfil invalido');
     }
     return request['user'];

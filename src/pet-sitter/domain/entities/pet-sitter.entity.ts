@@ -32,16 +32,14 @@ export class PetSitter extends Usuario implements IPerfilUsuario {
     id,
     email,
     senha,
-    idPetSitter,
+    petSitter,
     sobreNome,
     status,
     bio,
     avaliacoes,
-  }: Omit<CreatePetSitterEntityProps, 'idPetSitter'> & {
-    idPetSitter?: number;
-  }) {
+  }: Omit<CreatePetSitterEntityProps, 'idPetSitter'>) {
     super({ nome, dataNascimento, id, email, senha, sobreNome, status });
-    this._idPetSitter = idPetSitter;
+    this._idPetSitter = petSitter?.id;
     this._bio = bio;
     this._avaliacoes = avaliacoes;
   }
@@ -94,5 +92,9 @@ export class PetSitter extends Usuario implements IPerfilUsuario {
 
   perfil(): PerfilUsuarioEnum {
     return PerfilUsuarioEnum.PET_SITTER;
+  }
+
+  idPerfil(): number {
+    return this._idPetSitter as number;
   }
 }

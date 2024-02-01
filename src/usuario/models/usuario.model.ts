@@ -8,7 +8,7 @@ import { TutorModel } from '@tutor/domain/models';
 
 import { ContatoModel } from './contato.model';
 
-export abstract class UsuarioModel extends BaseModel {
+export class UsuarioModel extends BaseModel {
   nome!: string;
   sobreNome!: string;
   dataNascimento!: Date | string | number;

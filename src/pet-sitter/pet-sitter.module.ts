@@ -25,13 +25,15 @@ import {
 import {
   AdicionarLocalAtendimentoUseCaseProvider,
   AdicionarServicoUseCaseProvider,
+  AtualizarCadastroPetSitterCaseUseProvider,
   CadastrarPetSitterUseCaseProvider,
 } from './main/providers';
+import { AtualizarCadastroPetSitterController } from './presentation/atualizar-cadastro ';
 import { AvaliacoesPetSitterController } from './presentation/avaliacoes-pet-sitter';
 import { EncontrarPetSitterController } from './presentation/encontrar-pet-sitter';
 import { AdicionarLocalAtendimentoController } from './presentation/local-atendimento';
 import { ExibirPerfilPetSitter } from './presentation/perfil';
-import { ConfiguracaoPerfilPetSitterController } from './presentation/perfil/configuracoes-perfil-pet-sitter.controller';
+import { ConfiguracaoPerfilPetSitterController } from './presentation/perfil';
 import { PreCadastroPetSitterController } from './presentation/pre-cadastro';
 import { AdicionarServicoController } from './presentation/servico';
 
@@ -44,6 +46,7 @@ import { AdicionarServicoController } from './presentation/servico';
     ExibirPerfilPetSitter,
     AvaliacoesPetSitterController,
     ConfiguracaoPerfilPetSitterController,
+    AtualizarCadastroPetSitterController,
   ],
   imports: [
     TypeOrmModule.forFeature([PetSitterSchema]),
@@ -65,6 +68,7 @@ import { AdicionarServicoController } from './presentation/servico';
     EncontrarPetSitterService,
     ExibirPerfilPetSitterService,
     AvaliacoesPetSitterService,
+    AtualizarCadastroPetSitterCaseUseProvider,
   ],
 })
 export class PetSitterModule {}
