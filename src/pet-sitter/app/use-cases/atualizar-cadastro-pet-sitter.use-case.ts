@@ -19,7 +19,7 @@ export class AtualizarCadastroPetSitterUseCase
     bio,
   }: AtualizarCadastroPetSitterUseCaseInput): Promise<AtualizarCadastroPetSitterUseCaseOutput> {
     await this.petSitterRepository.update({
-      id: idPetSitter as number,
+      id: idPetSitter,
       bio,
       usuario: { nome, dataNascimento, sobreNome, id },
     });

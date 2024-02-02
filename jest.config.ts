@@ -29,6 +29,7 @@ export default {
       '@localizacao/*': ['src/localizacao/*'],
       '@auth/*': ['src/auth/*'],
       '@presentation/*': ['src/presentation/*'],
+      '@factories/*': ['src/factories/*'],
     },
     {
       prefix: '<rootDir>/../',

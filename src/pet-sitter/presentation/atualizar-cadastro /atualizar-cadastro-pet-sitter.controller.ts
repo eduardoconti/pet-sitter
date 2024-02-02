@@ -20,21 +20,21 @@ import { TokenPayload } from '@core/contracts';
 import { AtualizarCadastroPetSitterDto } from './atualizar-cadastro-pet-sitter.dto';
 @ApiTags('pet-sitter')
 @Controller('pet-sitter')
-@UseGuards(AuthGuard)
 export class AtualizarCadastroPetSitterController {
   constructor(
     @Inject(AtualizarCadastroPetSitterUseCase)
-    private readonly cadastrarPetSitterUseCase: IAtualizarCadastroPetSitterUseCase,
+    private readonly atualizarCadastroPetSitterUseCase: IAtualizarCadastroPetSitterUseCase,
   ) {}
 
   @ApiBearerAuth()
   @Patch('atualizar-cadastro')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(AuthGuard)
   async handle(
     @Body() dto: AtualizarCadastroPetSitterDto,
     @PetSitter() { id, idPerfil }: TokenPayload,
   ): Promise<void> {
-    await this.cadastrarPetSitterUseCase.executar({
+    await this.atualizarCadastroPetSitterUseCase.executar({
       id,
       idPetSitter: idPerfil,
       ...dto,

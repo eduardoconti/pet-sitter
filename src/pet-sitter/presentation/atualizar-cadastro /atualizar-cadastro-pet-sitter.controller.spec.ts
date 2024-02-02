@@ -1,7 +1,11 @@
+import { AuthGuard } from '@auth/guard/auth.guard';
+import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { AtualizarCadastroPetSitterUseCase } from '@pet-sitter/app/use-cases';
 import { IAtualizarCadastroPetSitterUseCase } from '@pet-sitter/domain/use-cases';
+
+import { JwtService } from '@infra/jwt';
 
 import { TokenPayload } from '@core/contracts';
 
@@ -21,6 +25,9 @@ describe('AtualizarCadastroPetSitterController', () => {
             executar: jest.fn(),
           },
         },
+        AuthGuard,
+        JwtService,
+        ConfigService,
       ],
     }).compile();
 
@@ -48,6 +55,7 @@ describe('AtualizarCadastroPetSitterController', () => {
         nome: 'Eduardo',
         dataNascimento: new Date('1995-12-05'),
         sobreNome: 'Conti',
+        idPetSitter: 1,
       });
 
     const result = await controller.handle(
@@ -61,12 +69,7 @@ describe('AtualizarCadastroPetSitterController', () => {
       } as TokenPayload,
     );
 
-    expect(result).toEqual({
-      id: 'FakeUUID',
-      nome: 'Eduardo',
-      dataNascimento: new Date('1995-12-05'),
-      sobreNome: 'Conti',
-    });
+    expect(result).toBeUndefined();
 
     expect(atualizarCadastroPetSitterUseCase.executar).toBeCalledWith({
       id: 'FakeUUID',
