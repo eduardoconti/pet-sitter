@@ -2,17 +2,13 @@ import {
   ILocalAtendimentoRepository,
   IPetSitterRepository,
 } from '@pet-sitter/domain/repositories';
-
-import { IUseCase } from '@core/use-case.interface';
-
-type AdicionarLocalAtendimentoUseCaseInput = {
-  idCidade: number;
-  idUsuario: string;
-  idRegiao?: number;
-};
+import {
+  AdicionarLocalAtendimentoUseCaseInput,
+  IAdicionarLocalAtendimentoUseCase,
+} from '@pet-sitter/domain/use-cases';
 
 export class AdicionarLocalAtendimentoUseCase
-  implements IUseCase<AdicionarLocalAtendimentoUseCaseInput, any>
+  implements IAdicionarLocalAtendimentoUseCase
 {
   constructor(
     private readonly petSitterRepository: IPetSitterRepository,
@@ -23,7 +19,7 @@ export class AdicionarLocalAtendimentoUseCase
     idCidade,
     idUsuario,
     idRegiao,
-  }: AdicionarLocalAtendimentoUseCaseInput): Promise<any> {
+  }: AdicionarLocalAtendimentoUseCaseInput): Promise<void> {
     const petSitterModel = await this.petSitterRepository.get(idUsuario);
     await this.localAtendimentoRepository.save({
       idPetSitter: petSitterModel.id,

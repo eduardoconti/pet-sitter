@@ -24,6 +24,6 @@ export class AtualizarCadastroPetSitterUseCase
       usuario: { nome, dataNascimento, sobreNome, id },
     });
 
-    return { id, nome, dataNascimento, sobreNome, idPetSitter };
+    return { id, nome, dataNascimento, sobreNome, idPetSitter, bio };
   }
 }
