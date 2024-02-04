@@ -51,7 +51,6 @@ export class PetSitterRepository implements IPetSitterRepository {
   }
 
   async update(model: UpdatePetSitterInput): Promise<UpdatePetSitterInput> {
-    console.log(model);
     const { id, ...petSitter } = model;
 
     await this.petSitterRepository.save({ ...petSitter, id });
