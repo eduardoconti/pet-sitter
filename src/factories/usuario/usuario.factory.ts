@@ -8,7 +8,7 @@ import { UsuarioModel } from '@usuario/models';
 
 import { Tutor } from '@tutor/domain/entities';
 
-export class UsuarioFacatory {
+export class UsuarioFactory {
   static perfil(usuarioModel: UsuarioModel): Usuario & IPerfilUsuario {
     if (usuarioModel.petSitter) {
       return new PetSitter(usuarioModel);

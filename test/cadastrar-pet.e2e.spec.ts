@@ -1,4 +1,4 @@
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
@@ -26,6 +26,7 @@ describe('CadastrarPetController (e2e)', () => {
     const httpAdapter = app.get(HttpAdapterHost);
     const apmService = app.get(ApmService);
     app.useGlobalFilters(new AllExceptionsFilter(httpAdapter, apmService));
+    app.useGlobalPipes(new ValidationPipe({ transform: true }));
     await app.init();
   });
 

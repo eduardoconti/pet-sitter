@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { PetSitterModel } from '@pet-sitter/domain/models';
@@ -75,6 +76,7 @@ describe('AdicionarServicoUseCase', () => {
         sobreNome: 'Conti',
         status: StatusUsuario.ATIVO,
       },
+      servicos: [],
     };
 
     jest
@@ -95,5 +97,46 @@ describe('AdicionarServicoUseCase', () => {
       idPetSitter: 2,
       tipoServico: useCaseInput.tipoServico,
     });
+  });
+  it('deve lancar erro servico ja cadastrado', async () => {
+    const useCaseInput = {
+      idUsuario: '63410879-ea97-4dbd-a942-183ce558716f',
+      tipoServico: TipoServicoEnum.ALIMENTACAO,
+    };
+
+    const petSitterModelMock: PetSitterModel = {
+      id: 2,
+      idUsuario: '63410879-ea97-4dbd-a942-183ce558716f',
+      dataInclusao: new Date(),
+      usuario: {
+        id: '63410879-ea97-4dbd-a942-183ce558716f',
+        nome: 'Eduardo',
+        email: 'es.eduardoconti@gmail.com',
+        senha: 'fake@123',
+        dataNascimento: new Date('1995-12-05'),
+        dataInclusao: new Date(),
+        sobreNome: 'Conti',
+        status: StatusUsuario.ATIVO,
+      },
+      servicos: [
+        {
+          id: 1,
+          idPetSitter: 2,
+          tipoServico: TipoServicoEnum.ALIMENTACAO,
+          dataInclusao: new Date(),
+        },
+      ],
+    };
+
+    jest
+      .spyOn(petSitterRepository, 'get')
+      .mockResolvedValue(petSitterModelMock);
+
+    await expect(
+      adicionarServicoUseCase.executar(useCaseInput),
+    ).rejects.toThrowError(BadRequestException);
+
+    expect(petSitterRepository.get).toBeCalledWith(useCaseInput.idUsuario);
+    expect(servicoRepository.save).not.toBeCalled();
   });
 });

@@ -39,14 +39,22 @@ export class PetSitterRepository implements IPetSitterRepository {
       where: { idUsuario },
       select: {
         id: true,
+        servicos: {
+          id: true,
+          idPetSitter: true,
+          tipoServico: true,
+        },
         usuario: {
           id: true,
         },
       },
+      relations: ['usuario', 'servicos'],
     });
+
     if (!petSitterModel || !petSitterModel.length) {
       throw new NotFoundException('Pet sitter nao encontrado');
     }
+
     return petSitterModel[0];
   }
 

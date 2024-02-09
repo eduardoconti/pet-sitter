@@ -1,19 +1,18 @@
 import { Centavos } from '@core/contracts';
 import { Entity } from '@core/entity';
-import { UUID } from '@core/uuid.value-object';
 
 import { TipoServicoEnum } from '../enums';
 
 export type ServicoConstructorProps = {
-  id: UUID;
-  idPetSitter: UUID;
+  id?: number;
+  idPetSitter: number;
 };
-export abstract class Servico extends Entity {
-  private _idPetSitter!: UUID;
+export abstract class Servico extends Entity<number> {
+  private _idPetSitter!: number;
   protected abstract _tipoServico: TipoServicoEnum;
 
   constructor({ id, idPetSitter }: ServicoConstructorProps) {
-    super({ id: id.value });
+    super({ id });
     this._idPetSitter = idPetSitter;
   }
 
@@ -21,7 +20,7 @@ export abstract class Servico extends Entity {
     return this._tipoServico;
   }
 
-  get idPetSitter(): UUID {
+  get idPetSitter(): number {
     return this._idPetSitter;
   }
 
